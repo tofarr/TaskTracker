@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TaskTracker</title>
+    <title>Task Tracker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,17 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <ul>
+          <li><%=link_to "Users", controller: "users", action: "index" %></li>
+          <li><%=link_to "My Account", controller: "users", action: "show", id: @current_user %></li>
+          <li><%=link_to("Log out", "/sessions/logout", method: "post") %></li>
+        </ul>
+      </nav>
+      <div class="">Logged in as <%=@current_user.title%>
+      </div>
+    </header>
     <%= yield %>
   </body>
 </html>

@@ -14,16 +14,27 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+
+    unless current_user.admin?
+      raise ApplicationController::NotAuthorized
+    end
+
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    unless current_user.admin? || current_user.id == @user.id
+      raise ApplicationController::NotAuthorized
+    end
   end
 
   # POST /users
   # POST /users.json
   def create
+    unless current_user.admin?
+      raise ApplicationController::NotAuthorized
+    end
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -40,6 +51,20 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    # Unless admin, can only edit self
+    unless current_user.admin? || current_user.id == @user.id
+      raise ApplicationController::NotAuthorized
+    end
+
+    #Can't change admin / suspend status of self
+    if current_user.id == @user.id
+      updated_user = @user.clone.assign_attributes(user_params)
+      if updated_user.admin? != @user.admin? || updated_user.suspended? != @user.suspended?
+        raise ApplicationController::NotAuthorized
+      end
+    end
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -54,6 +79,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+
+    # Only admins can delete, and even they can't delete themselves.
+    if (!current_user.admin?) || current_user.id == @user.id
+      raise ApplicationController::NotAuthorized
+    end
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
@@ -62,6 +93,7 @@ class UsersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

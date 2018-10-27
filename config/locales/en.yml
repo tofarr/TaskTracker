@@ -34,3 +34,4 @@ en:
   login_incorrect: 'Incorrect User or Password!'
   logged_out: 'You have successfully Logged Out!'
   login_required: 'Please log in to use this System!'
+  user_suspended: 'Your account has been suspended - Please contact your administrator.'

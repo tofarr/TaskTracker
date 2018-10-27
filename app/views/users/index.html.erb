@@ -8,10 +8,12 @@
       <th>Email</th>
       <th>Name</th>
       <th>Username</th>
-      <th>Verification code</th>
+      <% if @current_user.admin? %>
+        <th>Verification code</th>
+      <% end %>
       <th>Admin</th>
       <th>Suspended</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -21,12 +23,20 @@
         <td><%= user.email %></td>
         <td><%= user.name %></td>
         <td><%= user.username %></td>
-        <td><%= user.verification_code %></td>
+        <% if @current_user.admin? %>
+          <td><%= user.verification_code %></td>
+        <% end %>
         <td><%= user.admin %></td>
         <td><%= user.suspended %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', user %>
+          <% if @current_user.admin? || user.id == @current_user.id %>
+            <%= link_to 'Edit', edit_user_path(user) %>
+          <% end %>
+          <% if @current_user.admin? && user.id != @current_user.id %>
+            <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
