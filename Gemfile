@@ -66,3 +66,6 @@ gem "bcrypt", "~> 3.1"
 
 # Added at 2018-10-27 17:17:20 -0600 by tofarr:
 gem "kaminari", "~> 1.1"
+
+# Added at 2018-10-27 17:34:47 -0600 by tofarr:
+gem "mini_magick", "~> 4.9"

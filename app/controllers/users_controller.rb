@@ -59,7 +59,8 @@ class UsersController < ApplicationController
 
     #Can't change admin / suspend status of self
     if current_user.id == @user.id
-      updated_user = @user.clone.assign_attributes(user_params)
+      updated_user = @user.clone
+      updated_user.assign_attributes(user_params)
       if updated_user.admin? != @user.admin? || updated_user.suspended? != @user.suspended?
         raise ApplicationController::NotAuthorized
       end
@@ -101,6 +102,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :verification_code, :admin, :suspended)
+      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :verification_code, :admin, :suspended, :avatar)
     end
 end

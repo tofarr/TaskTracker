@@ -52,6 +52,14 @@
     <%= form.check_box :suspended %>
   </div>
 
+  <div class="field">
+    <%= form.label :avatar %>
+    <% if @user.avatar.attachment %>
+      <%= image_tag @user.avatar.variant(resize: "50x50") %>
+    <% end %>
+    <%= form.file_field :avatar, direct_upload: true %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

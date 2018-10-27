@@ -34,6 +34,13 @@
   <%= @user.suspended %>
 </p>
 
+<p>
+  <strong>Avatar</strong>
+  <% if @user.avatar.attachment %>
+    <%= image_tag @user.avatar.variant(resize: "50x50") %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <% if @current_user.admin? && @user.id != @current_user.id %>
 <%= link_to 'Destroy', destroy_user_path(@user) %> |
