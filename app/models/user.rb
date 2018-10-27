@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+  max_paginates_per 100
   has_secure_password
 
 

@@ -2,6 +2,10 @@
 
 <h1>Users</h1>
 
+<%= link_to 'New User', new_user_path %>
+
+<br />
+
 <table>
   <thead>
     <tr>
@@ -44,4 +48,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= paginate @users %>

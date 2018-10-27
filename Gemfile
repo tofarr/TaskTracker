@@ -63,3 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added at 2018-10-27 11:41:46 -0600 by tofarr:
 gem "bcrypt", "~> 3.1"
+
+# Added at 2018-10-27 17:17:20 -0600 by tofarr:
+gem "kaminari", "~> 1.1"
