@@ -26,14 +26,20 @@
     <%= form.text_field :username %>
   </div>
 
+
   <div class="field">
-    <%= form.label :password_digest %>
-    <%= form.text_field :password_digest %>
+    <%= form.label :password %>
+    <%= form.text_field :password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
   </div>
 
   <div class="field">
     <%= form.label :verification_code %>
-    <%= form.text_field :verification_code %>
+    <%= form.password_field :verification_code %>
   </div>
 
   <div class="field">
