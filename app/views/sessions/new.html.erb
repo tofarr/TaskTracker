@@ -1,0 +1,23 @@
+<h1><%= t('login') %></h1>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<%= form_tag(action: "create") do |form| %>
+
+  <div class="field">
+    <%= label_tag :user %>
+    <%= text_field_tag :user %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag t('login') %>
+  </div>
+
+<% end %>
