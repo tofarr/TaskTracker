@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Icon</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_tags.each do |user_tag| %>
+      <tr>
+        <td>
+          <% if user_tag.icon.attachment %>
+            <%=image_tag user_tag.icon.variant(resize: "30x30") %>
+          <% end %>
+        </td>
+        <td><%= user_tag.title %></td>
+        <td><%= user_tag.description %></td>
+        <td>
+          <%= link_to 'Show', user_tag %>
+          <% if @current_user.admin? %>
+            <%= link_to 'Edit', edit_user_tag_path(user_tag) %>
+            <%= link_to 'Destroy', user_tag, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if @current_user.admin? %>
+  <%= link_to 'New User Tag', new_user_tag_path %>
+<% end %>

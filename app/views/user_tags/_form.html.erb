@@ -1,0 +1,35 @@
+<%= form_with(model: user_tag, local: true) do |form| %>
+  <% if user_tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_tag.errors.count, "error") %> prohibited this user_tag from being saved:</h2>
+
+      <ul>
+      <% user_tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :icon %>
+    <% if user_tag.icon.attachment %>
+      <%= image_tag user_tag.icon.variant(resize: "30x30") %>
+    <% end %>
+    <%= form.file_field :icon, direct_upload: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

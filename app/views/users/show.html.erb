@@ -41,6 +41,18 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Tags</strong>
+  <% @user.tags.each do |tag| %>
+    <div class="tag">
+      <% if tag.icon.attachment %>
+        <%=image_tag tag.icon.variant(resize: "30x30") %>
+      <% end %>
+      <%=tag.title%>
+    </div>
+  <% end %>
+</p>
+
 <% if @current_user.admin? || @user.id == @current_user.id %>
   <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_143650) do
+ActiveRecord::Schema.define(version: 2018_10_28_150544) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,20 @@ ActiveRecord::Schema.define(version: 2018_10_28_143650) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_tags", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_tags_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "user_tag_id", null: false
+    t.index ["user_id", "user_tag_id"], name: "index_user_tags_users_on_user_id_and_user_tag_id"
+    t.index ["user_tag_id", "user_id"], name: "index_user_tags_users_on_user_tag_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|

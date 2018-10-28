@@ -25,11 +25,11 @@
       <th>Email</th>
       <th>Name</th>
       <th>Username</th>
-      <% if @current_user.admin? %>
-        <th>Verification code</th>
-      <% end %>
+      <th>Tags</th>
       <th>Admin</th>
-      <th>Suspended</th>
+      <% if @current_user.admin? %>
+        <th>Suspended</th>
+      <% end %>
       <th></th>
     </tr>
   </thead>
@@ -45,11 +45,20 @@
         <td><%= user.email %></td>
         <td><%= user.name %></td>
         <td><%= user.username %></td>
-        <% if @current_user.admin? %>
-          <td><%= user.verification_code %></td>
-        <% end %>
+        <td>
+          <% user.tags.each do |tag| %>
+            <div class="tag">
+              <% if tag.icon.attachment %>
+                <%=image_tag tag.icon.variant(resize: "30x30") %>
+              <% end %>
+              <%=tag.title%>
+            </div>
+          <% end %>
+        </td>
         <td><%= user.admin %></td>
-        <td><%= user.suspended %></td>
+        <% if @current_user.admin? %>
+          <td><%= user.suspended %></td>
+        <% end %>
         <td>
           <%= link_to 'Show', user %>
           <% if @current_user.admin? || user.id == @current_user.id %>

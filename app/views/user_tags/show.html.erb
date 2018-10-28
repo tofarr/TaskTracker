@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @user_tag.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_tag.description %>
+</p>
+
+<p>
+  <strong>Icon</strong>
+  <% if @user_tag.icon.attachment %>
+    <%= image_tag @user_tag.icon.variant(resize: "30x30") %>
+  <% end %>
+</p>
+
+<% if @current_user.admin? %>
+  <%= link_to 'Edit', edit_user_tag_path(@user_tag) %> |
+<% end %>
+<%= link_to 'Back', user_tags_path %>

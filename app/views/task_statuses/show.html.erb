@@ -22,6 +22,18 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Next Statuses</strong>
+  <% @task_status.next_statuses.each do |status| %>
+    <div class="tag">
+      <% if status.icon.attachment %>
+        <%=image_tag status.icon.variant(resize: "30x30") %>
+      <% end %>
+      <%=status.title%>
+    </div>
+  <% end %>
+</p>
+
 <% if @current_user.admin? %>
   <%= link_to 'Edit', edit_task_status_path(@task_status) %> |
 <% end %>

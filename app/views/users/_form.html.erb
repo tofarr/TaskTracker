@@ -60,6 +60,17 @@
     <%= form.file_field :avatar, direct_upload: true %>
   </div>
 
+  <fieldset>
+    <legend>User Tags</legend>
+    <%= form.hidden_field "tag_ids[]", :value => "" %>
+    <% UserTag.order(:title).each do |tag| %>
+      <div class="field">
+        <%= form.label tag.title %>
+        <%= form.check_box(:tag_ids, {multiple: true, checked: user.tags.include?(tag)}, tag.id, nil) %>
+      </div>
+    <% end %>
+  </fieldset>
+
   <div class="actions">
     <%= form.submit %>
   </div>
