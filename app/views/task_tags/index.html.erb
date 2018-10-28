@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Task Tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Icon</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_tags.each do |task_tag| %>
+      <tr>
+        <td>
+          <% if task_tag.icon.attachment %>
+            <%=image_tag task_tag.icon.variant(resize: "30x30") %>
+          <% end %>
+        </td>
+        <td><%= task_tag.title %></td>
+        <td><%= task_tag.description %></td>
+        <td>
+          <%= link_to 'Show', task_tag %>
+          <% if @current_user.admin? %>
+            <%= link_to 'Edit', edit_task_tag_path(task_tag) %>
+            <%= link_to 'Destroy', task_tag, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if @current_user.admin? %>
+  <%= link_to 'New Task Tag', new_task_tag_path %>
+<% end %>

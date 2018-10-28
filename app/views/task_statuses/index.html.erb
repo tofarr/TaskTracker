@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Icon</th>
       <th>Title</th>
       <th>Description</th>
       <th>Requires action</th>
@@ -15,6 +16,11 @@
   <tbody>
     <% @task_statuses.each do |task_status| %>
       <tr>
+        <td>
+          <% if task_status.icon.attachment %>
+            <%=image_tag task_status.icon.variant(resize: "30x30") %>
+          <% end %>
+        </td>
         <td><%= task_status.title %></td>
         <td><%= task_status.description %></td>
         <td><%= task_status.requires_action %></td>

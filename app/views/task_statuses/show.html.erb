@@ -24,6 +24,5 @@
 
 <% if @current_user.admin? %>
   <%= link_to 'Edit', edit_task_status_path(@task_status) %> |
-  <%= link_to 'Destroy', destroy_task_status_path(@task_status) %> |
 <% end %>
 <%= link_to 'Back', task_statuses_path %>

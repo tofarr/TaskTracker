@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :task_tags
   resources :task_statuses
   get 'welcome/index'
   root :controller => 'users', :action => 'index'
