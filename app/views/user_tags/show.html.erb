@@ -17,6 +17,28 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Only Admin Can Apply:</strong>
+  <%= @user_tag.only_admin_can_apply %>
+</p>
+
+<p>
+  <strong>Default Apply:</strong>
+  <%= @user_tag.default_apply %>
+</p>
+
+<p>
+  <strong>Mutually Exclusive Tags</strong>
+  <% @user_tag.mutex.each do |tag| %>
+    <div class="tag">
+      <% if tag.icon.attachment %>
+        <%=image_tag tag.icon.variant(resize: "30x30") %>
+      <% end %>
+      <%=tag.title%>
+    </div>
+  <% end %>
+</p>
+
 <% if @current_user.admin? %>
   <%= link_to 'Edit', edit_user_tag_path(@user_tag) %> |
 <% end %>

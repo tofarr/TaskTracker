@@ -29,6 +29,28 @@
     <%= form.file_field :icon, direct_upload: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :only_admin_can_apply %>
+    <%= form.check_box :only_admin_can_apply %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :default_apply %>
+    <%= form.check_box :default_apply %>
+  </div>
+
+  <fieldset>
+    <legend>Mutually Exclusive Tags</legend>
+    <%= form.hidden_field "mutex_ids[]", :value => "" %>
+    <% UserTag.order(:title).where("id != ?", user_tag.id).each do |tag| %>
+      <div class="field">
+        <%= form.label tag.title %>
+        <%= form.check_box(:mutex_ids, {multiple: true, checked: user_tag.mutex.include?(tag)}, tag.id, nil) %>
+      </div>
+    <% end %>
+  </fieldset>
+
   <div class="actions">
     <%= form.submit %>
   </div>

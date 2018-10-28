@@ -44,12 +44,12 @@
 
   <div class="field">
     <%= form.label :admin %>
-    <%= form.check_box :admin %>
+    <%= form.check_box :admin, :disabled => !@current_user.admin? %>
   </div>
 
   <div class="field">
     <%= form.label :suspended %>
-    <%= form.check_box :suspended %>
+    <%= form.check_box :suspended, :disabled => !@current_user.admin? %>
   </div>
 
   <div class="field">
@@ -66,7 +66,14 @@
     <% UserTag.order(:title).each do |tag| %>
       <div class="field">
         <%= form.label tag.title %>
-        <%= form.check_box(:tag_ids, {multiple: true, checked: user.tags.include?(tag)}, tag.id, nil) %>
+        <% if !@current_user.admin? && tag.only_admin_can_apply? %>
+          <% if user.tags.include?(tag) %>
+            <%= form.hidden_field "tag_ids[]", :value => tag.id %>
+          <% end %>
+          <%=user.tags.include?(tag)%>
+        <% else %>
+          <%= form.check_box(:tag_ids, {multiple: true, checked: user.tags.include?(tag)}, tag.id, nil) %>
+        <% end %>
       </div>
     <% end %>
   </fieldset>

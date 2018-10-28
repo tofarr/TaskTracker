@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.tags = UserTag.where(default_apply: true)
   end
 
   # GET /users/1/edit
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    UserTag.check_mutex(@user.tags)
 
     respond_to do |format|
       if @user.save
@@ -53,17 +55,30 @@ class UsersController < ApplicationController
       raise ApplicationController::NotAuthorized
     end
 
+    user_to_update = @user.clone
+    @user.assign_attributes(user_params)
+
+    UserTag.check_mutex(@user.tags)
+
     #Can't change admin / suspend status of self
-    if current_user.id == @user.id
-      updated_user = @user.clone
-      updated_user.assign_attributes(user_params)
-      if updated_user.admin? != @user.admin? || updated_user.suspended? != @user.suspended?
+    if current_user.id == user_to_update.id
+      if user_to_update.admin? != @user.admin? || user_to_update.suspended? != @user.suspended?
         raise ApplicationController::NotAuthorized
       end
     end
 
+    #Admin only assignment tags can only be assigned / unassigned by admins
+    unless current_user.admin?
+      (user_to_update.tags - @user.tags).each do |tag|
+        raise ApplicationController::NotAuthorized if tag.only_admin_can_apply?
+      end
+      (@user.tags - user_to_update.tags).each do |tag|
+        raise ApplicationController::NotAuthorized if tag.only_admin_can_apply?
+      end
+    end
+
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.save
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
