@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:new, :create, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(params[:order] || :username).page(params[:page])
+    users = User.where(suspended: current_user.admin? ? (params[:suspended] || [true, false]) : false)
+    users = users.where("username like ? or email like ? or name like ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    @users = users.order(params[:order] || :username).page(params[:page])
   end
 
   # GET /users/1
@@ -14,11 +18,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-
-    unless current_user.admin?
-      raise ApplicationController::NotAuthorized
-    end
-
     @user = User.new
   end
 
@@ -32,9 +31,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    unless current_user.admin?
-      raise ApplicationController::NotAuthorized
-    end
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -82,7 +78,7 @@ class UsersController < ApplicationController
   def destroy
 
     # Only admins can delete, and even they can't delete themselves.
-    if (!current_user.admin?) || current_user.id == @user.id
+    if current_user.id == @user.id
       raise ApplicationController::NotAuthorized
     end
 

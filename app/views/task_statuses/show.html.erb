@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task_status.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task_status.description %>
+</p>
+
+<p>
+  <strong>Requires action:</strong>
+  <%= @task_status.requires_action %>
+</p>
+
+<p>
+  <strong>Icon</strong>
+  <% if @task_status.icon.attachment %>
+    <%= image_tag @task_status.icon.variant(resize: "30x30") %>
+  <% end %>
+</p>
+
+<% if @current_user.admin? %>
+  <%= link_to 'Edit', edit_task_status_path(@task_status) %> |
+  <%= link_to 'Destroy', destroy_task_status_path(@task_status) %> |
+<% end %>
+<%= link_to 'Back', task_statuses_path %>

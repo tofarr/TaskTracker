@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Task Statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Requires action</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_statuses.each do |task_status| %>
+      <tr>
+        <td><%= task_status.title %></td>
+        <td><%= task_status.description %></td>
+        <td><%= task_status.requires_action %></td>
+        <td>
+          <%= link_to 'Show', task_status %>
+          <% if @current_user.admin? %>
+            <%= link_to 'Edit', edit_task_status_path(task_status) %>
+            <%= link_to 'Destroy', task_status, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if @current_user.admin? %>
+  <%= link_to 'New Task Status', new_task_status_path %>
+<% end %>

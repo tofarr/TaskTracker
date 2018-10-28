@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
 
   NotAuthorized = Class.new(StandardError)
 
+  def require_admin
+    unless current_user && current_user.admin?
+      raise ApplicationController::NotAuthorized
+    end
+  end
+
   private
 
   def require_login
