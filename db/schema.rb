@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_190146) do
+ActiveRecord::Schema.define(version: 2018_10_28_222752) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(version: 2018_10_28_190146) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "edit_user_tags", id: false, force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "user_tag_id"
+    t.index ["task_id", "user_tag_id"], name: "index_edit_user_tags_on_task_id_and_user_tag_id", unique: true
+  end
+
   create_table "task_status_joins", id: false, force: :cascade do |t|
     t.integer "parent_id"
     t.integer "child_id"
@@ -52,6 +58,13 @@ ActiveRecord::Schema.define(version: 2018_10_28_190146) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "task_tags_tasks", id: false, force: :cascade do |t|
+    t.integer "task_id", null: false
+    t.integer "task_tag_id", null: false
+    t.index ["task_id", "task_tag_id"], name: "index_task_tags_tasks_on_task_id_and_task_tag_id"
+    t.index ["task_tag_id", "task_id"], name: "index_task_tags_tasks_on_task_tag_id_and_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -103,6 +116,12 @@ ActiveRecord::Schema.define(version: 2018_10_28_190146) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "view_user_tags", id: false, force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "user_tag_id"
+    t.index ["task_id", "user_tag_id"], name: "index_view_user_tags_on_task_id_and_user_tag_id", unique: true
   end
 
 end
