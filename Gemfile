@@ -69,3 +69,6 @@ gem "kaminari", "~> 1.1"
 
 # Added at 2018-10-27 17:34:47 -0600 by tofarr:
 gem "mini_magick", "~> 4.9"
+
+# Added at 2018-11-02 21:39:58 -0600 by tofarr:
+gem "bulma-rails", "~> 0.7.2"

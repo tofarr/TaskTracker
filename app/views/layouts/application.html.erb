@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="has-background-light">
   <head>
     <title>Task Tracker</title>
     <%= csrf_meta_tags %>
@@ -9,21 +9,56 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><%=link_to "Users", controller: "users", action: "index" %></li>
-          <li><%=link_to "User Tags", controller: "user_tags", action: "index" %></li>
-          <li><%=link_to "Task Statuses", controller: "task_statuses", action: "index" %></li>
-          <li><%=link_to "Task Tags", controller: "task_tags", action: "index" %></li>
-          <li><%=link_to "My Account", controller: "users", action: "show", id: @current_user %></li>
-          <li><%=link_to("Log out", "/sessions/logout", method: "post") %></li>
-        </ul>
-      </nav>
-      <div class="">Logged in as <%=@current_user.title%>
+  <body class="has-background-light">
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+
+      <div class="navbar-brand">
+        <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item") do  %>
+          Logo Here
+        <% end %>
       </div>
-    </header>
-    <%= yield %>
+
+      <div class="navbar-menu">
+
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Menu</a>
+            <div class="navbar-dropdown">
+              <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "navbar-item" %>
+              <%=link_to "Users", {controller: "users", action: "index"}, class: "navbar-item" %>
+              <hr class="navbar-divider">
+              <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "navbar-item" %>
+              <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
+              <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
+              <hr class="navbar-divider">
+              <%=link_to "Log out", "/sessions/logout", method: "post", class: "navbar-item" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
+                <div class="level is-mobile">
+                  <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
+                  <%= @current_user.username %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </nav>
+
+    <div class="section">
+      <div class="container">
+        <div class="box">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
-
-<% if @current_user.admin? %>
-  <%= link_to 'New User', new_user_path %>
-<% end %>
+<div class="level">
+  <h1 class="title">Users</h1>
+  <% if @current_user.admin? %>
+    <%= link_to 'New User', new_user_path, class: "button is-primary" %>
+  <% end %>
+</div>
 
 <br />
 
-<%= form_with url: users_path, local: true, method: :get do |form| %>
-  <div class="field">
+<%= form_with url: users_path, local: true, method: :get, class: "level" do |form| %>
+  <div class="field level is-mobile">
     <%= form.label :search %>
-    <%= form.text_field :q, :value => params[:q] %>
+    <%= form.text_field :q, :value => params[:q], class: "input" %>
   </div>
   <div class="actions">
-    <%= form.submit :search %>
+    <%= form.submit :search, class: "button is-primary" %>
   </div>
 <% end %>
 
-<table>
+<table class="table is-striped is-fullwidth">
   <thead>
     <tr>
       <th>Avatar</th>
