@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_222752) do
+ActiveRecord::Schema.define(version: 2018_10_31_020502) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 2018_10_28_222752) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "only_admin_can_apply", default: false, null: false
+    t.boolean "default_apply", default: false, null: false
+  end
+
+  create_table "task_tags_mutex", id: false, force: :cascade do |t|
+    t.integer "a_id"
+    t.integer "b_id"
+    t.index ["a_id", "b_id"], name: "index_task_tags_mutex_on_a_id_and_b_id", unique: true
   end
 
   create_table "task_tags_tasks", id: false, force: :cascade do |t|

@@ -15,6 +15,8 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @task.tags = TaskTag.where(default_apply: true)
+    @task.created_user = current_user
   end
 
   # GET /tasks/1/edit
@@ -25,6 +27,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.created_user = current_user
 
     respond_to do |format|
       if @task.save
@@ -69,6 +72,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :parent_id, :user_id, :created_by, :status_id, :priority, :calculated_updated_at, :due_date, :estimate)
+      params.require(:task).permit(:title, :description, :parent_id, :assigned_user_id, :status_id, :priority, :due_date, :estimate)
     end
 end

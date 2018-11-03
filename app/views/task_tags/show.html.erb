@@ -17,6 +17,28 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Only Admin Can Apply:</strong>
+  <%= @task_tag.only_admin_can_apply %>
+</p>
+
+<p>
+  <strong>Default Apply:</strong>
+  <%= @task_tag.default_apply %>
+</p>
+
+<p>
+  <strong>Mutually Exclusive Tags</strong>
+  <% @task_tag.mutex.each do |tag| %>
+    <div class="tag">
+      <% if tag.icon.attachment %>
+        <%=image_tag tag.icon.variant(resize: "30x30") %>
+      <% end %>
+      <%=tag.title%>
+    </div>
+  <% end %>
+</p>
+
 <% if @current_user.admin? %>
   <%= link_to 'Edit', edit_task_tag_path(@task_tag) %> |
 <% end %>

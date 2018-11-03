@@ -16,18 +16,31 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @task.user_id %>
+  <strong>Assigned User:</strong>
+  <% if @task.assigned_user %>
+    <% if @task.assigned_user.avatar.attachment %>
+      <%= image_tag @task.assigned_user.avatar.variant(resize: "50x50") %>
+    <% end %>
+    <%= @task.assigned_user.username %>
+  <% end %>
 </p>
 
 <p>
   <strong>Created by:</strong>
-  <%= @task.created_by %>
+  <% if @task.created_user.avatar.attachment %>
+    <%= image_tag @task.created_user.avatar.variant(resize: "50x50") %>
+  <% end %>
+  <%= @task.created_user.username %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @task.status_id %>
+  <% if @task.status %>
+    <% if @task.status.icon.attachment %>
+      <%= image_tag @task.status.icon.variant(resize: "30x30") %>
+    <% end %>
+    <%= @task.status.title %>
+  <% end %>
 </p>
 
 <p>
@@ -36,8 +49,8 @@
 </p>
 
 <p>
-  <strong>Calculated updated at:</strong>
-  <%= @task.calculated_updated_at %>
+  <strong>Calculated estimate:</strong>
+  <%= @task.calculated_estimate %>
 </p>
 
 <p>
