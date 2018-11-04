@@ -1,40 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task_status.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @task_status.description %>
-</p>
-
-<p>
-  <strong>Requires action:</strong>
-  <%= @task_status.requires_action %>
-</p>
-
-<p>
-  <strong>Icon</strong>
-  <% if @task_status.icon.attachment %>
-    <%= image_tag @task_status.icon.variant(resize: "30x30") %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Next Statuses</strong>
-  <% @task_status.next_statuses.each do |status| %>
-    <div class="tag">
-      <% if status.icon.attachment %>
-        <%=image_tag status.icon.variant(resize: "30x30") %>
+<div class="level">
+  <h1 class="title">Task Status</h1>
+  <div class="level-item-right">
+    <% if @current_user.admin? %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_task_status_path(@task_status), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @task_status, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
       <% end %>
-      <%=status.title%>
-    </div>
-  <% end %>
-</p>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: task_statuses_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
 
-<% if @current_user.admin? %>
-  <%= link_to 'Edit', edit_task_status_path(@task_status) %> |
-<% end %>
-<%= link_to 'Back', task_statuses_path %>
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @task_status.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Description", value: @task_status.description} %>
+<%= render partial: "partials/show_icon", locals: {title: "Icon", value: @task_status.icon, size: 32} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Requires Action", value: @task_status.requires_action} %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Next Statuses</label>
+  <span class="level-item-left column is-three-quaters">
+    <% @task_status.next_statuses.each do |status| %>
+      <%= render partial: "partials/tag", locals: {tag: status} %>
+    <% end %>
+  </span>
+</div>

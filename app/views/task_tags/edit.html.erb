@@ -1,6 +1,20 @@
-<h1>Editing Task Tag</h1>
 
-<%= render 'form', task_tag: @task_tag %>
+<div class="level">
+  <h1 class="title">Editing Task Tag</h1>
+  <div class="level-item-right">
+    <%= link_to @task_tag, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'eye') %>
+      </span>
+      <span>Show</span>
+    <% end %>
+    <%= link_to task_tags_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
 
-<%= link_to 'Show', @task_tag %> |
-<%= link_to 'Back', task_tags_path %>
+<%= render partial: 'form', locals: {tag: @task_tag} %>

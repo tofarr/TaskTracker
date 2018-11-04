@@ -1,70 +1,63 @@
 <%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+  <%= render partial: "partials/errors", locals: {errors: task.errors} %>
 
-      <ul>
-      <% task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+  <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :parent_id %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select(:parent_id, Task.where("id <> ?", task.id || -1).collect {|task| [task.title, task.id]}, { include_blank: true }, { class: 'input' }) %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :assigned_user_id %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select(:assigned_user_id, User.all.collect {|user| [user.username, user.id]}, { include_blank: true }, { class: 'input' }) %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :parent_id %>
-    <%= form.collection_select :parent_id, Task.where("id <> ?", task.id), :id, :title %>
+  <div class="field level">
+    <label class="level-item-left column is-one-quarter">Created By</label>
+    <span class="level-item-left column is-three-quaters">
+      <%= render partial: "partials/user", locals: {user: @task.created_user} %>
+    </span>
   </div>
 
-  <div class="field">
-    <%= form.label :assigned_user_id %>
-    <%= form.collection_select :assigned_user_id, User.all, :id, :username %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :status_id %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select(:status_id, TaskStatus.all.collect {|task_status| [task_status.title, task_status.id]}, { include_blank: true }, { class: 'input' }) %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :created_user %>
-    <% if task.created_user.avatar.attachment %>
-      <%= image_tag task.created_user.avatar.variant(resize: "50x50") %>
-    <% end %>
-    <%= task.created_user.username %>
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :priority} %>
+
+  <div class="field level">
+    <label class="level-item-left column is-one-quarter">Calculated Estimate</label>
+    <span class="level-item-left column is-three-quaters">
+      <%= @task.calculated_estimate %>
+    </span>
   </div>
 
-  <div class="field">
-    <%= form.label :status_id %>
-    <%= form.collection_select :status_id, TaskStatus.all, :id, :title %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :due_date %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.datetime_select :due_date %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :priority %>
-    <%= form.text_field :priority %>
-  </div>
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :estimate} %>
 
-  <div class="field">
-    <%= form.label :calculated_estimate %>
-    <%= @task.calculated_estimate %>
-  </div>
+  <%= render partial: "partials/form_submit", locals: {form: form, model: @task} %>
 
-  <div class="field">
-    <%= form.label :due_date %>
-    <%= form.datetime_select :due_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :estimate %>
-    <%= form.number_field :estimate %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

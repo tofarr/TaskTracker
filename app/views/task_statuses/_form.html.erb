@@ -1,51 +1,29 @@
 <%= form_with(model: task_status, local: true) do |form| %>
-  <% if task_status.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(task_status.errors.count, "error") %> prohibited this task_status from being saved:</h2>
+  <%= render partial: "partials/errors", locals: {errors: task_status.errors} %>
 
-      <ul>
-      <% task_status.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+  <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
+  <%= render partial: "partials/form_img", locals: {form: form, attr: :icon, img: task_status.icon, size: 32} %>
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :requires_action} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-three-quaters">
+      <fieldset class="box">
+        <legend>Next Task Status</legend>
+        <%= form.hidden_field "next_status_ids[]", :value => "" %>
+        <% TaskStatus.order(:title).where("id != ?", task_status.id).each do |status| %>
+          <div class="field columns">
+            <div class="column is-narrow">
+              <%= form.check_box(:next_status_ids, {multiple: true, checked: task_status.next_statuses.include?(status)}, status.id, nil) %>
+            </div>
+            <%= form.label status.title, class: "column" %>
+          </div>
+        <% end %>
+      </fieldset>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :requires_action %>
-    <%= form.check_box :requires_action %>
-  </div>
-
-  <div class="field">
-    <%= form.label :icon %>
-    <% if task_status.icon.attachment %>
-      <%= image_tag task_status.icon.variant(resize: "30x30") %>
-    <% end %>
-    <%= form.file_field :icon, direct_upload: true %>
-  </div>
-
-  <fieldset>
-    <legend>Next Task Status</legend>
-    <%= form.hidden_field "next_status_ids[]", :value => "" %>
-    <% TaskStatus.order(:title).where("id != ?", task_status.id).each do |status| %>
-      <div class="field">
-        <%= form.label status.title %>
-        <%= form.check_box(:next_status_ids, {multiple: true, checked: task_status.next_statuses.include?(status)}, status.id, nil) %>
-      </div>
-    <% end %>
-  </fieldset>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= render partial: "partials/form_submit", locals: {form: form, model: task_status} %>
+  
 <% end %>

@@ -1,0 +1,11 @@
+<%= form_with url: url, local: true, method: :get, class: "level" do |form| %>
+  <div class="field level">
+    <div class="control has-icons-left">
+      <%= form.text_field :q, :value => params[:q], class: "level-item input", placeholder: "Search" %>
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+    <%= form.submit :search, class: "level-item button" %>
+  </div>
+<% end %>

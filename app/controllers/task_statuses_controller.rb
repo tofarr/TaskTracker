@@ -5,7 +5,9 @@ class TaskStatusesController < ApplicationController
   # GET /task_statuses
   # GET /task_statuses.json
   def index
-    @task_statuses = TaskStatus.all
+    task_statuses = TaskStatus.all
+    task_statuses = task_statuses.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    @task_statuses = task_statuses.order(params[:order] || :title).page(params[:page])
   end
 
   # GET /task_statuses/1

@@ -13,8 +13,8 @@
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
 
       <div class="navbar-brand">
-        <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item") do  %>
-          Logo Here
+        <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item title") do  %>
+          <%= icon('fas', 'tasks') %>
         <% end %>
       </div>
 
@@ -28,8 +28,8 @@
               <%=link_to "Users", {controller: "users", action: "index"}, class: "navbar-item" %>
               <hr class="navbar-divider">
               <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
               <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
+              <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
               <hr class="navbar-divider">
               <%=link_to "Log out", "/sessions/logout", method: "post", class: "navbar-item" %>
             </div>
@@ -40,10 +40,10 @@
           <div class="navbar-item">
             <div class="buttons">
               <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
-                <div class="level is-mobile">
-                  <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
+                <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
+                <span>
                   <%= @current_user.username %>
-                </div>
+                </span>
               <% end %>
             </div>
           </div>

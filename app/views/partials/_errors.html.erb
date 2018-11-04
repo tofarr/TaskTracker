@@ -1,0 +1,10 @@
+<% if errors.any? %>
+  <div>
+    <h2 class="subtitle has-background-danger has-text-white has-padding-hz is-round"><%= pluralize(errors.count, "error") %> prohibited this from being saved:</h2>
+    <ul class="has-padding-hz">
+    <% errors.full_messages.each do |message| %>
+      <li class="has-text-danger has-padding-hz"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -15,3 +15,29 @@
  */
 
 @import "bulma";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+
+label,legend{
+  font-weight: bold;
+}
+
+fieldset.box{
+  border-style: solid;
+  box-shadow: none;
+  border-width: 1px;
+}
+
+.is-round{
+  border-radius: 6px;
+}
+
+.has-padding-hz{
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.field_with_errors .input{
+  border-color: $danger;
+}

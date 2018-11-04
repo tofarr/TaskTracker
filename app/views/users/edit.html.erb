@@ -1,6 +1,19 @@
-<h1>Editing User </h1>
+<div class="level">
+  <h1 class="title">Editing User</h1>
+  <div class="level-item-right">
+    <%= link_to @user, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'eye') %>
+      </span>
+      <span>Show</span>
+    <% end %>
+    <%= link_to users_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'form', user: @user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>

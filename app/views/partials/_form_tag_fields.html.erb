@@ -1,0 +1,30 @@
+<%= form_with(model: tag, local: true) do |form| %>
+  <%= render partial: "partials/errors", locals: {errors: tag.errors} %>
+
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+  <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
+  <%= render partial: "partials/form_img", locals: {form: form, attr: :icon, img: tag.icon, size: 32} %>
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :only_admin_can_apply} %>
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :default_apply} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-three-quaters">
+      <fieldset class="box">
+        <legend>Mutually Exclusive Tags</legend>
+        <%= form.hidden_field "mutex_ids[]", :value => "" %>
+        <% tags.each do |tag| %>
+          <div class="field columns">
+            <div class="column is-narrow">
+              <%= form.check_box(:mutex_ids, {multiple: true, checked: tag.mutex.include?(tag)}, tag.id, nil) %>
+            </div>
+            <%= form.label tag.title, class: "column" %>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: tag} %>
+
+<% end %>

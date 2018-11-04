@@ -1,45 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div id="notice"><%= notice %></div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @user_tag.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @user_tag.description %>
-</p>
-
-<p>
-  <strong>Icon</strong>
-  <% if @user_tag.icon.attachment %>
-    <%= image_tag @user_tag.icon.variant(resize: "30x30") %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Only Admin Can Apply:</strong>
-  <%= @user_tag.only_admin_can_apply %>
-</p>
-
-<p>
-  <strong>Default Apply:</strong>
-  <%= @user_tag.default_apply %>
-</p>
-
-<p>
-  <strong>Mutually Exclusive Tags</strong>
-  <% @user_tag.mutex.each do |tag| %>
-    <div class="tag">
-      <% if tag.icon.attachment %>
-        <%=image_tag tag.icon.variant(resize: "30x30") %>
+<div class="level">
+  <h1 class="title">Task Tag</h1>
+  <div class="level-item-right">
+    <% if @current_user.admin? %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_user_tag_path(@user_tag), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @user_tag, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
       <% end %>
-      <%=tag.title%>
-    </div>
-  <% end %>
-</p>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: user_tags_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
 
-<% if @current_user.admin? %>
-  <%= link_to 'Edit', edit_user_tag_path(@user_tag) %> |
-<% end %>
-<%= link_to 'Back', user_tags_path %>
+
+<%= render partial: "partials/show_tag_fields", locals: {tag: @user_tag} %>

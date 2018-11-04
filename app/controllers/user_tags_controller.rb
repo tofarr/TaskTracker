@@ -5,7 +5,9 @@ class UserTagsController < ApplicationController
   # GET /user_tags
   # GET /user_tags.json
   def index
-    @user_tags = UserTag.all
+    user_tags = UserTag.all
+    user_tags = user_tags.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    @user_tags = user_tags.order(params[:order] || :title).page(params[:page])
   end
 
   # GET /user_tags/1

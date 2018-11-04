@@ -1,6 +1,19 @@
-<h1>Editing Task Status</h1>
+<div class="level">
+  <h1 class="title">Editing Task Status</h1>
+  <div class="level-item-right">
+    <%= link_to @task_status, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'eye') %>
+      </span>
+      <span>Show</span>
+    <% end %>
+    <%= link_to task_statuses_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'form', task_status: @task_status %>
-
-<%= link_to 'Show', @task_status %> |
-<%= link_to 'Back', task_statuses_path %>

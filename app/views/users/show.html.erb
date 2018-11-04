@@ -1,59 +1,43 @@
-<% content_for :foorbar, "View User" %>
-
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<% if @current_user.admin? || @user.id == @current_user.id %>
-  <p>
-    <strong>Verification code:</strong>
-    <%= @user.verification_code %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Admin:</strong>
-  <%= @user.admin %>
-</p>
-
-<p>
-  <strong>Suspended:</strong>
-  <%= @user.suspended %>
-</p>
-
-<p>
-  <strong>Avatar</strong>
-  <% if @user.avatar.attachment %>
-    <%= image_tag @user.avatar.variant(resize: "50x50") %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Tags</strong>
-  <% @user.tags.each do |tag| %>
-    <div class="tag">
-      <% if tag.icon.attachment %>
-        <%=image_tag tag.icon.variant(resize: "30x30") %>
+<div class="level">
+  <h1 class="title">User</h1>
+  <div class="level-item-right">
+    <% if @current_user.admin? || @user.id == @current_user.id %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_user_path(@user), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+    <% end %>
+    <% if @current_user.admin? && @user.id != @current_user.id %>
+      <%= link_to @user, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
       <% end %>
-      <%=tag.title%>
-    </div>
-  <% end %>
-</p>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: users_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
 
+<%= render partial: "partials/show_text", locals: {title: "Username", value: @user.username} %>
+<%= render partial: "partials/show_text", locals: {title: "Name", value: @user.name} %>
+<%= render partial: "partials/show_text", locals: {title: "Email", value: @user.email} %>
+<%= render partial: "partials/show_icon", locals: {title: "Avatar", value: @user.avatar, size: 48} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Admin", value: @user.admin} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @user.suspended} %>
 <% if @current_user.admin? || @user.id == @current_user.id %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= render partial: "partials/show_text", locals: {title: "Verification Code", value: @user.verification_code} %>
 <% end %>
-<%= link_to 'Back', users_path %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Tags</label>
+  <span class="level-item-left column is-three-quaters">
+    <% @user.tags.each do |tag| %>
+      <div class="tag is-medium">
+        <%= render partial: "partials/icon", locals: {img: tag.icon, size: 32} %>
+        <span>
+          <%=tag.title%>
+        </span>
+      </div>
+    <% end %>
+  </span>
+</div>

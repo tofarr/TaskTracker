@@ -1,0 +1,8 @@
+<%if user %>
+  <div class="tag is-medium">
+    <%= render partial: "partials/icon", locals: {img: user.avatar, size: 48} %>
+    <span>
+      <%=user.username%>
+    </span>
+  </div>
+<% end %>

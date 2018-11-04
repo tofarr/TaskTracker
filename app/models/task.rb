@@ -7,4 +7,13 @@ class Task < ApplicationRecord
   has_and_belongs_to_many :tags, class_name: "TaskTag", join_table: :task_tags_tasks, foreign_key: :task_id, association_foreign_key: :task_tag_id
   has_and_belongs_to_many :edit_user_tags, class_name: "UserTag", join_table: :view_user_tags, foreign_key: :task_id, association_foreign_key: :user_tag_id
   has_and_belongs_to_many :view_user_tags, class_name: "UserTag", join_table: :edit_user_tags, foreign_key: :task_id, association_foreign_key: :user_tag_id
+
+  def viewable_by?(user)
+    true
+  end
+
+  def editable_by?(user)
+    true
+  end
+
 end

@@ -72,3 +72,6 @@ gem "mini_magick", "~> 4.9"
 
 # Added at 2018-11-02 21:39:58 -0600 by tofarr:
 gem "bulma-rails", "~> 0.7.2"
+
+# Added at 2018-11-03 12:31:04 -0600 by tofarr:
+gem "font-awesome-sass", "~> 5.5"

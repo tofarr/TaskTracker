@@ -1,6 +1,20 @@
-<h1>Editing User Tag</h1>
 
-<%= render 'form', user_tag: @user_tag %>
+<div class="level">
+  <h1 class="title">Editing User Tag</h1>
+  <div class="level-item-right">
+    <%= link_to @user_tag, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'eye') %>
+      </span>
+      <span>Show</span>
+    <% end %>
+    <%= link_to user_tags_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
 
-<%= link_to 'Show', @user_tag %> |
-<%= link_to 'Back', user_tags_path %>
+<%= render partial: 'form', locals: {tag: @user_tag} %>

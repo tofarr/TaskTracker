@@ -4,7 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    tasks = Task.all
+    tasks = tasks.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    @tasks = tasks.order(params[:order] || {priority: :desc}).page(params[:page])
   end
 
   # GET /tasks/1

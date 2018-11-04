@@ -1,13 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Task Tags</h1>
+<div class="level">
+  <h1 class="title">Task Tags</h1>
+  <% if @current_user.admin? %>
+    <%= render partial: "partials/link_btn", locals: {href: new_task_tag_path, icon: 'plus', text: 'New Task Tag', css_class: 'is-success'} %>
+  <% end %>
+</div>
+
+<%= render partial: "partials/search_form", locals: {url: task_tags_path} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>
     <tr>
       <th>Icon</th>
       <th>Title</th>
-      <th>Description</th>
       <th></th>
     </tr>
   </thead>
@@ -16,25 +22,26 @@
     <% @task_tags.each do |task_tag| %>
       <tr>
         <td>
-          <% if task_tag.icon.attachment %>
-            <%=image_tag task_tag.icon.variant(resize: "30x30") %>
-          <% end %>
+          <%= render partial: "partials/icon", locals: {img: task_tag.icon, size: 32} %>
         </td>
         <td><%= task_tag.title %></td>
-        <td><%= task_tag.description %></td>
         <td>
-          <%= link_to 'Show', task_tag %>
-          <% if @current_user.admin? %>
-            <%= link_to 'Edit', edit_task_tag_path(task_tag) %>
-            <%= link_to 'Destroy', task_tag, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: task_tag, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user.admin? %>
+              <%= render partial: "partials/link_btn", locals: {href: edit_task_tag_path(task_tag), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+              <%= link_to task_tag, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-<% if @current_user.admin? %>
-  <%= link_to 'New Task Tag', new_task_tag_path %>
-<% end %>
+<%= paginate @task_tags %>

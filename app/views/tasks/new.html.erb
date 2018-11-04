@@ -1,5 +1,14 @@
-<h1>New Task</h1>
+
+<div class="level">
+  <h1 class="title">New Task</h1>
+  <div class="level-item-right">
+    <%= link_to tasks_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'form', task: @task %>
-
-<%= link_to 'Back', tasks_path %>

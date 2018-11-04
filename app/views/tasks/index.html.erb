@@ -1,20 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<div class="level">
+  <h1 class="title">Tasks</h1>
+  <% if @current_user.admin? %>
+    <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
+  <% end %>
+</div>
+
+<%= render partial: "partials/search_form", locals: {url: tasks_path} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Description</th>
-      <th>Parent</th>
       <th>Assigned User</th>
-      <th>Created by</th>
       <th>Status</th>
-      <th>Priority</th>
-      <th>Calculated updated at</th>
-      <th>Due date</th>
-      <th>Estimate</th>
+      <th>Tags</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,23 +24,32 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.parent_id %></td>
-        <td><%= task.assigned_user_id %></td>
-        <td><%= task.created_user_id %></td>
-        <td><%= task.status_id %></td>
-        <td><%= task.priority %></td>
-        <td><%= task.calculated_estimate %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.estimate %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= task.assigned_user.username %></td>
+        <td>
+          <%= render partial: "partials/tag", locals: {tag: task.status} %>
+        </td>
+        <td>
+          <% task.tags.each do |tag| %>
+            <%= render partial: "partials/tag", locals: {tag: tag} %>
+          <% end %>
+        </td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: task, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user.admin? %>
+              <%= render partial: "partials/link_btn", locals: {href: edit_task_path(task), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+              <%= link_to task, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Task', new_task_path %>
+<%= paginate @tasks %>

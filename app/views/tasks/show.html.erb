@@ -1,67 +1,49 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-
-<p>
-  <strong>Parent:</strong>
-  <%= @task.parent_id %>
-</p>
-
-<p>
-  <strong>Assigned User:</strong>
-  <% if @task.assigned_user %>
-    <% if @task.assigned_user.avatar.attachment %>
-      <%= image_tag @task.assigned_user.avatar.variant(resize: "50x50") %>
+<div class="level">
+  <h1 class="title">Task</h1>
+  <div class="level-item-right">
+    <% if @task.editable_by?(@current_user.id) %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_task_path(@task), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @task, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
+      <% end %>
     <% end %>
-    <%= @task.assigned_user.username %>
-  <% end %>
-</p>
+    <%= render partial: "partials/link_btn", locals: {href: tasks_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
 
-<p>
-  <strong>Created by:</strong>
-  <% if @task.created_user.avatar.attachment %>
-    <%= image_tag @task.created_user.avatar.variant(resize: "50x50") %>
-  <% end %>
-  <%= @task.created_user.username %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <% if @task.status %>
-    <% if @task.status.icon.attachment %>
-      <%= image_tag @task.status.icon.variant(resize: "30x30") %>
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @task.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Description", value: @task.description} %>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Parent</label>
+  <span class="level-item-left column is-three-quaters">
+    <%if @task.parent %>
+      <div class="tag"><%= @task.parent.title %></div>
     <% end %>
-    <%= @task.status.title %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= @task.priority %>
-</p>
-
-<p>
-  <strong>Calculated estimate:</strong>
-  <%= @task.calculated_estimate %>
-</p>
-
-<p>
-  <strong>Due date:</strong>
-  <%= @task.due_date %>
-</p>
-
-<p>
-  <strong>Estimate:</strong>
-  <%= @task.estimate %>
-</p>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+  </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Assigned User</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/user", locals: {user: @task.assigned_user} %>
+  </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Created By</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/user", locals: {user: @task.created_user} %>
+  </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Status</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/tag", locals: {tag: @task.status} %>
+  </span>
+</div>
+<%= render partial: "partials/show_text", locals: {title: "Priority", value: @task.priority} %>
+<%= render partial: "partials/show_text", locals: {title: "Calculated Estimate", value: @task.calculated_estimate} %>
+<%= render partial: "partials/show_text", locals: {title: "Due Date", value: @task.due_date} %>
