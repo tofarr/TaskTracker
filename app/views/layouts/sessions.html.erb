@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="has-background-light">
   <head>
     <title>TaskTracker</title>
     <%= csrf_meta_tags %>
@@ -9,7 +9,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="has-background-light">
+    <div class="section">
+      <div class="box">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

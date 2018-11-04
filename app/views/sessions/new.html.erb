@@ -1,23 +1,34 @@
-<h1><%= t('login') %></h1>
+<h1 class="title"><%= t('login') %></h1>
 
 <% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= value %></div>
+  <div class="alert alert-<%= key %> has-text-danger"><%= value %></div>
 <% end %>
 
 <%= form_tag(action: "create") do |form| %>
 
-  <div class="field">
-    <%= label_tag :user %>
-    <%= text_field_tag :user %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= label_tag :user %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= text_field_tag :user, nil, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= label_tag :password %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= password_field_tag :password, nil, class: "input" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= submit_tag t('login') %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-three-quaters">
+      <%= submit_tag t('login'), class: "button is-success" %>
+    </div>
   </div>
 
 <% end %>
