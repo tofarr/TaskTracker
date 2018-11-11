@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     comments = comments.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
     comments = comments.where(task_id: params[:task_id]) if params[:task_id]
     comments = comments.where(user_id: params[:user_id]) if params[:user_id]
-    @comments = comments.order(params[:order] || {updated_at: :desc}).page(params[:page])
+    @comments = comments.order(params[:order] || :created_at).page(params[:page])
   end
 
   # GET /comments/1
@@ -80,6 +80,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:task_id, :text, :user_id)
+      params.require(:comment).permit(:task_id, :text, :data)
     end
 end

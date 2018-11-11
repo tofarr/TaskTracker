@@ -30,4 +30,6 @@
   </span>
 </div>
 
+<%= render partial: "partials/show_file", locals: {item: @comment, size: 300} %>
+
 <%= render partial: "partials/show_text", locals: {title: "Text", value: @comment.text} %>

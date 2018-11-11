@@ -1,0 +1,5 @@
+<% if item.is_img? %>
+  <%= render partial: "partials/icon", locals: {img: item.data, size: size} %>
+<% elsif %>
+  <a href="<%=url_for(item.data)%>">View File</a>
+<% end %>

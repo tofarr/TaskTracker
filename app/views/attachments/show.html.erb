@@ -25,13 +25,4 @@
   </span>
 </div>
 
-<div class="field level">
-  <label class="level-item-left column is-one-quarter">Data</label>
-  <div class="level-item-left column is-three-quaters">
-    <% if @attachment.is_img? %>
-      <%= render partial: "partials/icon", locals: {img: @attachment.data, size: 300} %>
-    <% else %>
-      <%=url_for(@attachment.data)%>
-    <% end %>
-  </div>
-</div>
+<%= render partial: "partials/show_file", locals: {item: @attachment, size: 300} %>
