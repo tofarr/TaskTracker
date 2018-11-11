@@ -1,0 +1,30 @@
+<%= form_with(model: attachment, local: true) do |form| %>
+  <%= render partial: "partials/errors", locals: {errors: attachment.errors} %>
+
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+  <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :task_id %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select(:task_id, Task.all.collect {|task| [task.title, task.id]}, {}, { class: 'input' }) %>
+    </div>
+  </div>
+
+  <div class="field level">
+    <%= form.label :data, class: "level-item-left column is-one-quarter" %>
+    <div class="level-item-left column is-three-quaters">
+      <% if attachment.is_img? %>
+        <%= render partial: "partials/icon", locals: {img: attachment.data, size: 300} %>
+      <% else %>
+        <%=url_for(attachment.data)%>
+      <% end %>
+      <%= form.file_field :data, direct_upload: true %>
+    </div>
+  </div>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: attachment} %>
+
+<% end %>

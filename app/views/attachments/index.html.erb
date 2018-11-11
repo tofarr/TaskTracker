@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Attachments</h1>
+  <% if @current_user.admin? %>
+    <%= render partial: "partials/link_btn", locals: {href: new_attachment_path, icon: 'plus', text: 'New Attachment', css_class: 'is-success'} %>
+  <% end %>
+</div>
+
+<%= render partial: "partials/search_form", locals: {url: attachments_path} %>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>User</th>
+      <th>Task</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attachments.each do |attachment| %>
+      <tr>
+        <td><%= attachment.title %></td>
+        <td>
+          <%= render partial: "partials/user", locals: {user: attachment.user} %>
+        </td>
+        <td>
+          <%= render partial: "partials/task", locals: {task: attachment.task} %>
+        </td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: attachment, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user.admin? %>
+              <%= render partial: "partials/link_btn", locals: {href: edit_attachment_path(attachment), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+              <%= link_to attachment, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @attachments %>

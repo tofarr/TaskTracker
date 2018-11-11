@@ -24,7 +24,9 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
-        <td><%= task.assigned_user.username %></td>
+        <td>
+          <%= render partial: "partials/user", locals: {user: task.assigned_user} %>
+        </td>
         <td>
           <%= render partial: "partials/tag", locals: {tag: task.status} %>
         </td>

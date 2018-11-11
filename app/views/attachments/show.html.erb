@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Attachment</h1>
+  <div class="level-item-right">
+    <% if @attachment.editable_by?(@current_user) %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_attachment_path(@attachment), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @attachment, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
+      <% end %>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: attachments_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @attachment.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Description", value: @attachment.description} %>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">User</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/user", locals: {user: @attachment.user} %>
+  </span>
+</div>
+
+<div class="field level">
+  <label class="level-item-left column is-one-quarter">Data</label>
+  <div class="level-item-left column is-three-quaters">
+    <% if @attachment.is_img? %>
+      <%= render partial: "partials/icon", locals: {img: @attachment.data, size: 300} %>
+    <% else %>
+      <%=url_for(@attachment.data)%>
+    <% end %>
+  </div>
+</div>

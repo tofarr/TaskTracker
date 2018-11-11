@@ -1,0 +1,14 @@
+
+<div class="level">
+  <h1 class="title">New Attachment</h1>
+  <div class="level-item-right">
+    <%= link_to attachments_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'form', attachment: @attachment %>
