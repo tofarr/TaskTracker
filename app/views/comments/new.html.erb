@@ -1,0 +1,14 @@
+
+<div class="level">
+  <h1 class="title">New Comment</h1>
+  <div class="level-item-right">
+    <%= link_to comments_path, class: "button is-light" do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'caret-left') %>
+      </span>
+      <span>Back</span>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'form', comment: @comment %>

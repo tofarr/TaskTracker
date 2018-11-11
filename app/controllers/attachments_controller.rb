@@ -6,6 +6,8 @@ class AttachmentsController < ApplicationController
   def index
     attachments = Attachment.all
     attachments = attachments.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    attachments = attachments.where(task_id: params[:task_id]) if params[:task_id]
+    attachments = attachments.where(user_id: params[:user_id]) if params[:user_id]
     @attachments = attachments.order(params[:order] || :title).page(params[:page])
   end
 

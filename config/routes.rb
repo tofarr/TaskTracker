@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   resources :attachments
   resources :tasks
   resources :user_tags

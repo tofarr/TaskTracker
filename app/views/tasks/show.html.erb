@@ -22,7 +22,7 @@
   <label class="level-item-left column is-one-quarter">Parent</label>
   <span class="level-item-left column is-three-quaters">
     <%if @task.parent %>
-      <div class="tag"><%= @task.parent.title %></div>
+      <%= render partial: "partials/task", locals: {tag: @task.parent} %>
     <% end %>
   </span>
 </div>

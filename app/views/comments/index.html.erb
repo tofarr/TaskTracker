@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Comments</h1>
+  <%= render partial: "partials/link_btn", locals: {href: new_comment_path, icon: 'plus', text: 'New Comment', css_class: 'is-success'} %>
+</div>
+
+<%= render partial: "partials/search_form", locals: {url: comments_path} %>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Task</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.text %></td>
+        <td>
+          <%= render partial: "partials/task", locals: {task: comment.task} %>
+        </td>
+        <td>
+          <%= render partial: "partials/user", locals: {user: comment.user} %>
+        </td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: comment, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user.admin? %>
+              <%= render partial: "partials/link_btn", locals: {href: edit_comment_path(comment), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+              <%= link_to comment, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @comments %>

@@ -1,0 +1,17 @@
+<%= form_with(model: comment, local: true) do |form| %>
+  <%= render partial: "partials/errors", locals: {errors: comment.errors} %>
+
+  <%= render partial: "partials/form_text_area", locals: {form: form, attr: :text} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :task_id %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select(:task_id, Task.all.collect {|task| [task.title, task.id]}, {}, { class: 'input' }) %>
+    </div>
+  </div>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: comment} %>
+
+<% end %>
