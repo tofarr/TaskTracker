@@ -75,3 +75,12 @@ gem "bulma-rails", "~> 0.7.2"
 
 # Added at 2018-11-03 12:31:04 -0600 by tofarr:
 gem "font-awesome-sass", "~> 5.5"
+
+# Added at 2018-11-11 08:35:38 -0700 by tofarr:
+gem "redcarpet", "~> 3.4"
+
+# Added at 2018-11-11 09:35:57 -0700 by tofarr:
+gem "jquery-rails", "~> 4.3"
+
+# Added at 2018-11-11 18:15:17 -0700 by tofarr:
+gem "select2-rails", "~> 4.0"

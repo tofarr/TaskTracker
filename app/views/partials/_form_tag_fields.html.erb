@@ -8,20 +8,11 @@
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :default_apply} %>
 
   <div class="field level">
-    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :mutex_ids %>
+    </div>
     <div class="level-item-left column is-three-quaters">
-      <fieldset class="box">
-        <legend>Mutually Exclusive Tags</legend>
-        <%= form.hidden_field "mutex_ids[]", :value => "" %>
-        <% tags.each do |tag| %>
-          <div class="field columns">
-            <div class="column is-narrow">
-              <%= form.check_box(:mutex_ids, {multiple: true, checked: tag.mutex.include?(tag)}, tag.id, nil) %>
-            </div>
-            <%= form.label tag.title, class: "column" %>
-          </div>
-        <% end %>
-      </fieldset>
+      <%= form.select :mutex_ids, tag.mutex.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": tag.class.to_s.tableize, "data-exclude-ids": "[#{tag.id}]"} %>
     </div>
   </div>
 

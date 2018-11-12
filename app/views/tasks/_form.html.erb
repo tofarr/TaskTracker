@@ -9,7 +9,16 @@
       <%= form.label :parent_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:parent_id, Task.where("id <> ?", task.id || -1).collect {|task| [task.title, task.id]}, { include_blank: true }, { class: 'input' }) %>
+      <%= form.select(:parent_id, @task.parent ? [[@task.parent.title, @task.parent.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[#{@task.id}]"}) %>
+    </div>
+  </div>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :tag_ids %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.select :tag_ids, @task.tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "task_tags"} %>
     </div>
   </div>
 
@@ -18,7 +27,7 @@
       <%= form.label :assigned_user_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:assigned_user_id, User.all.collect {|user| [user.username, user.id]}, { include_blank: true }, { class: 'input' }) %>
+      <%= form.select(:assigned_user_id, @task.assigned_user ? [[@task.assigned_user.username, @task.assigned_user.id]] : [], {include_blank: true}, {class: "input", "data-search": "users"}) %>
     </div>
   </div>
 
@@ -34,7 +43,7 @@
       <%= form.label :status_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:status_id, TaskStatus.all.collect {|task_status| [task_status.title, task_status.id]}, { include_blank: true }, { class: 'input' }) %>
+      <%= form.select(:status_id, @task.status ? [[@task.status.title, @task.status.id]] : [], {include_blank: true}, {class: "input", "data-search": "task_statuses"}) %>
     </div>
   </div>
 

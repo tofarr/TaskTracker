@@ -25,25 +25,11 @@
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :verification_code} %>
 
   <div class="field level">
-    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :tag_ids %>
+    </div>
     <div class="level-item-left column is-three-quaters">
-      <fieldset class="box">
-        <legend>User Tags</legend>
-        <%= form.hidden_field "tag_ids[]", :value => "" %>
-        <% UserTag.order(:title).each do |tag| %>
-          <div class="field">
-            <%= form.label tag.title %>
-            <% if !@current_user.admin? && tag.only_admin_can_apply? %>
-              <% if user.tags.include?(tag) %>
-                <%= form.hidden_field "tag_ids[]", :value => tag.id %>
-              <% end %>
-              <%=user.tags.include?(tag)%>
-            <% else %>
-              <%= form.check_box(:tag_ids, {multiple: true, checked: user.tags.include?(tag)}, tag.id, nil) %>
-            <% end %>
-          </div>
-        <% end %>
-      </fieldset>
+      <%= form.select :tag_ids, user.tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
     </div>
   </div>
 

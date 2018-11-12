@@ -32,4 +32,4 @@
 
 <%= render partial: "partials/show_file", locals: {item: @comment, size: 300} %>
 
-<%= render partial: "partials/show_text", locals: {title: "Text", value: @comment.text} %>
+<%= render partial: "partials/show_markdown", locals: {id: dom_id(@comment), title: "Text", value: @comment.text} %>

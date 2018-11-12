@@ -17,7 +17,7 @@
 </div>
 
 <%= render partial: "partials/show_text", locals: {title: "Title", value: @task_status.title} %>
-<%= render partial: "partials/show_text", locals: {title: "Description", value: @task_status.description} %>
+<%= render partial: "partials/show_markdown", locals: {id: dom_id(@task_status), title: "Description", value: @task_status.description} %>
 <%= render partial: "partials/show_icon", locals: {title: "Icon", value: @task_status.icon, size: 32} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Requires Action", value: @task_status.requires_action} %>
 

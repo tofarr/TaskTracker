@@ -1,0 +1,6 @@
+<div class="level">
+  <label class="level-item-left column is-one-quarter"><%= title %></label>
+  <span class="level-item-left column is-three-quaters">
+    <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true).render(value).html_safe %>
+  </span>
+</div>

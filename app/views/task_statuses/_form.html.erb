@@ -7,23 +7,14 @@
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :requires_action} %>
 
   <div class="field level">
-    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :next_status_ids %>
+    </div>
     <div class="level-item-left column is-three-quaters">
-      <fieldset class="box">
-        <legend>Next Task Status</legend>
-        <%= form.hidden_field "next_status_ids[]", :value => "" %>
-        <% TaskStatus.order(:title).where("id != ?", task_status.id).each do |status| %>
-          <div class="field columns">
-            <div class="column is-narrow">
-              <%= form.check_box(:next_status_ids, {multiple: true, checked: task_status.next_statuses.include?(status)}, status.id, nil) %>
-            </div>
-            <%= form.label status.title, class: "column" %>
-          </div>
-        <% end %>
-      </fieldset>
+      <%= form.select :next_status_ids, task_status.next_statuses.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": task_status.class.to_s.tableize, "data-exclude-ids": "[#{task_status.id}]"} %>
     </div>
   </div>
 
   <%= render partial: "partials/form_submit", locals: {form: form, model: task_status} %>
-  
+
 <% end %>

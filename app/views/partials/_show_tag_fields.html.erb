@@ -1,6 +1,6 @@
 
 <%= render partial: "partials/show_text", locals: {title: "Title", value: tag.title} %>
-<%= render partial: "partials/show_text", locals: {title: "Description", value: tag.description} %>
+<%= render partial: "partials/show_markdown", locals: {id: dom_id(tag), title: "Description", value: tag.description} %>
 <%= render partial: "partials/show_icon", locals: {title: "Icon", value: tag.icon, size: 32} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Only Admin Can Apply", value: tag.only_admin_can_apply} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Default Apply", value: tag.default_apply} %>
