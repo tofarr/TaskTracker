@@ -47,3 +47,11 @@
 <%= render partial: "partials/show_text", locals: {title: "Priority", value: @task.priority} %>
 <%= render partial: "partials/show_text", locals: {title: "Calculated Estimate", value: @task.calculated_estimate} %>
 <%= render partial: "partials/show_text", locals: {title: "Due Date", value: @task.due_date} %>
+
+<div class="level">
+  <div class="level-item-left column is-one-quarter"></div>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/link_btn", locals: {href: attachments_path(task_id: @task.id), icon: 'paperclip', text: 'Attachments', css_class: 'is-light'} %>
+    <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: 'is-light'} %>
+  </span>
+</div>
