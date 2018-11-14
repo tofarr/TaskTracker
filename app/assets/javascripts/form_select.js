@@ -24,10 +24,10 @@ window.addEventListener("turbolinks:load", function(event) {
         }
       };
       var allowClear = ($this.data('allow-clear') == "true");
-      //if(allowClear){
+      if(allowClear){
         params.placeholder = "No Value";
         params.allowClear = true;
-      //}
+      }
       $this.select2(params);
     }
   });

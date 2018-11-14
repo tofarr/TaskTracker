@@ -18,7 +18,7 @@
     <div class="level-item-left column is-three-quaters">
       <% if attachment.is_img? %>
         <%= render partial: "partials/icon", locals: {img: attachment.data, size: 300} %>
-      <% else %>
+      <% elsif attachment.data.attachment %>
         <%=url_for(attachment.data)%>
       <% end %>
       <%= form.file_field :data, direct_upload: true %>

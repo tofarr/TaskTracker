@@ -72,6 +72,6 @@ class TaskStatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_status_params
-      params.require(:task_status).permit(:title, :description, :requires_action, :icon, :next_status_ids => [])
+      params.require(:task_status).permit(:title, :description, :requires_action, :default_apply, :icon, :next_status_ids => [])
     end
 end

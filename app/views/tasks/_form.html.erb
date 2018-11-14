@@ -9,7 +9,7 @@
       <%= form.label :parent_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:parent_id, @task.parent ? [[@task.parent.title, @task.parent.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[#{@task.id}]"}) %>
+      <%= form.select(:parent_id, @task.parent ? [[@task.parent.title, @task.parent.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[#{@task.id}]", "data-allow-clear": true}) %>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
       <%= form.label :assigned_user_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:assigned_user_id, @task.assigned_user ? [[@task.assigned_user.username, @task.assigned_user.id]] : [], {include_blank: true}, {class: "input", "data-search": "users"}) %>
+      <%= form.select(:assigned_user_id, @task.assigned_user ? [[@task.assigned_user.username, @task.assigned_user.id]] : [], {include_blank: true}, {class: "input", "data-search": "users", "data-allow-clear": true}) %>
     </div>
   </div>
 

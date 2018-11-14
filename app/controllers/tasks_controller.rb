@@ -20,6 +20,7 @@ class TasksController < ApplicationController
     @task.tags = TaskTag.where(default_apply: true)
     @task.created_user = current_user
     @task.priority = 0.5
+    @task.status = TaskStatus.order(default_apply: :desc).first
   end
 
   # GET /tasks/1/edit
@@ -30,9 +31,6 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    puts "TRACE:create:1:#{@task.as_json}"
-    puts "TRACE:create:2:#{@task.assigned_user_id}"
-    puts "TRACE:create:3:#{@task.assigned_user}"
     @task.created_user = current_user
 
     respond_to do |format|
