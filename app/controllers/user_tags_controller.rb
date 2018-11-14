@@ -72,6 +72,6 @@ class UserTagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_tag_params
-      params.require(:user_tag).permit(:title, :description, :icon, :only_admin_can_apply, :default_apply, :mutex_ids => [])
+      params.require(:user_tag).permit(:title, :description, :icon, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
     end
 end

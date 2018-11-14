@@ -1,5 +1,5 @@
 <%if tag %>
-  <div class="tag is-medium">
+  <div class="tag is-medium" style="background-color: <%=tag.color%>; color: <%=text_color tag.color %>">
     <%= render partial: "partials/icon", locals: {img: tag.icon, size: 32} %>
     <span>
       <%=tag.title%>

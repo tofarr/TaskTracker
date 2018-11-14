@@ -72,6 +72,6 @@ class TaskTagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_tag_params
-      params.require(:task_tag).permit(:title, :description, :requires_action, :icon, :only_admin_can_apply, :default_apply, :mutex_ids => [])
+      params.require(:task_tag).permit(:title, :description, :requires_action, :icon, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
     end
 end

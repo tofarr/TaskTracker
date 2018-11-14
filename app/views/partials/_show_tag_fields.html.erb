@@ -4,6 +4,7 @@
 <%= render partial: "partials/show_icon", locals: {title: "Icon", value: tag.icon, size: 32} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Only Admin Can Apply", value: tag.only_admin_can_apply} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Default Apply", value: tag.default_apply} %>
+<%= render partial: "partials/show_color", locals: {title: "Color", value: tag.color} %>
 
 <div class="level">
   <label class="level-item-left column is-one-quarter">Mutually Exclusive Tags</label>

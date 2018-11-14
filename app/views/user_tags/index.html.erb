@@ -22,7 +22,9 @@
     <% @user_tags.each do |user_tag| %>
       <tr>
         <td>
-          <%= render partial: "partials/icon", locals: {img: user_tag.icon, size: 32} %>
+          <div class="tag" style="background:<%=user_tag.color%>">
+            <%= render partial: "partials/icon", locals: {img: user_tag.icon, size: 32} %>
+          </div>
         </td>
         <td><%= user_tag.title %></td>
         <td>

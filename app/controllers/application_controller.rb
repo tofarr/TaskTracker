@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
 
+  include ApplicationHelper
   before_action :require_login
+  helper_method :text_color
 
   def current_user
     unless @current_user

@@ -22,7 +22,9 @@
     <% @task_tags.each do |task_tag| %>
       <tr>
         <td>
-          <%= render partial: "partials/icon", locals: {img: task_tag.icon, size: 32} %>
+          <div class="tag" style="background:<%=task_tag.color%>">
+            <%= render partial: "partials/icon", locals: {img: task_tag.icon, size: 32} %>
+          </div>
         </td>
         <td><%= task_tag.title %></td>
         <td>

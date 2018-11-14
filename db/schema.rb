@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_053411) do
+ActiveRecord::Schema.define(version: 2018_11_14_060119) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_053411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "default_apply", default: false, null: false
+    t.string "color", limit: 8, default: "#209cee", null: false
   end
 
   create_table "task_tags", force: :cascade do |t|
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_053411) do
     t.datetime "updated_at", null: false
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
+    t.string "color", limit: 8, default: "#209cee", null: false
   end
 
   create_table "task_tags_mutex", id: false, force: :cascade do |t|
@@ -119,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_053411) do
     t.datetime "updated_at", null: false
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
+    t.string "color", limit: 8, default: "#209cee", null: false
   end
 
   create_table "user_tags_mutex", id: false, force: :cascade do |t|
