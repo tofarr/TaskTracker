@@ -1,7 +1,7 @@
 <div id="notice"><%= notice %></div>
 
 <div class="level">
-  <h1 class="title">Task Tag</h1>
+  <h1 class="title">User Tag</h1>
   <div class="level-item-right">
     <% if @current_user.admin? %>
       <%= render partial: "partials/link_btn", locals: {href: edit_user_tag_path(@user_tag), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>

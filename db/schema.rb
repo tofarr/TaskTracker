@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_060119) do
+ActiveRecord::Schema.define(version: 2018_11_14_220650) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,16 @@ ActiveRecord::Schema.define(version: 2018_11_14_060119) do
     t.string "color", limit: 8, default: "#209cee", null: false
   end
 
+  create_table "task_tag_mutexes", force: :cascade do |t|
+    t.integer "task_tag_id"
+    t.integer "mutex_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mutex_id"], name: "index_task_tag_mutexes_on_mutex_id"
+    t.index ["task_tag_id", "mutex_id"], name: "index_task_tag_mutexes_on_task_tag_id_and_mutex_id", unique: true
+    t.index ["task_tag_id"], name: "index_task_tag_mutexes_on_task_tag_id"
+  end
+
   create_table "task_tags", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -84,12 +94,6 @@ ActiveRecord::Schema.define(version: 2018_11_14_060119) do
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
     t.string "color", limit: 8, default: "#209cee", null: false
-  end
-
-  create_table "task_tags_mutex", id: false, force: :cascade do |t|
-    t.integer "a_id"
-    t.integer "b_id"
-    t.index ["a_id", "b_id"], name: "index_task_tags_mutex_on_a_id_and_b_id", unique: true
   end
 
   create_table "task_tags_tasks", id: false, force: :cascade do |t|
@@ -114,6 +118,16 @@ ActiveRecord::Schema.define(version: 2018_11_14_060119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_tag_mutexes", force: :cascade do |t|
+    t.integer "user_tag_id"
+    t.integer "mutex_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mutex_id"], name: "index_user_tag_mutexes_on_mutex_id"
+    t.index ["user_tag_id", "mutex_id"], name: "index_user_tag_mutexes_on_user_tag_id_and_mutex_id", unique: true
+    t.index ["user_tag_id"], name: "index_user_tag_mutexes_on_user_tag_id"
+  end
+
   create_table "user_tags", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -122,12 +136,6 @@ ActiveRecord::Schema.define(version: 2018_11_14_060119) do
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
     t.string "color", limit: 8, default: "#209cee", null: false
-  end
-
-  create_table "user_tags_mutex", id: false, force: :cascade do |t|
-    t.integer "a_id"
-    t.integer "b_id"
-    t.index ["a_id", "b_id"], name: "index_user_tags_mutex_on_a_id_and_b_id", unique: true
   end
 
   create_table "user_tags_users", id: false, force: :cascade do |t|
