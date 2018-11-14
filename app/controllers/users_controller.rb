@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     users = User.where(suspended: current_user.admin? ? (params[:suspended] || [true, false]) : false)
     users = users.where("username like ? or email like ? or name like ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @users = users.order(params[:order] || :username).page(params[:page])
+    @users = page(users.order(params[:order] || :username))
   end
 
   # GET /users/1

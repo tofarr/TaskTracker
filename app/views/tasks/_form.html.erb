@@ -47,7 +47,14 @@
     </div>
   </div>
 
-  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :priority} %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :priority %>
+    </div>
+    <div class="level-item-left column is-three-quaters">
+      <%= form.range_field :priority, min: 0, max: 1, step: 0.001 %>
+    </div>
+  </div>
 
   <div class="field level">
     <label class="level-item-left column is-one-quarter">Calculated Estimate</label>

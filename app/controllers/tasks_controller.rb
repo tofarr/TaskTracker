@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     tasks = Task.all
     tasks = tasks.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @tasks = tasks.order(params[:order] || {priority: :desc}).page(params[:page])
+    @tasks = page(tasks.order(params[:order] || {priority: :desc}))
   end
 
   # GET /tasks/1
@@ -19,6 +19,7 @@ class TasksController < ApplicationController
     @task = Task.new
     @task.tags = TaskTag.where(default_apply: true)
     @task.created_user = current_user
+    @task.priority = 0.5
   end
 
   # GET /tasks/1/edit
@@ -29,6 +30,9 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    puts "TRACE:create:1:#{@task.as_json}"
+    puts "TRACE:create:2:#{@task.assigned_user_id}"
+    puts "TRACE:create:3:#{@task.assigned_user}"
     @task.created_user = current_user
 
     respond_to do |format|

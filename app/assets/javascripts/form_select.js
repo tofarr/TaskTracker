@@ -4,7 +4,7 @@ window.addEventListener("turbolinks:load", function(event) {
     var search = $this.data('search');
     if(search){
       var excludeIds = $this.data('exclude-ids') || [];
-      $this.select2({
+      var params = {
         ajax: {
           url: '/' + search + '.json',
           processResults: function (data) {
@@ -22,7 +22,13 @@ window.addEventListener("turbolinks:load", function(event) {
             return { results: results };
           }
         }
-      });
+      };
+      var allowClear = ($this.data('allow-clear') == "true");
+      //if(allowClear){
+        params.placeholder = "No Value";
+        params.allowClear = true;
+      //}
+      $this.select2(params);
     }
   });
 });

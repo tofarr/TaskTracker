@@ -30,4 +30,8 @@ class ApplicationController < ActionController::Base
       redirect_to controller: "sessions", action: "new"
     end
   end
+
+  def page(query)
+    query.page(params[:page]).per(params[:per] || 10)
+  end
 end

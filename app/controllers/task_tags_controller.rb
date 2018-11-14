@@ -7,7 +7,7 @@ class TaskTagsController < ApplicationController
   def index
     task_tags = TaskTag.all
     task_tags = task_tags.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @task_tags = task_tags.order(params[:order] || :title).page(params[:page])
+    @task_tags = page(task_tags.order(params[:order] || :title))
   end
 
   # GET /task_tags/1
