@@ -48,6 +48,11 @@
 <%= render partial: "partials/show_text", locals: {title: "Calculated Estimate", value: @task.calculated_estimate} %>
 <%= render partial: "partials/show_text", locals: {title: "Due Date", value: @task.due_date} %>
 
+<%= render partial: "partials/show_boolean", locals: {title: "Viewable", value: @task.viewable} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Editable", value: @task.editable} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Commentable", value: @task.commentable} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Public Viewable", value: @task.public_viewable} %>
+
 <div class="level">
   <div class="level-item-left column is-one-quarter"></div>
   <span class="level-item-left column is-three-quaters">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_220650) do
+ActiveRecord::Schema.define(version: 2019_03_09_203544) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -116,6 +116,10 @@ ActiveRecord::Schema.define(version: 2018_11_14_220650) do
     t.integer "calculated_estimate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "viewable", default: true, null: false
+    t.boolean "editable", default: true, null: false
+    t.boolean "commentable", default: true, null: false
+    t.boolean "public_viewable", default: false, null: false
   end
 
   create_table "user_tag_mutexes", force: :cascade do |t|
