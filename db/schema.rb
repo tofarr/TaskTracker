@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_09_220507) do
+ActiveRecord::Schema.define(version: 2019_03_30_200304) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,18 +54,13 @@ ActiveRecord::Schema.define(version: 2019_03_09_220507) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "edit_user_tags", id: false, force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "user_tag_id"
-    t.index ["task_id", "user_tag_id"], name: "index_edit_user_tags_on_task_id_and_user_tag_id", unique: true
-  end
-
   create_table "task_links", force: :cascade do |t|
     t.integer "from_task_id", null: false
     t.integer "to_task_id", null: false
     t.string "link_type", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["from_task_id", "to_task_id"], name: "index_task_links_on_from_task_id_and_to_task_id", unique: true
     t.index ["from_task_id"], name: "index_task_links_on_from_task_id"
     t.index ["link_type"], name: "index_task_links_on_link_type"
     t.index ["to_task_id"], name: "index_task_links_on_to_task_id"
@@ -172,12 +167,6 @@ ActiveRecord::Schema.define(version: 2019_03_09_220507) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "view_user_tags", id: false, force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "user_tag_id"
-    t.index ["task_id", "user_tag_id"], name: "index_view_user_tags_on_task_id_and_user_tag_id", unique: true
   end
 
 end

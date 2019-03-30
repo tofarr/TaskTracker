@@ -1,15 +1,34 @@
 # app/models/match.rb
 class TaskLink < ApplicationRecord
+
+  def self.link_types
+     %w(link duplicate prereq)
+  end
+
   belongs_to :from_task, class_name: "Task"
   belongs_to :to_task, class_name: "Task"
 
-  validates :link_type, inclusion: { in: %w(link duplicate prereq) }
+  validates :link_type, inclusion: { in: link_types }
 
   validate :cannot_link_to_self
   before_update { false }
   after_create :create_inverse, unless: :has_inverse?
   after_create :sync_dup_status
   after_destroy :destroy_inverses, if: :has_inverse?
+
+  def self.viewable_task_links(user)
+    task_links = TaskLink.all
+    if user && !user.suspended?
+      unless user.admin?
+        tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true or (SELECT count(*) FROM view_user_tags WHERE view_user_tags.task_id = tasks.id AND view_user_tags.user_id = ?) > 0",
+          user.id, user.id, user.id)
+      end
+    else
+      task_links.where('')
+      tasks = tasks.where(public_viewable: true)
+    end
+    tasks
+  end
 
   def sync_dup_status
     return unless link_type == 'duplicate'

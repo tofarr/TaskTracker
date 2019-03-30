@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    tasks = current_user_tasks
+    tasks = Task.viewable_tasks(current_user)
     tasks = tasks.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
     @tasks = page(tasks.order(params[:order] || {priority: :desc}))
   end
@@ -24,6 +24,16 @@ class TasksController < ApplicationController
     @task.priority = 0.5
     @task.viewable = @task.editable = @task.commentable = true
     @task.status = TaskStatus.order(default_apply: :desc).first
+    if params[:parent_id]
+      parent = Task.find(params[:parent_id])
+      raise ActionController::RoutingError.new('Not Found') unless parent.viewable_by(current_user)
+      @task.parent = parent
+      @task.tags = parent.tags
+      @task.viewable = parent.viewable
+      @task.editable = parent.editable
+      @task.public = parent.public
+      @task.commentable = parent.commentable
+    end
   end
 
   # GET /tasks/1/edit
@@ -72,18 +82,6 @@ class TasksController < ApplicationController
   end
 
   private
-    def current_user_tasks
-      tasks = Task.all
-      if logged_in?
-        unless current_user.admin?
-          tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true or (SELECT count(*) FROM edit_user_tags WHERE edit_user_tags.task_id = tasks.id AND edit_user_tags.user_id = ?) > 0",
-            current_user.id, current_user.id, current_user.id)
-        end
-      else
-        tasks = tasks.where(public_viewable: true) unless logged_in?
-      end
-      tasks
-    end
 
     def authorize_edit
       unless @task.editable_by?(current_user)
@@ -93,7 +91,7 @@ class TasksController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = current_user_tasks.find(params[:id])
+      @task = Task.viewable_tasks(current_user).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

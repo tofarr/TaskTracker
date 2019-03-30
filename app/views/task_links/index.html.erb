@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Tasks</h1>
+  <% if @current_user.admin? %>
+    <%= render partial: "partials/link_btn", locals: {href: new_task_link_path, icon: 'plus', text: 'New Link', css_class: 'is-success'} %>
+  <% end %>
+</div>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>From Task</th>
+      <th>To Task</th>
+      <th>Link Type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_links.each do |task_link| %>
+      <tr>
+        <td>
+          <%= render partial: "partials/link_btn", locals: {href: task_link.from_task, icon: 'eye', text: task_link.from_task.identifier, css_class: 'is-small'} %>
+        </td>
+        <td>
+          <%= render partial: "partials/link_btn", locals: {href: task_link.to_task, icon: 'eye', text: task_link.to_task.identifier, css_class: 'is-small'} %>
+        </td>
+        <td><%= task_link.link_type %></td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: task_link, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user %>
+              <%= link_to task_link, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @task_links %>

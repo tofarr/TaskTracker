@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Link</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: task_links_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">From Task</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/link_btn", locals: {href: @task_link.from_task, icon: 'eye', text: @task_link.from_task.identifier, css_class: 'is-small'} %>
+  </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">To Task</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/link_btn", locals: {href: @task_link.to_task, icon: 'eye', text: @task_link.to_task.identifier, css_class: 'is-small'} %>
+  </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Link Type</label>
+  <span class="level-item-left column is-three-quaters">
+    <%= @task_link.link_type.titleize %>
+  </span>
+</div>

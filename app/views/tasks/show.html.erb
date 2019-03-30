@@ -56,6 +56,7 @@
 <div class="level">
   <div class="level-item-left column is-one-quarter"></div>
   <span class="level-item-left column is-three-quaters">
+    <%= render partial: "partials/link_btn", locals: {href: task_links_path(task_id: @task.id), icon: 'link', text: 'Links', css_class: 'is-light'} %>
     <%= render partial: "partials/link_btn", locals: {href: attachments_path(task_id: @task.id), icon: 'paperclip', text: 'Attachments', css_class: 'is-light'} %>
     <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: 'is-light'} %>
   </span>

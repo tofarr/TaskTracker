@@ -2,7 +2,7 @@
 
 <div class="level">
   <h1 class="title">Tasks</h1>
-  <% if @current_user.admin? %>
+  <% if @current_user %>
     <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
   <% end %>
 </div>
@@ -16,7 +16,7 @@
       <th>Assigned User</th>
       <th>Status</th>
       <th>Tags</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -38,7 +38,7 @@
         <td>
           <div class="level-right">
             <%= render partial: "partials/link_btn", locals: {href: task, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
-            <% if @current_user.admin? %>
+            <% if @current_user %>
               <%= render partial: "partials/link_btn", locals: {href: edit_task_path(task), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
               <%= link_to task, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
                 <span class="icon is-small">
