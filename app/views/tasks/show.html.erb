@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<%= render partial: "partials/show_text", locals: {title: "Title", value: @task.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @task.identifier} %>
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@task), title: "Description", value: @task.description} %>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Parent</label>

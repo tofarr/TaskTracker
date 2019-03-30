@@ -6,7 +6,7 @@
       <%= form.label :from_task %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:from_task_id, @task_link.from_task ? [[@task_link.from_task.title, @task_link.from_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
+      <%= form.select(:from_task_id, @task_link.from_task ? [[@task_link.from_task.text, @task_link.from_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
     </div>
   </div>
 
@@ -15,7 +15,7 @@
       <%= form.label :to_task %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:to_task_id, @task_link.to_task ? [[@task_link.to_task.title, @task_link.to_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
+      <%= form.select(:to_task_id, @task_link.to_task ? [[@task_link.to_task.text, @task_link.to_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
     </div>
   </div>
 

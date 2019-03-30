@@ -11,7 +11,7 @@ window.addEventListener("turbolinks:load", function(event) {
             var results = data.map(function(result){
               return {
                 id: result.id,
-                text: result.title || result.username
+                text: result.text || result.title || result.username
               };
             });
             if(excludeIds.length){
