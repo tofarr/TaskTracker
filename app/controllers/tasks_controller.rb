@@ -75,7 +75,10 @@ class TasksController < ApplicationController
     def current_user_tasks
       tasks = Task.all
       if logged_in?
-        tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true", current_user.id, current_user.id) unless current_user.admin?
+        unless current_user.admin?
+          tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true or (SELECT count(*) FROM edit_user_tags WHERE edit_user_tags.task_id = tasks.id AND edit_user_tags.user_id = ?) > 0",
+            current_user.id, current_user.id, current_user.id)
+        end
       else
         tasks = tasks.where(public_viewable: true) unless logged_in?
       end
