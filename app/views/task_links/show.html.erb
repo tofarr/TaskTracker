@@ -9,13 +9,13 @@
 <div class="level">
   <label class="level-item-left column is-one-quarter">From Task</label>
   <span class="level-item-left column is-three-quaters">
-    <%= render partial: "partials/link_btn", locals: {href: @task_link.from_task, icon: 'eye', text: @task_link.from_task.identifier, css_class: 'is-small'} %>
+    <%= render partial: "partials/task", locals: {task: @task_link.from_task} %>
   </span>
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">To Task</label>
   <span class="level-item-left column is-three-quaters">
-    <%= render partial: "partials/link_btn", locals: {href: @task_link.to_task, icon: 'eye', text: @task_link.to_task.identifier, css_class: 'is-small'} %>
+    <%= render partial: "partials/task", locals: {task: @task_link.to_task} %>
   </span>
 </div>
 <div class="level">

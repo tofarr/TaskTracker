@@ -21,10 +21,10 @@
     <% @task_links.each do |task_link| %>
       <tr>
         <td>
-          <%= render partial: "partials/link_btn", locals: {href: task_link.from_task, icon: 'eye', text: task_link.from_task.identifier, css_class: 'is-small'} %>
+          <%= render partial: "partials/task", locals: {task: task_link.from_task} %>
         </td>
         <td>
-          <%= render partial: "partials/link_btn", locals: {href: task_link.to_task, icon: 'eye', text: task_link.to_task.identifier, css_class: 'is-small'} %>
+          <%= render partial: "partials/task", locals: {task: task_link.to_task} %>
         </td>
         <td><%= task_link.link_type %></td>
         <td>

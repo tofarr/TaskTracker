@@ -8,7 +8,7 @@
       <%= form.label :task_id %>
     </div>
     <div class="level-item-left column is-three-quaters">
-      <%= form.select(:task_id, comment.task ? [[comment.task.title, comment.task.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks"}) %>
+      <%= form.select(:task_id, comment.task ? [[comment.task.identifier, comment.task.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks"}) %>
     </div>
   </div>
 

@@ -7,14 +7,14 @@ class Task < ApplicationRecord
   has_and_belongs_to_many :tags, class_name: "TaskTag", join_table: :task_tags_tasks, foreign_key: :task_id, association_foreign_key: :task_tag_id
   validate :editable_viewable
 
-  has_many :from_links, :foreign_key => :to_task_id, :class_name => "TaskLink"
-  has_many :to_links, :foreign_key => :from_task_id, :class_name => "TaskLink"
+  has_many :from_links, :foreign_key => :to_task_id, :class_name => "TaskLink", :dependent => :destroy
+  has_many :to_links, :foreign_key => :from_task_id, :class_name => "TaskLink", :dependent => :destroy
   validate :validate_prereqs
   after_update :sync_dup_status
   after_create :sync_dup_status
 
-  has_many :comments
-  has_many :attachments
+  has_many :comments, :dependent => :destroy
+  has_many :attachments, :dependent => :destroy
 
   def self.editable_tasks(user)
     tasks = Task.all

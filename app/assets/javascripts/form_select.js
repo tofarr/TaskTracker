@@ -4,14 +4,15 @@ window.addEventListener("turbolinks:load", function(event) {
     var search = $this.data('search');
     if(search){
       var excludeIds = $this.data('exclude-ids') || [];
-      var params = {
+
+      var attrs = {
         ajax: {
           url: '/' + search + '.json',
           processResults: function (data) {
             var results = data.map(function(result){
               return {
                 id: result.id,
-                text: result.text || result.title || result.username
+                text: result.identifier || result.title || result.username
               };
             });
             if(excludeIds.length){
@@ -25,10 +26,15 @@ window.addEventListener("turbolinks:load", function(event) {
       };
       var allowClear = ($this.data('allow-clear') == "true");
       if(allowClear){
-        params.placeholder = "No Value";
-        params.allowClear = true;
+        attrs.placeholder = "No Value";
+        attrs.allowClear = true;
       }
-      $this.select2(params);
+      var params = $this.data('params');
+      if(params){
+        attrs.data = params;
+      }
+
+      $this.select2(attrs);
     }
   });
 });
