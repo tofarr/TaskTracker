@@ -15,10 +15,16 @@
  *= require select2
  */
 
+$primary: #0066CC;
+
 @import "bulma";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "simplemde-1.11.2.min";
+
+.navbar{
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
 
 label,legend{
   font-weight: bold;

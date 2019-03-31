@@ -4,7 +4,7 @@
     <title>Task Tracker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -31,6 +31,7 @@
               <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
               <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
               <hr class="navbar-divider">
+              <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "navbar-item" %>
               <%=link_to "Comments", {controller: "comments", action: "index"}, class: "navbar-item" %>
               <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "navbar-item" %>
               <hr class="navbar-divider">
