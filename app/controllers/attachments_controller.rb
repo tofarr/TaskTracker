@@ -1,10 +1,10 @@
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:show, :edit, :update, :destroy]
+  before_action :set_attachment, only: [:edit, :update, :destroy]
 
   # GET /attachments
   # GET /attachments.json
   def index
-    attachments = Attachment.all
+    attachments = Attachment.viewable_attachments(current_user)
     attachments = attachments.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
     attachments = attachments.where(task_id: params[:task_id]) if params[:task_id]
     attachments = attachments.where(user_id: params[:user_id]) if params[:user_id]
@@ -14,11 +14,13 @@ class AttachmentsController < ApplicationController
   # GET /attachments/1
   # GET /attachments/1.json
   def show
+    Attachment.viewable_attachments(current_user).find(params[:id])
   end
 
   # GET /attachments/new
   def new
     @attachment = Attachment.new
+    set_task if params[:task_id]
     @attachment.user = @current_user
   end
 
@@ -33,6 +35,7 @@ class AttachmentsController < ApplicationController
   # POST /attachments.json
   def create
     @attachment = Attachment.new(attachment_params)
+    set_task
     @attachment.user = @current_user
     respond_to do |format|
       if @attachment.save
@@ -75,11 +78,11 @@ class AttachmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
-      @attachment = Attachment.find(params[:id])
+      @attachment = Attachment.editable_attachments(current_user).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
-      params.require(:attachment).permit(:title, :description, :data, :task_id)
+      params.require(:attachment).permit(:title, :description, :data)
     end
 end

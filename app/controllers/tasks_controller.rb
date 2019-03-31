@@ -33,6 +33,10 @@ class TasksController < ApplicationController
       @task.editable = parent.editable
       @task.public = parent.public
       @task.commentable = parent.commentable
+    else
+      @task.viewable = true
+      @task.editable = true
+      @task.commentable = true
     end
   end
 
