@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :activity_logs
   resources :task_links
   resources :comments
   resources :attachments

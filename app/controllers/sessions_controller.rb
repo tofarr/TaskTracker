@@ -28,4 +28,8 @@ class SessionsController < ActionController::Base
     flash[:notice] = I18n.t "logged_out"
     redirect_to action: "new"
   end
+
+  def model_type
+    'Session'
+  end
 end

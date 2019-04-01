@@ -1,0 +1,14 @@
+<%
+ css_class = if(action == "CREATE")
+     "is-success"
+   elsif(action == "UPDATE")
+     "is-info"
+   elsif(action == "DESTROY")
+     "is-danger"
+   end
+%>
+<div class="tag is-medium <%=css_class%>">
+  <span>
+    <%=action.titleize%>
+  </span>
+</div>

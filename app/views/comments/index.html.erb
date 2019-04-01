@@ -2,7 +2,7 @@
 
 <div class="level">
   <h1 class="title">Comments</h1>
-  <%= render partial: "partials/link_btn", locals: {href: new_comment_path, icon: 'plus', text: 'New Comment', css_class: 'is-success'} %>
+  <%= render partial: "partials/link_btn", locals: {href: params[:task_id] ? new_comment_path(task_id: params[:task_id]) : new_comment_path, icon: 'plus', text: 'New Comment', css_class: 'is-success'} %>
 </div>
 
 <%= render partial: "partials/search_form", locals: {url: comments_path} %>

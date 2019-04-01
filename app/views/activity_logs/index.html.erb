@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<div class="level">
+  <h1 class="title">Activity Log</h1>
+</div>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Timestamp</th>
+      <th>Type</th>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Action</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activity_logs.each do |activity_log| %>
+      <tr>
+        <td><%=activity_log.created_at%></td>
+        <td><%=activity_log.model_type%></td>
+        <td><%=activity_log.model_id%></td>
+        <td><%=activity_log.username%></td>
+        <td>
+          <%= render partial: "partials/action", locals: {action: activity_log.action} %>
+        </td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: activity_log, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @activity_logs %>

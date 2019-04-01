@@ -10,7 +10,7 @@ class TaskStatus < ApplicationRecord
     return unless default_apply?
     task_status = TaskStatus.where(default_apply: true).first
     if task_status && (task_status.id != id)
-      errors.add(:active, 'cannot have another active game')
+      errors.add(:active, "Only one status (#{task_status.title}) may be applied by default")
     end
   end
 end

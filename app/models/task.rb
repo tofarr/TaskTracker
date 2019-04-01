@@ -13,6 +13,8 @@ class Task < ApplicationRecord
   after_update :sync_dup_status
   after_create :sync_dup_status
 
+  validates :title, presence: true
+
   has_many :comments, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
 

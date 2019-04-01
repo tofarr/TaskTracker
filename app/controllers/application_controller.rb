@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   before_action :require_login
   helper_method :text_color
+  after_action :log_create, only: :create
+  after_action :log_update, only: :update
+  after_action :log_destroy, only: :destroy
 
   def current_user
     unless @current_user
@@ -24,6 +27,46 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def log_create
+    if model_obj && model_obj&.persisted?
+      ActivityLog.create(model_type: model_type,
+        model_id: model_obj&.id,
+        user_id: current_user.id,
+        username: current_user.username,
+        action: 'CREATE',
+        new_value: model_obj)
+    end
+  end
+
+  def log_update
+    if model_type && model_obj&.errors&.empty?
+      ActivityLog.create(model_type: model_type,
+        model_id: model_obj&.id,
+        user_id: current_user.id,
+        username: current_user.username,
+        action: 'UPDATE',
+        new_value: model_obj)
+    end
+  end
+
+  def log_destroy
+    if model_type && model_obj&.destroyed?
+      ActivityLog.create(model_type: model_type,
+        user_id: current_user.id,
+        model_id: model_obj&.id,
+        username: current_user.username,
+        action: 'DESTROY')
+    end
+  end
+
+  def model_type
+    return nil
+  end
+
+  def model_obj
+    self.instance_variable_get("@#{model_type.underscore}")
+  end
+
   private
 
   def require_login
@@ -36,4 +79,5 @@ class ApplicationController < ActionController::Base
   def page(query)
     query.page(params[:page]).per(params[:per] || 10)
   end
+
 end

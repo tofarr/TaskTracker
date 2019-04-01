@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   def index
     tasks = Task.viewable_tasks(current_user)
     tasks = tasks.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @tasks = page(tasks.order(params[:order] || {priority: :desc}))
+    @tasks = page(tasks.order(params[:order] || {priority: :desc, updated_at: :desc}))
   end
 
   # GET /tasks/1
@@ -21,8 +21,6 @@ class TasksController < ApplicationController
     @task = Task.new
     @task.tags = TaskTag.where(default_apply: true)
     @task.created_user = current_user
-    @task.priority = 0.5
-    @task.viewable = @task.editable = @task.commentable = true
     @task.status = TaskStatus.order(default_apply: :desc).first
     if params[:parent_id]
       parent = Task.find(params[:parent_id])
@@ -34,10 +32,12 @@ class TasksController < ApplicationController
       @task.public = parent.public
       @task.commentable = parent.commentable
     else
+      #Todo take from settings
       @task.viewable = true
       @task.editable = true
       @task.commentable = true
     end
+    @task.priority = Task.where(parent_id: params[:parent_id]).order(:priority).last.priority || 0.5
   end
 
   # GET /tasks/1/edit
@@ -83,6 +83,10 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def model_type
+    'Task'
   end
 
   private

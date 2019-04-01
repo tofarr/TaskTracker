@@ -14,13 +14,13 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
-    Comment.viewable_comments(current_user).find(params[:id])
+    @comment = Comment.viewable_comments(current_user).find(params[:id])
   end
 
   # GET /comments/new
   def new
     @comment = Comment.new
-    set_task if params[:task_id]
+    set_task(params[:task_id]) if params[:task_id]
     @comment.user = @current_user
   end
 
@@ -35,9 +35,9 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-    set_task
+    set_task(params[:comment][:task_id])
     @comment.user = current_user
-    unless @comment.task.viewable_by?(current_user) && @comment.task.commmentable
+    unless @comment.task.viewable_by?(current_user) && @comment.task.commentable
       raise ApplicationController::NotAuthorized
     end
     respond_to do |format|
@@ -81,6 +81,10 @@ class CommentsController < ApplicationController
     end
   end
 
+  def model_type
+    'Comment'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
@@ -92,7 +96,7 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:text, :data)
     end
 
-    def set_task
-      @comment.task = Task.viewable_tasks(current_user).where(commentable: true).find(params[:task_id])
+    def set_task(task_id)
+      @comment.task = Task.viewable_tasks(current_user).where(commentable: true).find(task_id)
     end
 end

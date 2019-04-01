@@ -75,6 +75,11 @@ class AttachmentsController < ApplicationController
     end
   end
 
+
+  def model_type
+    'Attachment'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
