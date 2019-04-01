@@ -12,6 +12,8 @@ class Task < ApplicationRecord
   validate :validate_prereqs
   after_update :sync_dup_status
   after_create :sync_dup_status
+  before_save :update_estimate
+  after_save :update_parent_estimate
 
   validates :title, presence: true
 
@@ -75,6 +77,16 @@ class Task < ApplicationRecord
     end
   end
 
+
+  def update_estimate
+    puts "TRACE:update_estimate"
+    if estimate
+      self.calculated_estimate = estimate
+    else
+      self.calculated_estimate = children.inject(0) {|estimate, task| estimate + (task.calculated_estimate || 0) }
+    end
+  end
+
   private
 
   def sync_dup_status
@@ -90,6 +102,13 @@ class Task < ApplicationRecord
       from_links.where(link_type: 'prereq').select do |link|
         errors.add(:from_links, "Prerequisites must be complete!") if link.from_task.status.requires_action
       end
+    end
+  end
+
+  def update_parent_estimate
+    diff = (calculated_estimate || 0) - (calculated_estimate_was || 0)
+    if parent && diff != 0
+      parent.update_attribute(:calculated_estimate, parent.calculated_estimate + diff)
     end
   end
 
