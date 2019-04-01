@@ -23,7 +23,7 @@ class Task < ApplicationRecord
     if user && !user.suspended?
       unless user.admin?
         tasks = tasks.where("created_user_id=? or assigned_user_id=? or editable=true",
-          user.id, user.id, user.id)
+          user.id, user.id)
       end
     else
       tasks = tasks.where(public_viewable: true)
@@ -36,7 +36,7 @@ class Task < ApplicationRecord
     if user && !user.suspended?
       unless user.admin?
         tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true",
-          user.id, user.id, user.id)
+          user.id, user.id)
       end
     else
       tasks = tasks.where(public_viewable: true)

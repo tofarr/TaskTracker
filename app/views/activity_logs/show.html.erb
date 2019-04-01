@@ -1,11 +1,12 @@
-<p id="notice"><%= notice %></p>
-
 <div class="level">
   <h1 class="title">Activity Log</h1>
   <div class="level-item-right">
     <%= render partial: "partials/link_btn", locals: {href: activity_logs_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
   </div>
 </div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
 <%= render partial: "partials/show_text", locals: {title: "Timestamp", value: @activity_log.created_at} %>
 <%= render partial: "partials/show_text", locals: {title: "Type", value: @activity_log.model_type} %>
 <%= render partial: "partials/show_text", locals: {title: "ID", value: @activity_log.model_id} %>
