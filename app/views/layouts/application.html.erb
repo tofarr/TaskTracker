@@ -10,53 +10,58 @@
   </head>
 
   <body class="has-background-light">
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <% if @current_user %>
 
-      <div class="navbar-brand">
-        <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item title") do  %>
-          <%= icon('fas', 'tasks') %>
-        <% end %>
-      </div>
+      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
 
-      <div class="navbar-menu">
-
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Menu</a>
-            <div class="navbar-dropdown">
-              <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Users", {controller: "users", action: "index"}, class: "navbar-item" %>
-              <hr class="navbar-divider">
-              <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "navbar-item" %>
-              <hr class="navbar-divider">
-              <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Comments", {controller: "comments", action: "index"}, class: "navbar-item" %>
-              <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "navbar-item" %>
-              <hr class="navbar-divider">
-              <%=link_to "Log out", "/sessions/logout", method: "post", class: "navbar-item" %>
-            </div>
-          </div>
+        <div class="navbar-brand">
+          <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item title") do  %>
+            <%= icon('fas', 'tasks') %>
+          <% end %>
         </div>
 
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
-                <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
-                <span>
-                  <%= @current_user.username %>
-                </span>
-              <% end %>
+
+        <div class="navbar-menu">
+
+          <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">Menu</a>
+              <div class="navbar-dropdown">
+                <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Users", {controller: "users", action: "index"}, class: "navbar-item" %>
+                <hr class="navbar-divider">
+                <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "navbar-item" %>
+                <hr class="navbar-divider">
+                <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Comments", {controller: "comments", action: "index"}, class: "navbar-item" %>
+                <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "navbar-item" %>
+                <hr class="navbar-divider">
+                <%=link_to "Log out", "/sessions/logout", method: "post", class: "navbar-item" %>
+              </div>
             </div>
           </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
+                  <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
+                  <span>
+                    <%= @current_user.username %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-      </div>
+      </nav>
 
-    </nav>
+    <% end %>
 
     <div class="section">
       <div class="container">

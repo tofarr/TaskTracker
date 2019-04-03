@@ -18,3 +18,4 @@
 //= require simplemde-1.11.2.min
 //= require jquery3
 //= require select2
+//= require croppie

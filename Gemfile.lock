@@ -77,6 +77,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    croppie_rails (2.4.0)
+    data_uri (0.1.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -229,6 +231,8 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
+  croppie_rails (~> 2.4)
+  data_uri (~> 0.1.0)
   font-awesome-sass (~> 5.5)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3)

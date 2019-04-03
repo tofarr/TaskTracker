@@ -15,7 +15,7 @@ class SessionsController < ActionController::Base
         redirect_to action: "new"
       else
         session[:user_id] = user.id
-        redirect_to controller: "welcome", action: "index"
+        redirect_to controller: "tasks", action: "index"
       end
     else
       flash[:notice] = I18n.t "login_incorrect"

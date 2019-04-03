@@ -28,7 +28,7 @@ class TaskTagsController < ApplicationController
   # POST /task_tags.json
   def create
     @task_tag = TaskTag.new(task_tag_params)
-
+    attach_img(:icon)
     respond_to do |format|
       if @task_tag.save
         format.html { redirect_to @task_tag, notice: 'Task tag was successfully created.' }
@@ -43,8 +43,10 @@ class TaskTagsController < ApplicationController
   # PATCH/PUT /task_tags/1
   # PATCH/PUT /task_tags/1.json
   def update
+    @task_tag.assign_attributes(task_tag_params)
+    attach_img(:icon)
     respond_to do |format|
-      if @task_tag.update(task_tag_params)
+      if @task_tag.save
         format.html { redirect_to @task_tag, notice: 'Task tag was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_tag }
       else
@@ -76,6 +78,6 @@ class TaskTagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_tag_params
-      params.require(:task_tag).permit(:title, :description, :requires_action, :icon, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
+      params.require(:task_tag).permit(:title, :description, :requires_action, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
     end
 end

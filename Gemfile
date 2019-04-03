@@ -84,3 +84,9 @@ gem "jquery-rails", "~> 4.3"
 
 # Added at 2018-11-11 18:15:17 -0700 by tofarr:
 gem "select2-rails", "~> 4.0"
+
+# Added at 2019-04-01 21:51:10 -0600 by tofarr:
+gem "croppie_rails", "~> 2.4"
+
+# Added at 2019-04-02 18:10:48 -0600 by tofarr:
+gem "data_uri", "~> 0.1.0"

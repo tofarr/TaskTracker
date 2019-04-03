@@ -12,7 +12,15 @@ class User < ApplicationRecord
   has_many :comments, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
 
+  validate :check_tag_mutex
+
   def title
     name || username || email
+  end
+
+  def check_tag_mutex
+    tags.each do |tag|
+      errors.add(:tags, "Must be viewable to be editable!") unless (tags & tag.mutex).empty?
+    end
   end
 end

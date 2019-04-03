@@ -28,7 +28,7 @@ class UserTagsController < ApplicationController
   # POST /user_tags.json
   def create
     @user_tag = UserTag.new(user_tag_params)
-
+    attach_img(:icon)
     respond_to do |format|
       if @user_tag.save
         format.html { redirect_to @user_tag, notice: 'User tag was successfully created.' }
@@ -43,8 +43,10 @@ class UserTagsController < ApplicationController
   # PATCH/PUT /user_tags/1
   # PATCH/PUT /user_tags/1.json
   def update
+    @user_tag.assign_attributes(user_tag_params)
+    attach_img(:icon)
     respond_to do |format|
-      if @user_tag.update(user_tag_params)
+      if @user_tag.save
         format.html { redirect_to @user_tag, notice: 'User tag was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_tag }
       else
@@ -76,6 +78,6 @@ class UserTagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_tag_params
-      params.require(:user_tag).permit(:title, :description, :icon, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
+      params.require(:user_tag).permit(:title, :description, :only_admin_can_apply, :default_apply, :color, :mutex_ids => [])
     end
 end

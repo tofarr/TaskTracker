@@ -33,8 +33,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    UserTag.check_mutex(@user.tags)
-
+    attach_img(:avatar)
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -57,8 +56,7 @@ class UsersController < ApplicationController
 
     user_to_update = @user.clone
     @user.assign_attributes(user_params)
-
-    UserTag.check_mutex(@user.tags)
+    attach_img(:avatar)
 
     #Can't change admin / suspend status of self
     if current_user.id == user_to_update.id
@@ -117,6 +115,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :verification_code, :admin, :suspended, :avatar, :tag_ids => [])
+      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :verification_code, :admin, :suspended, :tag_ids => [])
     end
 end

@@ -28,7 +28,7 @@ class TaskStatusesController < ApplicationController
   # POST /task_statuses.json
   def create
     @task_status = TaskStatus.new(task_status_params)
-
+    attach_img(:icon)
     respond_to do |format|
       if @task_status.save
         format.html { redirect_to @task_status, notice: 'Task status was successfully created.' }
@@ -43,8 +43,10 @@ class TaskStatusesController < ApplicationController
   # PATCH/PUT /task_statuses/1
   # PATCH/PUT /task_statuses/1.json
   def update
+    @task_status.assign_attributes(task_status_params)
+    attach_img(:icon)
     respond_to do |format|
-      if @task_status.update(task_status_params)
+      if @task_status.save
         format.html { redirect_to @task_status, notice: 'Task status was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_status }
       else
@@ -76,6 +78,6 @@ class TaskStatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_status_params
-      params.require(:task_status).permit(:title, :description, :requires_action, :default_apply, :icon, :color, :next_status_ids => [])
+      params.require(:task_status).permit(:title, :description, :requires_action, :default_apply, :color, :next_status_ids => [])
     end
 end

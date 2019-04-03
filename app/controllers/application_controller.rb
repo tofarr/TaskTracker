@@ -1,3 +1,5 @@
+require 'data_uri'
+
 class ApplicationController < ActionController::Base
 
   include ApplicationHelper
@@ -65,6 +67,18 @@ class ApplicationController < ActionController::Base
 
   def model_obj
     self.instance_variable_get("@#{model_type.underscore}")
+  end
+
+  def attach_img(attr_sym)
+    img = params[model_type.underscore.to_sym][attr_sym]
+    if img
+      if img.class.name == 'String' && img.starts_with?('data:') # String was sent - manually convert to file
+        uri = URI::Data.new(img)
+        model_obj.send(attr_sym).attach(io: StringIO.new(uri.data), filename: "image.#{uri.content_type[6,uri.content_type.length]}")
+      else
+        model_obj.send(attr_sym).attach(img)
+      end
+    end
   end
 
   private

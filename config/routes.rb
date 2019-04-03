@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :task_tags
   resources :task_statuses
   get 'welcome/index'
-  root :controller => 'tasks', :action => 'index'
+  root :controller => 'welcome', :action => 'index'
   resources :sessions, :only => ['index', 'new', 'create', 'destroy']
   post "/sessions/logout", to: "sessions#destroy"
   resources :users
