@@ -1,4 +1,5 @@
 require 'data_uri'
+require 'mime-types'
 
 class ApplicationController < ActionController::Base
 
@@ -69,12 +70,13 @@ class ApplicationController < ActionController::Base
     self.instance_variable_get("@#{model_type.underscore}")
   end
 
-  def attach_img(attr_sym)
+  def attach_file(attr_sym)
     img = params[model_type.underscore.to_sym][attr_sym]
     if img
       if img.class.name == 'String' && img.starts_with?('data:') # String was sent - manually convert to file
         uri = URI::Data.new(img)
-        model_obj.send(attr_sym).attach(io: StringIO.new(uri.data), filename: "image.#{uri.content_type[6,uri.content_type.length]}")
+        extension = MIME::Types[uri.content_type].first.extensions
+        model_obj.send(attr_sym).attach(io: StringIO.new(uri.data), filename: "upload.#{extension}")
       else
         model_obj.send(attr_sym).attach(img)
       end

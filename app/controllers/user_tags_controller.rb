@@ -28,7 +28,7 @@ class UserTagsController < ApplicationController
   # POST /user_tags.json
   def create
     @user_tag = UserTag.new(user_tag_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @user_tag.save
         format.html { redirect_to @user_tag, notice: 'User tag was successfully created.' }
@@ -44,7 +44,7 @@ class UserTagsController < ApplicationController
   # PATCH/PUT /user_tags/1.json
   def update
     @user_tag.assign_attributes(user_tag_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @user_tag.save
         format.html { redirect_to @user_tag, notice: 'User tag was successfully updated.' }

@@ -12,17 +12,7 @@
     </div>
   </div>
 
-  <div class="field level">
-    <%= form.label :data, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quaters">
-      <% if comment.is_img? %>
-        <%= render partial: "partials/icon", locals: {img: comment.data, size: 300} %>
-      <% elsif comment.data.attachment %>
-        <%=url_for(comment.data)%>
-      <% end %>
-      <%= form.file_field :data, direct_upload: true %>
-    </div>
-  </div>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :data, data: comment.data, preview_size: 300, crop_size: 300, resize: true} %>
 
   <%= render partial: "partials/form_submit", locals: {form: form, model: comment} %>
 

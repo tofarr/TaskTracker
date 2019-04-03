@@ -28,7 +28,7 @@ class TaskTagsController < ApplicationController
   # POST /task_tags.json
   def create
     @task_tag = TaskTag.new(task_tag_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @task_tag.save
         format.html { redirect_to @task_tag, notice: 'Task tag was successfully created.' }
@@ -44,7 +44,7 @@ class TaskTagsController < ApplicationController
   # PATCH/PUT /task_tags/1.json
   def update
     @task_tag.assign_attributes(task_tag_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @task_tag.save
         format.html { redirect_to @task_tag, notice: 'Task tag was successfully updated.' }

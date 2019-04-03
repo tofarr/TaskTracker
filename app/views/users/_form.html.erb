@@ -4,7 +4,7 @@
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :username} %>
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :name} %>
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :email} %>
-  <%= render partial: "partials/form_img", locals: {form: form, attr: :avatar, img: user.avatar, preview_size: 48, crop_size: 256} %>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :avatar, data: user.avatar, preview_size: 48, crop_size: 256, resize: false} %>
 
   <div class="field level">
     <%= form.label :admin, class: "level-item-left column is-one-quarter" %>

@@ -1,7 +1,0 @@
-<div class="field level">
-  <%= form.label attr, class: "level-item-left column is-one-quarter" %>
-  <div class="level-item-left column is-three-quaters form-img-container" data-crop-size="<%=crop_size || 256%>">
-    <%= render partial: "partials/icon", locals: {img: img, size: preview_size} %>
-    <%= form.file_field attr, direct_upload: false, class: 'img-upload' %>
-  </div>
-</div>

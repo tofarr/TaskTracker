@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    attach_img(:avatar)
+    attach_file(:avatar)
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
     user_to_update = @user.clone
     @user.assign_attributes(user_params)
-    attach_img(:avatar)
+    attach_file(:avatar)
 
     #Can't change admin / suspend status of self
     if current_user.id == user_to_update.id

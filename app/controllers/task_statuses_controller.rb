@@ -28,7 +28,7 @@ class TaskStatusesController < ApplicationController
   # POST /task_statuses.json
   def create
     @task_status = TaskStatus.new(task_status_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @task_status.save
         format.html { redirect_to @task_status, notice: 'Task status was successfully created.' }
@@ -44,7 +44,7 @@ class TaskStatusesController < ApplicationController
   # PATCH/PUT /task_statuses/1.json
   def update
     @task_status.assign_attributes(task_status_params)
-    attach_img(:icon)
+    attach_file(:icon)
     respond_to do |format|
       if @task_status.save
         format.html { redirect_to @task_status, notice: 'Task status was successfully updated.' }

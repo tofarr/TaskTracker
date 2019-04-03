@@ -14,13 +14,13 @@ class AttachmentsController < ApplicationController
   # GET /attachments/1
   # GET /attachments/1.json
   def show
-    Attachment.viewable_attachments(current_user).find(params[:id])
+    @attachment = Attachment.viewable_attachments(current_user).find(params[:id])
   end
 
   # GET /attachments/new
   def new
     @attachment = Attachment.new
-    set_task if params[:task_id]
+    set_task(params[:task_id]) if params[:task_id]
     @attachment.user = @current_user
   end
 
@@ -35,7 +35,8 @@ class AttachmentsController < ApplicationController
   # POST /attachments.json
   def create
     @attachment = Attachment.new(attachment_params)
-    set_task
+    set_task(params[:attachment][:task_id])
+    attach_file(:data)
     @attachment.user = @current_user
     respond_to do |format|
       if @attachment.save
@@ -54,8 +55,10 @@ class AttachmentsController < ApplicationController
     if @attachment.user != @current_user
       raise ApplicationController::NotAuthorized
     end
+    @attachment.assign_attributes(attachment_params)
+    attach_file(:data)
     respond_to do |format|
-      if @attachment.update(attachment_params)
+      if @attachment.save
         format.html { redirect_to @attachment, notice: 'Attachment was successfully updated.' }
         format.json { render :show, status: :ok, location: @attachment }
       else
@@ -89,5 +92,9 @@ class AttachmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
       params.require(:attachment).permit(:title, :description, :data)
+    end
+
+    def set_task(task_id)
+      @attachment.task = Task.editable_tasks(current_user).find(task_id)
     end
 end

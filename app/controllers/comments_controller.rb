@@ -36,6 +36,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     set_task(params[:comment][:task_id])
+    attach_file(:data)
     @comment.user = current_user
     unless @comment.task.viewable_by?(current_user) && @comment.task.commentable
       raise ApplicationController::NotAuthorized
@@ -57,6 +58,8 @@ class CommentsController < ApplicationController
     unless @comment.editable_by?(current_user)
       raise ApplicationController::NotAuthorized
     end
+    @comment.assign_attributes(comment_params)
+    attach_file(:data)
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
@@ -93,7 +96,7 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:text, :data)
+      params.require(:comment).permit(:text)
     end
 
     def set_task(task_id)

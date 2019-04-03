@@ -11,4 +11,9 @@ module ApplicationHelper
     (red * 0.299 + green * 0.587 + blue * 0.114)
   end
 
+  def is_img(data)
+    type = data.attachment && data.content_type
+    type == "image/jpg" || type == "image/jpeg" || type == "image/gif" || type == "image/png"
+  end
+
 end

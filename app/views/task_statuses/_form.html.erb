@@ -3,7 +3,7 @@
 
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
   <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
-  <%= render partial: "partials/form_img", locals: {form: form, attr: :icon, img: task_status.icon, preview_size: 32, crop_size: 256} %>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :icon, data: task_status.icon, preview_size: 48, crop_size: 256, resize: false} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :requires_action} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :default_apply} %>
   <%= render partial: "partials/form_color", locals: {form: form, attr: :color} %>
