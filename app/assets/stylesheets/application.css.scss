@@ -22,9 +22,8 @@ $primary: #0066CC;
 @import "font-awesome";
 @import "simplemde-1.11.2.min";
 @import "croppie-2.6.4";
-@import "form_upload";
-@import "checkbox";
 @import "t-popup-1.0.0-min";
+@import "t-menu-1.0.0-min";
 
 .navbar{
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -69,4 +68,13 @@ fieldset.box{
 .level-item-center{
   display: flex;
   justify-content: center;
+}
+
+.force-flex{
+  display: flex;
+  align-items: center;
+}
+
+.box{
+  overflow-x: auto;
 }

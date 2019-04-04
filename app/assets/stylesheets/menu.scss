@@ -1,0 +1,74 @@
+
+/*
+.navbar-menu {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.navbar, .navbar-menu, .navbar-start, .navbar-end {
+    align-items: stretch;
+    display: flex;
+}
+
+.top-bar{
+  margin-top: 10px;
+  background: #06C;
+  color: #FFF;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+}
+*/
+
+.navbar .logo{
+  font-size: 32px;
+}
+
+.top-anchor span{
+  display: block;
+  padding: 0 20px;
+}
+
+.t-menu-bar{
+  z-index: 100;
+  border: none;
+  left: 0;
+  top: 0;
+}
+
+.t-menu-bar .t-menu-item .top-anchor{
+  height: 44px;
+  line-height: 44px;
+  padding-left: 20px;
+}
+
+.t-menu-item,.t-menu-bar{
+  max-width: 300px;
+}
+
+div.t-menu-item{
+  border: none;
+}
+
+.t-menu-bar>.t-menu-item:focus>.t-menu,
+.t-menu-bar>.t-menu-item:hover>.t-menu{
+  padding-bottom: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+.t-menu-bar .top-menu-item:focus-within .top-anchor, .t-menu-bar .top-menu-item:hover .top-anchor{
+  background: darken(#06C, 10%);
+  color: #FFF;
+}
+
+.t-menu-bar .t-menu,
+.t-menu-bar .t-menu .t-menu-item{
+  background: #FFF;
+  color: #4A4A4A;
+}
+
+.t-menu-bar .t-menu .t-menu-anchor:hover{
+  color: #06C;
+}

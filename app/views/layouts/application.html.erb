@@ -12,51 +12,66 @@
   <body class="has-background-light">
     <% if @current_user %>
 
-      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <nav class="navbar is-primary level-right force-flex" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-          <%= link_to({controller: "tasks", action: "index"}, class: "navbar-item title") do  %>
-            <%= icon('fas', 'tasks') %>
-          <% end %>
+        <div class="t-menu-bar">
+          <div class="top-menu-item t-menu-item">
+            <div class="top-anchor t-menu-anchor" tabindex="0">
+              <div class="force-flex">
+                <%= icon('fas', 'tasks', class: 'logo') %>
+                <span>Menu</span>
+                <%= icon('fas', 'caret-down') %>
+              </div>
+            </div>
+            <div class="t-menu">
+              <div class="t-menu-item">
+                <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Users", {controller: "users", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <hr class="navbar-divider">
+              <div class="t-menu-item">
+                <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <hr class="navbar-divider">
+              <div class="t-menu-item">
+                <%=link_to "Comments", {controller: "comments", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
+                <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <hr class="navbar-divider">
+              <div class="t-menu-item">
+                <%=link_to "Log out", "/sessions/logout", method: "post", class: "t-menu-anchor" %>
+              </div>
+            </div>
+          </div>
         </div>
 
-
-        <div class="navbar-menu">
-
-          <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">Menu</a>
-              <div class="navbar-dropdown">
-                <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Users", {controller: "users", action: "index"}, class: "navbar-item" %>
-                <hr class="navbar-divider">
-                <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Task Tags", {controller: "task_tags", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "navbar-item" %>
-                <hr class="navbar-divider">
-                <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Comments", {controller: "comments", action: "index"}, class: "navbar-item" %>
-                <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "navbar-item" %>
-                <hr class="navbar-divider">
-                <%=link_to "Log out", "/sessions/logout", method: "post", class: "navbar-item" %>
-              </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
+                <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
+                <span>
+                  <%= @current_user.username %>
+                </span>
+              <% end %>
             </div>
           </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
-                  <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
-                  <span>
-                    <%= @current_user.username %>
-                  </span>
-                <% end %>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </nav>

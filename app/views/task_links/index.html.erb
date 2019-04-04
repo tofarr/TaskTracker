@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="level">
-  <h1 class="title">Tasks</h1>
+  <h1 class="title">Task Links</h1>
   <% if @current_user.admin? %>
     <%= render partial: "partials/link_btn", locals: {href: new_task_link_path, icon: 'plus', text: 'New Link', css_class: 'is-success'} %>
   <% end %>
