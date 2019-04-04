@@ -19,3 +19,4 @@
 //= require jquery3
 //= require select2
 //= require croppie-2.6.4
+//= require t-popup-1.0.0-min

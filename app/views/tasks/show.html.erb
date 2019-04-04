@@ -20,7 +20,7 @@
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@task), title: "Description", value: @task.description} %>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Parent</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%if @task.parent %>
       <%= render partial: "partials/task", locals: {tag: @task.parent} %>
     <% end %>
@@ -28,19 +28,19 @@
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Assigned User</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/user", locals: {user: @task.assigned_user} %>
   </span>
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Created By</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/user", locals: {user: @task.created_user} %>
   </span>
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Status</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/tag", locals: {tag: @task.status} %>
   </span>
 </div>
@@ -55,7 +55,7 @@
 
 <div class="level">
   <div class="level-item-left column is-one-quarter"></div>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/link_btn", locals: {href: task_links_path(task_id: @task.id), icon: 'link', text: 'Links', css_class: 'is-light'} %>
     <%= render partial: "partials/link_btn", locals: {href: attachments_path(task_id: @task.id), icon: 'paperclip', text: 'Attachments', css_class: 'is-light'} %>
     <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: 'is-light'} %>

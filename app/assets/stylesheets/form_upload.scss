@@ -1,5 +1,65 @@
-.crop-container{
+/*.crop-container{
   min-width: 256px;
   min-height: 256px;
   margin: 10px 0 20px 0;
+}*/
+
+.form-upload-container{
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke !important;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding: 10px 10px 0 10px;
+}
+
+.form-upload-container .button{
+  margin-bottom: 10px;
+}
+
+.form-upload-container .button{
+  min-width: 200px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.form-img-preview{
+  padding: 10px;
+}
+
+.form-img-preview img{
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+}
+
+.crop-popup{
+  z-index: 2;
+}
+
+.crop-popup .t-popup-container{
+  width: 80vw;
+  height: 80vh;
+  padding: 20px;
+  overflow: auto;
+}
+
+.crop-popup .t-popup-container .cropper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.crop-popup .t-popup-container .cropper>.croppie{
+  flex-grow: 1;
+}
+
+.crop-popup .t-popup-container .cropper>.controls{
+  flex-grow: 0;
+}
+
+.crop-popup .cancel-button{
+  margin-right: 20px;
 }

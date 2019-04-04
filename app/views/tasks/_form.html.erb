@@ -8,7 +8,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :parent_id %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:parent_id, @task.parent ? [[@task.parent.title, @task.parent.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[#{@task.id}]", "data-allow-clear": true}) %>
     </div>
   </div>
@@ -17,7 +17,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :tag_ids %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select :tag_ids, @task.tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "task_tags"} %>
     </div>
   </div>
@@ -26,14 +26,14 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :assigned_user_id %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:assigned_user_id, @task.assigned_user ? [[@task.assigned_user.username, @task.assigned_user.id]] : [], {include_blank: true}, {class: "input", "data-search": "users", "data-allow-clear": true}) %>
     </div>
   </div>
 
   <div class="field level">
     <label class="level-item-left column is-one-quarter">Created By</label>
-    <span class="level-item-left column is-three-quaters">
+    <span class="level-item-left column is-three-quarters">
       <%= render partial: "partials/user", locals: {user: @task.created_user} %>
     </span>
   </div>
@@ -42,7 +42,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :status_id %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:status_id, @task.status ? [[@task.status.title, @task.status.id]] : [], {include_blank: true}, {class: "input", "data-search": "task_statuses"}) %>
     </div>
   </div>
@@ -51,14 +51,14 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :priority %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.range_field :priority, min: 0, max: 1, step: 0.001 %>
     </div>
   </div>
 
   <div class="field level">
     <label class="level-item-left column is-one-quarter">Calculated Estimate</label>
-    <span class="level-item-left column is-three-quaters">
+    <span class="level-item-left column is-three-quarters">
       <%= @task.calculated_estimate %>
     </span>
   </div>
@@ -67,35 +67,35 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :due_date %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.datetime_select :due_date %>
     </div>
   </div>
 
   <div class="field level">
     <%= form.label :viewable, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.check_box :viewable %>
     </div>
   </div>
 
   <div class="field level">
     <%= form.label :editable, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.check_box :editable %>
     </div>
   </div>
 
   <div class="field level">
     <%= form.label :commentable, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.check_box :commentable %>
     </div>
   </div>
 
   <div class="field level">
     <%= form.label :public_viewable, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.check_box :public_viewable %>
     </div>
   </div>

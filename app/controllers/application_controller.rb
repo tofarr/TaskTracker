@@ -71,6 +71,11 @@ class ApplicationController < ActionController::Base
   end
 
   def attach_file(attr_sym)
+    if(params[:delete][attr_sym])
+      attr = model_obj.send(attr_sym)
+      attr.purge if attr.attached?
+      return
+    end
     img = params[model_type.underscore.to_sym][attr_sym]
     if img
       if img.class.name == 'String' && img.starts_with?('data:') # String was sent - manually convert to file

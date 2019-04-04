@@ -1,9 +1,38 @@
 <div class="field level">
   <%= form.label attr, class: "level-item-left column is-one-quarter" %>
-  <div class="level-item-left column is-three-quaters form-img-container" data-crop-size="<%=crop_size || 256%>" data-resize="<%=resize || false%>">
-    <% if is_img(data) %>
-      <%= render partial: "partials/icon", locals: {img: data, size: preview_size || 256} %>
-    <% end %>
-    <%= form.file_field attr, direct_upload: false, class: 'form-upload' %>
+  <div class="level-item-left column is-three-quarters">
+    <div class="form-upload-container"
+      data-crop-size="<%=crop_size%>">
+      <div class="form-img-preview has-background-light level-item-center">
+        <% if is_img(data) %>
+          <div>
+            <%= image_tag data, class: "image" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="level-item-center">
+        <label class="button delete-button">
+          <input type="checkbox" checked="false" value="1" name="delete[<%=attr%>]" />
+          <span>Delete</span>
+        <label>
+      </div>
+      <div class="level-item-center">
+        <button type="button" class="button crop-button hidden">
+          <span class="icon is-small">
+            <i class="fas fa-crop"></i>
+          </span>
+          <span>Crop Image</span>
+        </button>
+      </div>
+      <div class="level-item-center">
+        <%= form.label attr, class: "button" do %>
+          <span class="icon is-small">
+            <i class="fas fa-file-upload"></i>
+          </span>
+          <span>Select a File To Upload</span>
+        <% end %>
+      </div>
+      <%= form.file_field attr, direct_upload: false, class: 'form-upload hidden' %>
+    </div>
   </div>
 </div>

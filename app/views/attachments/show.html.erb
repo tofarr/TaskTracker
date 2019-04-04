@@ -20,7 +20,7 @@
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@attachment), title: "Description", value: @attachment.description} %>
 <div class="level">
   <label class="level-item-left column is-one-quarter">User</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/user", locals: {user: @attachment.user} %>
   </span>
 </div>

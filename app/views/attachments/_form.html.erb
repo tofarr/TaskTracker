@@ -8,12 +8,12 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :task_id %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:task_id, attachment.task ? [[attachment.task.title, attachment.task.id]] : [], {include_blank: true}, {class: "input", "data-search": "tasks"}) %>
     </div>
   </div>
 
-  <%= render partial: "partials/form_upload", locals: {form: form, attr: :data, data: attachment.data, preview_size: 300, crop_size: 300, resize: true} %>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :data, data: attachment.data, preview_size: 300} %>
 
   <%= render partial: "partials/form_submit", locals: {form: form, model: attachment} %>
 

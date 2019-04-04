@@ -13,11 +13,11 @@
 <%= render partial: "partials/show_text", locals: {title: "Username", value: @activity_log.username} %>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Action</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <%= render partial: "partials/action", locals: {action: @activity_log.action} %>
   </span>
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">New Value</label>
-  <pre class="level-item-left column is-three-quaters"><%= JSON.pretty_generate(@activity_log.new_value) %></pre>
+  <pre class="level-item-left column is-three-quarters"><%= JSON.pretty_generate(@activity_log.new_value) %></pre>
 </div>

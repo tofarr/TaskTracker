@@ -23,6 +23,8 @@ $primary: #0066CC;
 @import "simplemde-1.11.2.min";
 @import "croppie-2.6.4";
 @import "form_upload";
+@import "checkbox";
+@import "t-popup-1.0.0-min";
 
 .navbar{
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -30,6 +32,10 @@ $primary: #0066CC;
 
 label,legend{
   font-weight: bold;
+}
+
+label.button{
+  font-weight: normal;
 }
 
 fieldset.box{
@@ -54,4 +60,13 @@ fieldset.box{
 .table td,
 .table th {
   vertical-align: middle;
+}
+
+.hidden{
+  display: none;
+}
+
+.level-item-center{
+  display: flex;
+  justify-content: center;
 }

@@ -30,7 +30,7 @@
 
 <div class="level">
   <label class="level-item-left column is-one-quarter">Tags</label>
-  <span class="level-item-left column is-three-quaters">
+  <span class="level-item-left column is-three-quarters">
     <% @user.tags.each do |tag| %>
       <div class="tag is-medium">
         <%= render partial: "partials/icon", locals: {img: tag.icon, size: 32} %>

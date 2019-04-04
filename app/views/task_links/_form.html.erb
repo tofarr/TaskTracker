@@ -5,7 +5,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :from_task %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:from_task_id, @task_link.from_task ? [[@task_link.from_task.text, @task_link.from_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
     </div>
   </div>
@@ -14,7 +14,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :to_task %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:to_task_id, @task_link.to_task ? [[@task_link.to_task.text, @task_link.to_task.id]] : [], {include_blank: false}, {class: "input", "data-search": "tasks", "data-exclude-ids": "[]", "data-allow-clear": false}) %>
     </div>
   </div>
@@ -23,7 +23,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :link_type %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select(:link_type, TaskLink.link_types.map{|link_type|[link_type.titleize, link_type]}, {include_blank: false}, {class: "input"}) %>
     </div>
   </div>

@@ -3,7 +3,7 @@
 
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
   <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
-  <%= render partial: "partials/form_upload", locals: {form: form, attr: :icon, data: task_status.icon, preview_size: 48, crop_size: 256, resize: false} %>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :icon, data: task_status.icon, preview_size: 48, crop_size: 256} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :requires_action} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :default_apply} %>
   <%= render partial: "partials/form_color", locals: {form: form, attr: :color} %>
@@ -12,7 +12,7 @@
     <div class="level-item-left column is-one-quarter">
       <%= form.label :next_status_ids %>
     </div>
-    <div class="level-item-left column is-three-quaters">
+    <div class="level-item-left column is-three-quarters">
       <%= form.select :next_status_ids, task_status.next_statuses.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": task_status.class.to_s.tableize, "data-exclude-ids": "[#{task_status.id}]"} %>
     </div>
   </div>
