@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   end
 
   def attach_file(attr_sym)
-    if(params[:delete][attr_sym])
+    if params[:delete] && params[:delete][attr_sym]
       attr = model_obj.send(attr_sym)
       attr.purge if attr.attached?
       return

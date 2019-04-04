@@ -16,11 +16,11 @@ input[type=checkbox]:after{
   height: 24px;
   background: #FFF;
   cursor: pointer;
-  color: #23d160 !important;
-  content: "\f14a";
+  color: #ff3860 !important;
+  content: "\f0c8";
 }
 
 input[type=checkbox]:checked:after{
-  color: #ff3860 !important;
-  content: "\f0c8";
+  color: #23d160 !important;
+  content: "\f14a";
 }
