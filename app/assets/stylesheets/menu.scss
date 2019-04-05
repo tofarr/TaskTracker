@@ -31,7 +31,8 @@ div.t-menu-item{
 
 .t-menu-bar>.t-menu-item:focus>.t-menu,
 .t-menu-bar>.t-menu-item:hover>.t-menu{
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -50,4 +51,8 @@ div.t-menu-item{
 
 .t-menu-bar .t-menu .t-menu-anchor:hover{
   color: #06C;
+}
+
+.t-menu-bar .t-menu hr.navbar-divider{
+  display: block;
 }
