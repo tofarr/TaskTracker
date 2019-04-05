@@ -24,3 +24,13 @@ input[type=checkbox]:checked:after{
   color: #23d160 !important;
   content: "\f14a";
 }
+
+input[type=range]{
+  width: 100%;
+}
+
+input[type=color]{
+  height: 34px;
+  background: whitesmoke;
+  border-radius: 4px;
+}
