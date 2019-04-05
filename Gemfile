@@ -90,3 +90,6 @@ gem "data_uri", "~> 0.1.0"
 
 # Added at 2019-04-02 20:59:09 -0600 by tofarr:
 gem "mime-types", "~> 3.2"
+
+# Added at 2019-04-05 08:34:40 -0600 by tofarr:
+gem "flatpickr_rails", "~> 1.1"

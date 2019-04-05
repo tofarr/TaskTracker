@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   def current_user
     unless @current_user
       @current_user = User.find_by_id(session[:user_id])
+      set_time_zone(@current_user)
     end
     @current_user
   end
@@ -89,6 +90,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_time_zone(current_user)
+    begin
+      Time.zone = current_user.try(:timezone)
+    rescue
+      logger.warn "Invalid timezone #{current_user.try(:timezone)} for user #{current_user.id}"
+      Time.zone = "UTC"
+    end
+  end
 
   def require_login
     unless logged_in?

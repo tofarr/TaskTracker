@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_31_155716) do
+ActiveRecord::Schema.define(version: 2019_04_05_145307) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2019_03_31_155716) do
     t.boolean "suspended", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "timzeone", limit: 100, default: "UTC", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
