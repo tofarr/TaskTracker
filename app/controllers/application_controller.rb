@@ -4,64 +4,21 @@ require 'mime-types'
 class ApplicationController < ActionController::Base
 
   include ApplicationHelper
+  include LoginHelper
+
+  #From LoginHelper
+  before_action :do_login
   before_action :require_login
+  before_action :set_time_zone
+
+  #From ApplicationHelper
   helper_method :text_color
+
+  #From ActivityLogHelper
   after_action :log_create, only: :create
   after_action :log_update, only: :update
   after_action :log_destroy, only: :destroy
 
-  def current_user
-    unless @current_user
-      @current_user = User.find_by_id(session[:user_id])
-      set_time_zone(@current_user)
-    end
-    @current_user
-  end
-
-  def logged_in?
-    current_user.present? && !current_user.suspended?
-  end
-
-
-  NotAuthorized = Class.new(StandardError)
-
-  def require_admin
-    unless current_user && current_user.admin?
-      raise ApplicationController::NotAuthorized
-    end
-  end
-
-  def log_create
-    if model_obj && model_obj&.persisted?
-      ActivityLog.create(model_type: model_type,
-        model_id: model_obj&.id,
-        user_id: current_user.id,
-        username: current_user.username,
-        action: 'CREATE',
-        new_value: model_obj)
-    end
-  end
-
-  def log_update
-    if model_type && model_obj&.errors&.empty?
-      ActivityLog.create(model_type: model_type,
-        model_id: model_obj&.id,
-        user_id: current_user.id,
-        username: current_user.username,
-        action: 'UPDATE',
-        new_value: model_obj)
-    end
-  end
-
-  def log_destroy
-    if model_type && model_obj&.destroyed?
-      ActivityLog.create(model_type: model_type,
-        user_id: current_user.id,
-        model_id: model_obj&.id,
-        username: current_user.username,
-        action: 'DESTROY')
-    end
-  end
 
   def model_type
     return nil
@@ -89,23 +46,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #We support token based login - token is added to all urls
+  def default_url_options(options = {})
+    options[:auth_token] = @auth_token if @auth_token
+    options
+  end
+
   private
 
-  def set_time_zone(current_user)
-    begin
-      Time.zone = current_user.try(:timezone)
-    rescue
-      logger.warn "Invalid timezone #{current_user.try(:timezone)} for user #{current_user.id}"
-      Time.zone = "UTC"
-    end
-  end
-
-  def require_login
-    unless logged_in?
-      flash[:error] = I18n.t "login_required"
-      redirect_to controller: "sessions", action: "new"
-    end
-  end
+  include ActivityLogHelper
 
   def page(query)
     query.page(params[:page]).per(params[:per] || 10)
