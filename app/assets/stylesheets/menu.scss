@@ -1,25 +1,3 @@
-
-/*
-.navbar-menu {
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
-.navbar, .navbar-menu, .navbar-start, .navbar-end {
-    align-items: stretch;
-    display: flex;
-}
-
-.top-bar{
-  margin-top: 10px;
-  background: #06C;
-  color: #FFF;
-  height: 52px;
-  display: flex;
-  justify-content: space-between;
-}
-*/
-
 .navbar .logo{
   font-size: 32px;
 }
@@ -48,6 +26,7 @@
 
 div.t-menu-item{
   border: none;
+  line-height: 32px;
 }
 
 .t-menu-bar>.t-menu-item:focus>.t-menu,

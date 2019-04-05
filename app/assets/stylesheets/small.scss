@@ -1,0 +1,17 @@
+.table-card{
+  margin-bottom: 12px;
+}
+
+.table-card label{
+  padding-bottom: 0;
+}
+
+.table-card .level:not(:last-child){
+  margin-bottom: 12px;
+}
+
+@media only screen and (max-width: 450px) {
+  .button{
+    width: 100%;
+  }
+}
