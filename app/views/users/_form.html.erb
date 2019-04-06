@@ -23,14 +23,18 @@
   <% end %>
 
   <% if user == current_user %>
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter"></div>
-      <div class="level-item-left column is-three-quarters has-text-danger">
-        Warning: Changing your password will clear any defined access tokens!</p>
+    <fieldset class="box">
+      <legend>Update Password</legend>
+      <div class="field level">
+        <div class="level-item-left column is-one-quarter"></div>
+        <div class="level-item-left column is-three-quarters has-text-danger">
+          Warning: Changing your password will clear any defined access tokens!</p>
+        </div>
       </div>
-    </div>
-    <%= render partial: "partials/form_password", locals: {form: form, attr: :password} %>
-    <%= render partial: "partials/form_password", locals: {form: form, attr: :password_confirmation} %>
+      <%= render partial: "partials/form_password", locals: {form: form, attr: :existing_password} %>
+      <%= render partial: "partials/form_password", locals: {form: form, attr: :password} %>
+      <%= render partial: "partials/form_password", locals: {form: form, attr: :password_confirmation} %>
+    </fieldset>
   <% end %>
 
   <div class="field level">

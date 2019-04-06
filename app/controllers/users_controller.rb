@@ -55,6 +55,10 @@ class UsersController < ApplicationController
     end
 
     user_to_update = @user.clone
+    if user_to_update.password_digest.present? && user_params[:password]
+      puts "TRACE-123:#{params[:user][:existing_password]}"
+      raise ApplicationController::NotAuthorized unless user_to_update.authenticate(params[:user][:existing_password])
+    end
     @user.assign_attributes(user_params)
     attach_file(:avatar)
 
@@ -64,7 +68,7 @@ class UsersController < ApplicationController
         raise ApplicationController::NotAuthorized
       end
     # Can't set somebody elses password.
-    elsif user_to_update.password_digest != @user.password_digest
+    elsif user_params[:password]
       raise ApplicationController::NotAuthorized
     end
 
@@ -118,6 +122,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :admin, :suspended, :tag_ids => [])
+      @user_params ||= params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :admin, :suspended, :tag_ids => [])
     end
 end
