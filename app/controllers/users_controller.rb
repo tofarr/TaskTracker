@@ -63,6 +63,9 @@ class UsersController < ApplicationController
       if user_to_update.admin? != @user.admin? || user_to_update.suspended? != @user.suspended?
         raise ApplicationController::NotAuthorized
       end
+    # Can't set somebody elses password.
+    elsif user_to_update.password_digest != @user.password_digest
+      raise ApplicationController::NotAuthorized
     end
 
     #Admin only assignment tags can only be assigned / unassigned by admins
@@ -115,6 +118,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :verification_code, :admin, :suspended, :tag_ids => [])
+      params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :admin, :suspended, :tag_ids => [])
     end
 end

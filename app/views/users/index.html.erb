@@ -46,11 +46,13 @@
             <%= render partial: "partials/link_btn", locals: {href: user, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
             <% if @current_user.admin? %>
               <%= render partial: "partials/link_btn", locals: {href: edit_user_path(user), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
-              <%= link_to user, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
-                <span class="icon is-small">
-                  <%= icon('fas', 'trash') %>
-                </span>
-                <span>Destroy</span>
+              <% if @current_user != user %>
+                <%= link_to user, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                  <span class="icon is-small">
+                    <%= icon('fas', 'trash') %>
+                  </span>
+                  <span>Destroy</span>
+                <% end %>
               <% end %>
             <% end %>
           </div>

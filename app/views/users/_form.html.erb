@@ -6,23 +6,32 @@
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :email} %>
   <%= render partial: "partials/form_upload", locals: {form: form, attr: :avatar, data: user.avatar, preview_size: 48, crop_size: 256} %>
 
-  <div class="field level">
-    <%= form.label :admin, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.check_box :admin, :disabled => user.id == @current_user.id  %>
+  <% if current_user.id != @user.id %>
+    <div class="field level">
+      <%= form.label :admin, class: "level-item-left column is-one-quarter" %>
+      <div class="level-item-left column is-three-quarters">
+        <%= form.check_box :admin, :disabled => user.id == @current_user.id  %>
+      </div>
     </div>
-  </div>
 
-  <div class="field level">
-    <%= form.label :suspended, class: "level-item-left column is-one-quarter" %>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.check_box :suspended, :disabled => user.id == @current_user.id %>
+    <div class="field level">
+      <%= form.label :suspended, class: "level-item-left column is-one-quarter" %>
+      <div class="level-item-left column is-three-quarters">
+        <%= form.check_box :suspended, :disabled => user.id == @current_user.id %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
-  <%= render partial: "partials/form_password", locals: {form: form, attr: :password} %>
-  <%= render partial: "partials/form_password", locals: {form: form, attr: :password_confirmation} %>
-  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :verification_code} %>
+  <% if user == current_user %>
+    <div class="field level">
+      <div class="level-item-left column is-one-quarter"></div>
+      <div class="level-item-left column is-three-quarters has-text-danger">
+        Warning: Changing your password will clear any defined access tokens!</p>
+      </div>
+    </div>
+    <%= render partial: "partials/form_password", locals: {form: form, attr: :password} %>
+    <%= render partial: "partials/form_password", locals: {form: form, attr: :password_confirmation} %>
+  <% end %>
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter">

@@ -8,3 +8,6 @@
     </ul>
   </div>
 <% end %>
+<% flash.each do |key, value| %>
+  <%= render partial: "partials/notice", locals: {notice: value} %>
+<% end %>

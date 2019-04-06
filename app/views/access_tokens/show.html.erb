@@ -1,0 +1,20 @@
+<div class="level">
+  <h1 class="title">Access Token</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: edit_access_token_path(@access_token), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+    <%= link_to @access_token, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+      <span class="icon is-small">
+        <%= icon('fas', 'trash') %>
+      </span>
+      <span>Destroy</span>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: access_tokens_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @access_token.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @access_token.token} %>
+<%= render partial: "partials/show_timestamp", locals: {title: "Title", value: @access_token.expires_at} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Title", value: @access_token.suspended} %>

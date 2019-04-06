@@ -1,0 +1,10 @@
+<%= form_with(model: access_token, local: true) do |form| %>
+  <%= render partial: "partials/errors", locals: {errors: access_token.errors} %>
+
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :token} %>
+  <%= render partial: "partials/form_timestamp", locals: {form: form, attr: :expires_at} %>
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :suspended} %>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: access_token} %>
+<% end %>

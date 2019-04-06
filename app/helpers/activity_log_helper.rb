@@ -1,7 +1,7 @@
 module ActivityLogHelper
 
   def log_create
-    if model_obj && model_obj&.persisted?
+    if model_type && model_obj&.persisted?
       ActivityLog.create(model_type: model_type,
         model_id: model_obj&.id,
         user_id: current_user.id,

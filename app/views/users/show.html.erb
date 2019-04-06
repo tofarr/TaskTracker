@@ -18,15 +18,23 @@
   </div>
 </div>
 
+<% if @user.password_digest.blank? && (access_token = @user.active_access_tokens.first)  %>
+  <div class="level">
+    <label class="level-item-left column is-one-quarter">Login Link</label>
+    <span class="level-item-left column is-three-quarters">
+      <a href="<%= request.base_url%><%= edit_user_path(@user, :token => access_token.token) %>">
+        <%= request.base_url%><%= edit_user_path(@user, :token => access_token.token) %>
+      </a>
+    </span>
+  </div>
+<% end %>
+
 <%= render partial: "partials/show_text", locals: {title: "Username", value: @user.username} %>
 <%= render partial: "partials/show_text", locals: {title: "Name", value: @user.name} %>
 <%= render partial: "partials/show_text", locals: {title: "Email", value: @user.email} %>
 <%= render partial: "partials/show_icon", locals: {title: "Avatar", value: @user.avatar, size: 48} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Admin", value: @user.admin} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @user.suspended} %>
-<% if @current_user.admin? || @user.id == @current_user.id %>
-  <%= render partial: "partials/show_text", locals: {title: "Verification Code", value: @user.verification_code} %>
-<% end %>
 
 <div class="level">
   <label class="level-item-left column is-one-quarter">Tags</label>

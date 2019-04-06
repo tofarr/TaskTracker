@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_145307) do
+ActiveRecord::Schema.define(version: 2019_04_06_063049) do
+
+  create_table "access_tokens", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title"
+    t.string "token"
+    t.datetime "expires_at"
+    t.boolean "suspended", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_access_tokens_on_expires_at"
+    t.index ["title"], name: "index_access_tokens_on_title"
+    t.index ["token"], name: "index_access_tokens_on_token", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -171,7 +184,6 @@ ActiveRecord::Schema.define(version: 2019_04_05_145307) do
     t.string "name"
     t.string "username", null: false
     t.string "password_digest"
-    t.string "verification_code"
     t.boolean "admin", default: false, null: false
     t.boolean "suspended", default: false, null: false
     t.datetime "created_at", null: false

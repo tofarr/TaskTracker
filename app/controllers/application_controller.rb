@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   #We support token based login - token is added to all urls
   def default_url_options(options = {})
-    options[:auth_token] = @auth_token if @auth_token
+    options[:token] = @token if @token
     options
   end
 

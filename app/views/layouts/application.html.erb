@@ -30,7 +30,7 @@
               <div class="t-menu-item">
                 <%=link_to "Users", {controller: "users", action: "index"}, class: "t-menu-anchor" %>
               </div>
-              <hr class="navbar-divider">
+              <hr class="navbar-divider"/>
               <div class="t-menu-item">
                 <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "t-menu-anchor" %>
               </div>
@@ -43,17 +43,20 @@
               <div class="t-menu-item">
                 <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "t-menu-anchor" %>
               </div>
+              <hr class="navbar-divider"/>
               <div class="t-menu-item">
                 <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "t-menu-anchor" %>
               </div>
-              <hr class="navbar-divider">
               <div class="t-menu-item">
                 <%=link_to "Comments", {controller: "comments", action: "index"}, class: "t-menu-anchor" %>
               </div>
               <div class="t-menu-item">
                 <%=link_to "Attachments", {controller: "attachments", action: "index"}, class: "t-menu-anchor" %>
               </div>
-              <hr class="navbar-divider">
+              <div class="t-menu-item">
+                <%=link_to "Access Tokens", {controller: "access_tokens", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <hr class="navbar-divider"/>
               <div class="t-menu-item">
                 <%=link_to "Log out", "/sessions/logout", method: "post", class: "t-menu-anchor" %>
               </div>

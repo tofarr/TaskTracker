@@ -46,7 +46,7 @@
 </div>
 <%= render partial: "partials/show_text", locals: {title: "Priority", value: @task.priority} %>
 <%= render partial: "partials/show_text", locals: {title: "Calculated Estimate", value: @task.calculated_estimate} %>
-<%= render partial: "partials/show_text", locals: {title: "Due Date", value: @task.due_date} %>
+<%= render partial: "partials/show_timestamp", locals: {title: "Due Date", value: @task.due_date} %>
 
 <%= render partial: "partials/show_boolean", locals: {title: "Viewable", value: @task.viewable} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Editable", value: @task.editable} %>

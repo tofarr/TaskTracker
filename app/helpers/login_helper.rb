@@ -29,13 +29,25 @@ module LoginHelper
         end
       end
     else
-      #auth_token = params[:auth_token] || request.headers[:auth_token]
-      #if auth_token
-        #TODO - token based validation here...
-        #@auth_token = auth_token
-      #else
+      token = params[:token] || request.headers[:token]
+      if token
+        auth_token = AccessToken.active_access_tokens.find_by_token(token)
+        raise LoginHelper::NotAuthorized unless auth_token
+        @token = token
+        @current_user = auth_token.user
+        if @current_user.password_digest.blank?
+          flash[:error] = I18n.t "password_update_required"
+          if controller_name == 'users'
+            true
+          else
+            redirect_to controller: "users",  action: "edit", id: @current_user.id
+          end
+        else
+          true
+        end
+      else
         @current_user = User.find_by_id(session[:user_id])
-      #end
+      end
     end
   end
 
