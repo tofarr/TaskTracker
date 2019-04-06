@@ -31,10 +31,10 @@ module LoginHelper
     else
       token = params[:token] || request.headers[:token]
       if token
-        auth_token = AccessToken.active_access_tokens.find_by_token(token)
-        raise LoginHelper::NotAuthorized unless auth_token
+        access_token = AccessToken.active_access_tokens.find_by_token(token)
+        raise LoginHelper::NotAuthorized unless access_token
         @token = token
-        @current_user = auth_token.user
+        @current_user = access_token.user
         if @current_user.password_digest.blank?
           flash[:error] = I18n.t "password_update_required"
           if controller_name == 'users'

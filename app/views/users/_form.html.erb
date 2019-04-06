@@ -31,7 +31,9 @@
           Warning: Changing your password will clear any defined access tokens!</p>
         </div>
       </div>
-      <%= render partial: "partials/form_password", locals: {form: form, attr: :existing_password} %>
+      <% if @user.password_digest.present? %>
+        <%= render partial: "partials/form_password", locals: {form: form, attr: :existing_password} %>
+      <% end %>
       <%= render partial: "partials/form_password", locals: {form: form, attr: :password} %>
       <%= render partial: "partials/form_password", locals: {form: form, attr: :password_confirmation} %>
     </fieldset>

@@ -56,7 +56,6 @@ class UsersController < ApplicationController
 
     user_to_update = @user.clone
     if user_to_update.password_digest.present? && user_params[:password]
-      puts "TRACE-123:#{params[:user][:existing_password]}"
       raise ApplicationController::NotAuthorized unless user_to_update.authenticate(params[:user][:existing_password])
     end
     @user.assign_attributes(user_params)
@@ -84,6 +83,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+
+        if user_params[:password]
+          session[:user_id] = @user.id
+          @token = nil
+        end
+
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
