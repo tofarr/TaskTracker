@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
-
 <div class="level">
   <h1 class="title">Activity Log</h1>
 </div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>

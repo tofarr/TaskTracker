@@ -1,11 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <div class="level">
   <h1 class="title">Tasks</h1>
   <% if @current_user %>
     <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
   <% end %>
 </div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <%= render partial: "partials/search_form", locals: {url: tasks_path} %>
 

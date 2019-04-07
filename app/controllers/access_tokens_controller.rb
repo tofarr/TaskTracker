@@ -5,6 +5,7 @@ class AccessTokensController < ApplicationController
   # GET /access_tokens.json
   def index
     @access_tokens = current_user.access_tokens.order(params[:order] || :title).page(params[:page])
+    @access_tokens = @access_tokens.where("title like ?", "%#{params[:q]}%") if params[:q]
   end
 
   # GET /access_tokens/1

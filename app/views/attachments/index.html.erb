@@ -1,9 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <div class="level">
   <h1 class="title">Attachments</h1>
   <%= render partial: "partials/link_btn", locals: {href: new_attachment_path, icon: 'plus', text: 'New Attachment', css_class: 'is-success'} %>
 </div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <%= render partial: "partials/search_form", locals: {url: attachments_path} %>
 
