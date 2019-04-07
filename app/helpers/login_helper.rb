@@ -12,7 +12,7 @@ module LoginHelper
 
   def require_admin
     unless current_user && current_user.admin?
-      raise AuthenticationHelper::NotAuthorized
+      raise LoginHelper::NotAuthorized
     end
   end
 

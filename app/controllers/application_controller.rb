@@ -57,6 +57,9 @@ class ApplicationController < ActionController::Base
   include ActivityLogHelper
 
   def page(query)
+    if params[:per] && params[:per] > 50
+      raise LoginHelper::NotAuthorized unless current_user.admin?
+    end
     query.page(params[:page]).per(params[:per] || 10)
   end
 
