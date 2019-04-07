@@ -48,6 +48,15 @@
     </div>
   </div>
 
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :locale %>
+    </div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.select(:locale, [[I18n.t(@user.locale), @user.locale]], {include_blank: false}, {class: "input"}) %>
+    </div>
+  </div>
+
   <%= render partial: "partials/form_submit", locals: {form: form, model: user} %>
 
 <% end %>

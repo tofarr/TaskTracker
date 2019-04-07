@@ -5,10 +5,12 @@ class ApplicationController < ActionController::Base
 
   include ApplicationHelper
   include LoginHelper
+  include LocaleHelper
 
   #From LoginHelper
   before_action :do_login
   before_action :require_login
+  before_action :set_locale
   before_action :set_time_zone
   before_action :disallow_edits_with_read_only_token, only: [:new,:create,:edit,:update,:destroy]
 

@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     end
 
     user_to_update = @user.clone
-    if user_to_update.password_digest.present? && user_params[:password]
+    if user_to_update.password_digest.present? && user_params[:password].present?
       raise ApplicationController::NotAuthorized unless user_to_update.authenticate(params[:user][:existing_password])
     end
     @user.assign_attributes(user_params)
@@ -127,6 +127,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      @user_params ||= params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :admin, :suspended, :tag_ids => [])
+      @user_params ||= params.require(:user).permit(:email, :name, :username, :password, :password_confirmation, :admin, :suspended, :locale, :tag_ids => [])
     end
 end

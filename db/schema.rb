@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_141237) do
+ActiveRecord::Schema.define(version: 2019_04_07_161338) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -189,7 +189,8 @@ ActiveRecord::Schema.define(version: 2019_04_07_141237) do
     t.boolean "suspended", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "timzeone", limit: 100, default: "UTC", null: false
+    t.string "locale", limit: 30, default: "en", null: false
+    t.string "timezone", limit: 100, default: "UTC", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username", unique: true
   end

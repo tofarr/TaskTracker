@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :access_tokens, :dependent => :destroy
 
   validate :check_tag_mutex
+  validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
   after_create :add_first_access_token
   after_update :clear_tokens_after_password_change
