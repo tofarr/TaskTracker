@@ -7,12 +7,7 @@
       </span>
       <span>Show</span>
     <% end %>
-    <%= link_to access_tokens_path, class: "button is-light" do %>
-      <span class="icon is-small">
-        <%= icon('fas', 'caret-left') %>
-      </span>
-      <span>Back</span>
-    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: access_tokens_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
   </div>
 </div>
 

@@ -1,12 +1,7 @@
 <div class="level">
   <h1 class="title">New Link</h1>
   <div class="level-item-right">
-    <%= link_to task_links_path, class: "button is-light" do %>
-      <span class="icon is-small">
-        <%= icon('fas', 'caret-left') %>
-      </span>
-      <span>Back</span>
-    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: task_links_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
   </div>
 </div>
 
