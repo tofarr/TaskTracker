@@ -1,6 +1,9 @@
 <div class="level">
   <h1 class="title">Task</h1>
   <div class="level-item-right">
+    <% if @current_user %>
+      <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
+    <% end %>
     <% if @task.editable_by?(@current_user.id) %>
       <%= render partial: "partials/link_btn", locals: {href: edit_task_path(@task), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
       <%= link_to @task, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>

@@ -1,6 +1,7 @@
 <div class="level">
   <h1 class="title">Access Token</h1>
   <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
     <%= render partial: "partials/link_btn", locals: {href: edit_access_token_path(@access_token), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
     <%= link_to @access_token, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
       <span class="icon is-small">

@@ -1,6 +1,7 @@
 <div class="level">
   <h1 class="title">Attachment</h1>
   <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: new_attachment_path, icon: 'plus', text: 'New Attachment', css_class: 'is-success'} %>
     <% if @attachment.editable_by?(@current_user) %>
       <%= render partial: "partials/link_btn", locals: {href: edit_attachment_path(@attachment), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
       <%= link_to @attachment, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>

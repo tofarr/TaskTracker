@@ -1,6 +1,7 @@
 <div class="level">
   <h1 class="title">Link</h1>
   <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: new_task_link_path, icon: 'plus', text: 'New Link', css_class: 'is-success'} %>
     <%= render partial: "partials/link_btn", locals: {href: task_links_path, icon: 'caret-left', text: 'Back', css_class: 'is-light'} %>
   </div>
 </div>

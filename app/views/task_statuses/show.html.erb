@@ -2,6 +2,7 @@
   <h1 class="title">Task Status</h1>
   <div class="level-item-right">
     <% if @current_user.admin? %>
+      <%= render partial: "partials/link_btn", locals: {href: new_task_status_path, icon: 'plus', text: 'New Task Status', css_class: 'is-success'} %>
       <%= render partial: "partials/link_btn", locals: {href: edit_task_status_path(@task_status), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
       <%= link_to @task_status, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
         <span class="icon is-small">

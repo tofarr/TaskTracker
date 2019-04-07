@@ -2,9 +2,7 @@
 
 <div class="level">
   <h1 class="title">Access Tokens</h1>
-  <% if @current_user.admin? %>
-    <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
-  <% end %>
+  <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
 </div>
 
 <table class="table is-striped is-fullwidth">
