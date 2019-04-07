@@ -26,3 +26,5 @@
     <%= @task_link.link_type.titleize %>
   </span>
 </div>
+
+<%= render partial: "partials/show_timestamp", locals: {title: "Created At", value: @task_link.created_at} %>

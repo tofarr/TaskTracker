@@ -64,3 +64,5 @@
     <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: 'is-light'} %>
   </span>
 </div>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @task.created_at, updated_at: @task.updated_at} %>

@@ -32,3 +32,5 @@
     <% end %>
   </span>
 </div>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @task_status.created_at, updated_at: @task_status.updated_at} %>

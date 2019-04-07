@@ -27,3 +27,5 @@
 </div>
 
 <%= render partial: "partials/show_file", locals: {item: @attachment, size: 300} %>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @attachment.created_at, updated_at: @attachment.updated_at} %>

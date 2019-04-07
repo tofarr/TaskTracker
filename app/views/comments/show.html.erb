@@ -34,3 +34,5 @@
 <%= render partial: "partials/show_file", locals: {item: @comment, size: 300} %>
 
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@comment), title: "Text", value: @comment.text} %>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @comment.created_at, updated_at: @comment.updated_at} %>
