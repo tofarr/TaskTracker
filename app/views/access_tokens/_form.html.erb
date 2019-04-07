@@ -3,6 +3,7 @@
 
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :token} %>
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :read_only} %>
   <%= render partial: "partials/form_timestamp", locals: {form: form, attr: :expires_at} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :suspended} %>
 

@@ -17,6 +17,7 @@
 
 <%= render partial: "partials/show_text", locals: {title: "Title", value: @access_token.title} %>
 <%= render partial: "partials/show_text", locals: {title: "Token", value: @access_token.token} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Read Only", value: @access_token.read_only} %>
 <%= render partial: "partials/show_timestamp", locals: {title: "Expires At", value: @access_token.expires_at} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @access_token.suspended} %>
 

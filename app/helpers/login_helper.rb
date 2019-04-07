@@ -58,6 +58,10 @@ module LoginHelper
     end
   end
 
+  def disallow_edits_with_read_only_token
+    rails LoginHelper::NotAuthorized if @token&.read_only?
+  end
+
   #Set the timezone to be used to parse dates from that in the current user
   def set_time_zone
     begin

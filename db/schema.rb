@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_06_063049) do
+ActiveRecord::Schema.define(version: 2019_04_07_141237) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_04_06_063049) do
     t.boolean "suspended", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "read_only", default: false, null: false
     t.index ["expires_at"], name: "index_access_tokens_on_expires_at"
     t.index ["title"], name: "index_access_tokens_on_title"
     t.index ["token"], name: "index_access_tokens_on_token", unique: true

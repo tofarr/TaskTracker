@@ -72,6 +72,6 @@ class AccessTokensController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_token_params
-      params.require(:access_token).permit(:title, :token, :expires_at, :suspended)
+      params.require(:access_token).permit(:title, :token, :read_only, :expires_at, :suspended)
     end
 end

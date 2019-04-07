@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :do_login
   before_action :require_login
   before_action :set_time_zone
+  before_action :disallow_edits_with_read_only_token, only: [:new,:create,:edit,:update,:destroy]
 
   #From ApplicationHelper
   helper_method :text_color
