@@ -6,9 +6,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    tasks = Task.viewable_tasks(current_user)
-    tasks = tasks.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @tasks = page(tasks.order(params[:order] || {priority: :desc, updated_at: :desc}))
+    task_search = params[:task_search_id] ? TaskSearch.viewable_searches(current_user).find(params[:task_search_id]) : TaskSearch.new
+    task_search.assign_attributes(TaskSearchesController.task_search_params(params))
+    @tasks = page(task_search.search(current_user))
   end
 
   # GET /tasks/1
@@ -104,6 +104,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :parent_id, :assigned_user_id, :status_id, :priority, :due_date, :estimate, :viewable, :editable, :commentable, :public_viewable)
+      params.require(:task).permit(:title, :description, :parent_id, :assigned_user_id, :status_id, :priority, :due_date, :estimate, :viewable, :editable, :commentable, :public_viewable, {:tag_ids => []})
     end
 end

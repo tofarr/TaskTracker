@@ -7,7 +7,7 @@
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
-<%= render partial: "partials/search_form", locals: {url: tasks_path} %>
+<%= render partial: "partials/search_form", locals: {url: tasks_path, field_name: "task_search[query]", value: params.fetch(:task_search, {})[:query]} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>
@@ -38,7 +38,7 @@
         <td>
           <div class="level-right">
             <%= render partial: "partials/link_btn", locals: {href: task, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
-            <% if @current_user %>
+            <% if task.editable_by?(@current_user) %>
               <%= render partial: "partials/link_btn", locals: {href: edit_task_path(task), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
               <%= link_to task, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
                 <span class="icon is-small">

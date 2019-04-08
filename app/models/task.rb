@@ -52,14 +52,17 @@ class Task < ApplicationRecord
   end
 
   def viewable_by?(user)
+    return false unless user
     viewable || owned_by?(user) || (view_user_tags & user.tags).any?
   end
 
   def editable_by?(user)
+    return false unless user
     editable || owned_by?(user) || (edit_user_tags & user.tags).any?
   end
 
   def owned_by?(user)
+    return false unless user
     user.admin || user.id == created_by_id || user.id == assigned_user_id
   end
 

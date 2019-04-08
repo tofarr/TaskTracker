@@ -4,7 +4,7 @@
     <% if @current_user %>
       <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
     <% end %>
-    <% if @task.editable_by?(@current_user.id) %>
+    <% if @task.editable_by?(@current_user) %>
       <%= render partial: "partials/link_btn", locals: {href: edit_task_path(@task), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
       <%= link_to @task, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
         <span class="icon is-small">
@@ -28,6 +28,14 @@
       <%= render partial: "partials/task", locals: {tag: @task.parent} %>
     <% end %>
   </span>
+</div>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Task Tags</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task.tags.each do |task_tag| %>
+      <%= render partial: "partials/tag", locals: {tag: task_tag} %>
+    <% end %>
+  </div>
 </div>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Assigned User</label>

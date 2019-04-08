@@ -1,0 +1,9 @@
+
+<div class="level">
+  <h1 class="title">New Task Search</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: task_searches_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
+
+<%= render 'form', task_search: @task_search %>

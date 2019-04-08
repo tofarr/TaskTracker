@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_161338) do
+ActiveRecord::Schema.define(version: 2019_04_08_001523) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -89,6 +89,53 @@ ActiveRecord::Schema.define(version: 2019_04_07_161338) do
     t.index ["from_task_id"], name: "index_task_links_on_from_task_id"
     t.index ["link_type"], name: "index_task_links_on_link_type"
     t.index ["to_task_id"], name: "index_task_links_on_to_task_id"
+  end
+
+  create_table "task_searches", force: :cascade do |t|
+    t.string "query"
+    t.string "title", null: false
+    t.integer "user_id", null: false
+    t.boolean "public", default: false, null: false
+    t.string "sort_order"
+    t.boolean "descending", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "task_searches_assigned_user_tags", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_tag_id", null: false
+    t.index ["task_search_id", "user_tag_id"], name: "idx_task_searches_assigned_user_tags", unique: true
+  end
+
+  create_table "task_searches_assigned_users", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_id", null: false
+    t.index ["task_search_id", "user_id"], name: "idx_task_searches_assigned_users", unique: true
+  end
+
+  create_table "task_searches_created_user_tags", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_tag_id", null: false
+    t.index ["task_search_id", "user_tag_id"], name: "idx_task_searches_created_user_tags", unique: true
+  end
+
+  create_table "task_searches_created_users", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_id", null: false
+    t.index ["task_search_id", "user_id"], name: "idx_task_searches_created_users", unique: true
+  end
+
+  create_table "task_searches_statuses", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "task_status_id", null: false
+    t.index ["task_search_id", "task_status_id"], name: "idx_task_searches_statuses", unique: true
+  end
+
+  create_table "task_searches_tags", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "task_tag_id", null: false
+    t.index ["task_search_id", "task_tag_id"], name: "idx_task_searches_tags", unique: true
   end
 
   create_table "task_status_joins", id: false, force: :cascade do |t|

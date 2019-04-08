@@ -1,0 +1,87 @@
+<div class="level">
+  <h1 class="title">Task Search</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: tasks_path(task_search_id: @task_search.id), icon: 'search', text: 'Search', css_class: 'is-light back-btn'} %>
+    <% if @current_user %>
+      <%= render partial: "partials/link_btn", locals: {href: new_task_search_path, icon: 'plus', text: 'New Task Search', css_class: 'is-success'} %>
+    <% end %>
+    <% if @task_search.editable_by?(@current_user) %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_task_search_path(@task_search), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @task_search, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
+      <% end %>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: task_searches_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @task_search.title} %>
+
+<%= render partial: "partials/show_text", locals: {title: "Query", value: @task_search.query} %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Task Tags</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.task_tags.each do |tag| %>
+      <%= render partial: "partials/tag", locals: {tag: tag} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Created By Tags</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.created_user_tags.each do |tag| %>
+      <%= render partial: "partials/tag", locals: {tag: tag} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Assigned to Tags</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.assigned_user_tags.each do |tag| %>
+      <%= render partial: "partials/tag", locals: {tag: tag} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Created by Users</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.created_users.each do |user| %>
+      <%= render partial: "partials/user", locals: {user: user} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Assigned to Users</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.assigned_users.each do |user| %>
+      <%= render partial: "partials/user", locals: {user: user} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Task Statuses</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @task_search.task_statuses.each do |task_status| %>
+      <%= render partial: "partials/tag", locals: {tag: task_status} %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "partials/show_text", locals: {title: "Order", value: @task_search.sort_order&.titleize} %>
+
+<%= render partial: "partials/show_boolean", locals: {title: "Descending", value: @task_search.descending} %>
+
+<%= render partial: "partials/show_boolean", locals: {title: "Public", value: @task_search.public} %>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @task_search.created_at, updated_at: @task_search.updated_at} %>

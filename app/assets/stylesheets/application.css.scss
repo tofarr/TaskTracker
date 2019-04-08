@@ -84,3 +84,11 @@ fieldset.box{
 .timestamp{
   text-transform: capitalize;
 }
+
+.flex{
+  display: flex;
+}
+
+.flex>*{
+  margin-right: 5px;
+}

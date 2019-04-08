@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :comments, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :access_tokens, :dependent => :destroy
+  has_many :task_searches, :dependent => :destroy
+  has_and_belongs_to_many :task_searches_where_created, class_name: "TaskSearch", join_table: :task_searches_created_users, foreign_key: :user_id, association_foreign_key: :task_search_id
+  has_and_belongs_to_many :task_searches_where_assigned, class_name: "TaskSearch", join_table: :task_searches_assigned_users, foreign_key: :user_id, association_foreign_key: :task_search_id
 
   validate :check_tag_mutex
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }

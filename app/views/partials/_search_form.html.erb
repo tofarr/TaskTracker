@@ -1,7 +1,11 @@
+<%
+field_name ||= :q
+value ||= params[field_name]
+%>
 <%= form_with url: url, local: true, method: :get, class: "level" do |form| %>
   <div class="field level">
     <div class="control has-icons-left">
-      <%= form.text_field :q, :value => params[:q], class: "level-item input", placeholder: "Search" %>
+      <%= form.text_field field_name, :value => value, class: "level-item input", placeholder: "Search" %>
       <span class="icon is-small is-left">
         <i class="fas fa-search"></i>
       </span>
