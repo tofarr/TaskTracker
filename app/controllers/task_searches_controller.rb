@@ -67,6 +67,20 @@ class TaskSearchesController < ApplicationController
     end
   end
 
+  def submit
+    if params[:create]
+      process(:create)
+      return
+    elsif params[:update]
+      process(:update)
+      return
+    else
+      #redirect_to({controller: "tasks", action: 'index'}.merge(TaskSearchesController.task_search_params(params).as_json))
+      redirect_to({controller: "tasks", action: 'index', task_search: params.fetch(:task_search, {}).as_json})
+      return
+    end
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def self.task_search_params(params)
     params.fetch(:task_search, {}).permit(:query, :title, :public, :sort_order, :descending, {

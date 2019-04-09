@@ -92,3 +92,9 @@ fieldset.box{
 .flex>*{
   margin-right: 5px;
 }
+
+@media screen and (max-width: 768px){
+  .button{
+    width: 100%;
+  }
+}

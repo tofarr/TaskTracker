@@ -56,15 +56,26 @@ class TaskSearch < ApplicationRecord
 
     tasks = tasks.where(task_status_ids: task_status_ids) unless task_status_ids.blank?
 
-    order = nil
     if sort_order.present?
       order = {}
       order[sort_order.to_sym] = descending ? :desc : :asc
+      tasks = tasks.send(:order, order)
     else
-      order = {priority: :desc, updated_at: :desc}
+      tasks = tasks.order(priority: :desc, updated_at: :desc)
     end
 
-    tasks.order(sort_order)
+    tasks
+  end
+
+  def default_search?
+    return query.blank? &&
+      task_tags.empty? &&
+      created_user_tags.empty? &&
+      assigned_user_tags.empty? &&
+      created_users.empty? &&
+      assigned_users.empty? &&
+      task_statuses.empty? &&
+      sort_order.blank?
   end
 
 end

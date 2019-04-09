@@ -1,4 +1,8 @@
-<%= form_with(model: task_search, local: true) do |form| %>
+<%= form_for task_search, :url => {:action => "submit"}, :method => "POST" do |form| %>
+  <% if @task_search.id %>
+    <input type="hidden" name="id" value="<%=@task_search.id%>" />
+  <% end %>
+
   <%= render partial: "partials/errors", locals: {errors: task_search.errors} %>
 
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
@@ -70,8 +74,19 @@
 
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :descending} %>
 
-  <% if @current_user %>
-    <%= render partial: "partials/form_submit", locals: {form: form, model: @task_search} %>
-  <% end %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-three-quarters">
+      <button type="submit" name="search" class="button">
+        <span class="icon is-small">
+          <%= icon('fas', 'search') %>
+        </span>
+        <span>Search Tasks</span>
+      </button>
+      <% if @current_user %>
+        <%= form.submit name: (@task_search.new_record? ? "create" : "update"), class: "button #{@task_search.new_record? ? "is-success" : "is-info"}" %>
+      <% end %>
+    </div>
+  </div>
 
 <% end %>

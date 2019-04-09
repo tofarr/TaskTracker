@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "/task_search/submit", to: "task_searches#submit"
   resources :task_searches
   resources :access_tokens
   resources :activity_logs
