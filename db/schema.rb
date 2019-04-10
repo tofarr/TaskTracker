@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_001523) do
+ActiveRecord::Schema.define(version: 2019_04_10_020828) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_001523) do
     t.string "model_type", limit: 50, null: false
     t.integer "model_id", null: false
     t.string "action", limit: 50, null: false
-    t.text "new_value"
+    t.text "updates"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

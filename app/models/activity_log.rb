@@ -9,11 +9,11 @@ class ActivityLog < ApplicationRecord
   validates :model_id, presence: true
   validates :action, inclusion: { in: action_types }
 
-  def new_value
-    JSON.parse(read_attribute(:new_value))
+  def updates
+    JSON.parse(read_attribute(:updates))
   end
 
-  def new_value=(value)
-    write_attribute(:new_value, value&.to_json)
+  def updates=(value)
+    write_attribute(:updates, value&.to_json)
   end
 end

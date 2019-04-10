@@ -7,7 +7,7 @@ module ActivityLogHelper
         user_id: current_user.id,
         username: current_user.username,
         action: 'CREATE',
-        new_value: model_obj)
+        updates: model_obj)
     end
   end
 
@@ -18,7 +18,7 @@ module ActivityLogHelper
         user_id: current_user.id,
         username: current_user.username,
         action: 'UPDATE',
-        new_value: model_obj)
+        updates: model_obj.previous_changes)
     end
   end
 
