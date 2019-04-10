@@ -5,9 +5,9 @@ module ApplicationHelper
   end
 
   def luminance(color)
-    red = color[1,3].to_i
-    green = color[3,5].to_i
-    blue = color[5,7].to_i
+    red = color[1,2].to_i(16)
+    green = color[3,2].to_i(16)
+    blue = color[5,2].to_i(16)
     (red * 0.299 + green * 0.587 + blue * 0.114)
   end
 
