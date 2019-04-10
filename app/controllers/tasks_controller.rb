@@ -27,12 +27,12 @@ class TasksController < ApplicationController
     @task.status = TaskStatus.order(default_apply: :desc).first
     if params[:parent_id]
       parent = Task.find(params[:parent_id])
-      raise ActionController::RoutingError.new('Not Found') unless parent.viewable_by(current_user)
-      @task.parent = parent
+      raise ActionController::RoutingError.new('Not Found') unless parent.viewable_by?(current_user)
+      @task.parent_id = parent.id
       @task.tags = parent.tags
       @task.viewable = parent.viewable
       @task.editable = parent.editable
-      @task.public = parent.public
+      @task.public_viewable = parent.public_viewable
       @task.commentable = parent.commentable
     else
       #Todo take from settings
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
       @task.editable = true
       @task.commentable = true
     end
-    @task.priority = Task.where(parent_id: params[:parent_id]).order(:priority).last.priority || 0.5
+    @task.priority = Task.where(parent_id: params[:parent_id]).order(:priority).last&.priority || 0.5
   end
 
   # GET /tasks/1/edit
