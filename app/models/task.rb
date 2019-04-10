@@ -106,7 +106,7 @@ class Task < ApplicationRecord
   end
 
   def validate_prereqs
-    unless status.requires_action
+    if status.present? && !status.requires_action
       from_links.where(link_type: 'prereq').select do |link|
         errors.add(:from_links, "Prerequisites must be complete!") if link.from_task.status.requires_action
       end

@@ -1,5 +1,7 @@
 class TaskStatus < ApplicationRecord
 
+  include Colored
+
   validates :title, presence: true
   has_one_attached :icon
   validate :only_one_default_apply

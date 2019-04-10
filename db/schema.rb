@@ -150,11 +150,11 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
   create_table "task_statuses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.boolean "requires_action", null: false
+    t.boolean "requires_action", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "default_apply", default: false, null: false
-    t.string "color", limit: 8, default: "#209cee", null: false
+    t.string "color", limit: 8, null: false
   end
 
   create_table "task_tag_mutexes", force: :cascade do |t|
@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
     t.datetime "updated_at", null: false
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
-    t.string "color", limit: 8, default: "#209cee", null: false
+    t.string "color", limit: 8, null: false
   end
 
   create_table "task_tags_tasks", id: false, force: :cascade do |t|
@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
     t.datetime "updated_at", null: false
     t.boolean "only_admin_can_apply", default: false, null: false
     t.boolean "default_apply", default: false, null: false
-    t.string "color", limit: 8, default: "#209cee", null: false
+    t.string "color", limit: 8, null: false
   end
 
   create_table "user_tags_users", id: false, force: :cascade do |t|

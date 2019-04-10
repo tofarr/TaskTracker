@@ -1,4 +1,7 @@
 class UserTag < ApplicationRecord
+
+  include Colored
+  
   validates :title, presence: true
   has_one_attached :icon
   has_many :user_tag_mutex

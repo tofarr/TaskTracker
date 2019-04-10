@@ -1,4 +1,7 @@
 class TaskTag < ApplicationRecord
+
+  include Colored
+  
   validates :title, presence: true
   has_one_attached :icon
   has_many :task_tag_mutex
