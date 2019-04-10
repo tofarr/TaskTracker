@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_020828) do
+ActiveRecord::Schema.define(version: 2019_04_10_023853) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -56,6 +56,9 @@ ActiveRecord::Schema.define(version: 2019_04_10_020828) do
     t.text "updates"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_activity_logs_on_created_at"
+    t.index ["model_id"], name: "index_activity_logs_on_model_id"
+    t.index ["model_type"], name: "index_activity_logs_on_model_type"
   end
 
   create_table "attachments", force: :cascade do |t|

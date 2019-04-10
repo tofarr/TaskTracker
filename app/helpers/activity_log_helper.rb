@@ -28,7 +28,8 @@ module ActivityLogHelper
         user_id: current_user.id,
         model_id: model_obj&.id,
         username: current_user.username,
-        action: 'DESTROY')
+        action: 'DESTROY',
+        updates: model_obj)
     end
   end
 

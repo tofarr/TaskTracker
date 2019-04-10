@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="area">
+
+  <text x="50" y="6" text-anchor="middle" style="fill: #000; stroke: #FFF; stroke-width: 0.5px; font: bold 5px sans-serif; paint-order: stroke;">Task Statuses</text>
+
+  <path
+    stroke="#CCC"
+    stroke-width="0.3"
+    fill="none"
+    d="M 10,10
+    L 10,90
+    L 98,90" />
+
+  <text x="8" y="90" text-anchor="end" style="font: bold 3px sans-serif; fill: #000; stroke: #FFF; stroke-width: 0.3px; paint-order: stroke; alignment-baseline: middle;"><%= @min %></text>
+  <text x="8" y="10" text-anchor="end" style="font: bold 3px sans-serif; fill: #000; stroke: #FFF; stroke-width: 0.3px; paint-order: stroke; alignment-baseline: middle;"><%= @max %></text>
+
+  <text x="10" y="94" text-anchor="middle" style="font: bold 3px sans-serif; fill: #000; stroke: #FFF; stroke-width: 0.3px; paint-order: stroke; alignment-baseline: middle;"><%= @chart_dates.first[:date].strftime('%Y-%m-%d') %></text>
+  <text x="98" y="94" text-anchor="end" style="font: bold 3px sans-serif; fill: #000; stroke: #FFF; stroke-width: 0.3px; paint-order: stroke; alignment-baseline: middle;"><%= @chart_dates.last[:date].strftime('%Y-%m-%d') %></text>
+
+  <% @task_statuses.each do |task_status| %>
+    <path
+      fill="none"
+      stroke="<%=task_status.color%>"
+      stroke-width="0.5"
+      d="<%
+        @chart_dates.inject(true) do |first, chart_date|
+          %><%=first ? 'M' : 'L'%><%=chart_date[:x]%>,<%=chart_date[:y][task_status.id]%> <%
+          false
+        end
+      %>" />
+  <% end %>
+
+  <%
+  delta = 88 / (@chart_dates.length - 1).to_f
+  half = delta / 2
+  @chart_dates.inject(true) do |first, chart_date|
+    x = chart_date[:x] - half
+    width = delta
+    if x < 10
+      width -= 10 - x
+      x = 10
+    end
+    if x + width > 98
+      width = 98 - x
+    end
+    %>
+    <g tabindex="0">
+      <title><%=chart_date[:date].strftime('%Y-%m-%d')%></title>
+      <rect
+        stroke="#CCC"
+        stroke-width="0.1"
+        fill="#FFF"
+        style="opacity:0.5"
+        x="<%= x %>"
+        y="10"
+        width="<%=width%>"
+        height="80" />
+    </g>
+  <% end %>
+
+  <% @task_statuses.each do |task_status|
+    @chart_dates.inject(true) do |first, chart_date| %>
+      <g tabindex="0">
+        <title><%= task_status.title %> : <%= chart_date[:values][task_status.id] %></title>
+        <circle
+          stroke="none"
+          fill="<%=task_status.color%>"
+          cx="<%=chart_date[:x]%>"
+          cy="<%=chart_date[:y][task_status.id]%>"
+          r="1" />
+      </g>
+    <% end
+  end %>
+
+</svg>

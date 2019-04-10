@@ -18,6 +18,13 @@ class TaskSearch < ApplicationRecord
   validates :title, presence: true
   validates :sort_order, inclusion: { in: sort_orders }, :allow_nil => true
 
+  def self.get_search(user, params)
+    task_search = params[:task_search_id] ? TaskSearch.viewable_searches(user).find(params[:task_search_id]) : TaskSearch.new
+    task_search.assign_attributes(TaskSearchesController.task_search_params(params))
+    task_search.user = user
+    task_search
+  end
+
   def self.editable_searches(user)
     if user && !user.suspended?
       return TaskSearch.all if user.admin?
