@@ -9,7 +9,11 @@ class TasksController < ApplicationController
     @task_search = params[:task_search_id] ? TaskSearch.viewable_searches(current_user).find(params[:task_search_id]) : TaskSearch.new
     @task_search.assign_attributes(TaskSearchesController.task_search_params(params))
     @task_search.user = current_user
-    @tasks = page(@task_search.search(current_user))
+    @tasks = @task_search.search(current_user)
+    unless @task_search.sort_order.present?
+      @tasks = @tasks.order(priority: :desc, updated_at: :desc)
+    end
+    @tasks = page(@tasks)
   end
 
   # GET /tasks/1

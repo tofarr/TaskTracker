@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="pie">
+  <defs>
+    <style type="text/css">
+      .main-title{
+        fill: #000;
+        stroke: #FFF;
+        stroke-width: 0.5px;
+        font: bold 5px sans-serif;
+        paint-order: stroke;
+      }
+      .legend{
+        fill: #FFF;
+        stroke: #CCC;
+        stroke-width: 0.1;
+      }
+      .segment path{
+        stroke: #FFF;
+        stroke-width: 0.5px;
+        transition: transform 0.4s;
+        transform-origin: 30px 50px;
+        filter: drop-shadow(16px 16px 10px rgba(0,0,0,0.9));
+      }
+
+      .legend-label, .legend-percent{
+        font: bold 3px sans-serif;
+        transition: transform 0.4s;
+        fill: #000;
+        stroke: #FFF;
+        stroke-width: 0.3px;
+        paint-order: stroke;
+        alignment-baseline: middle;
+      }
+
+      .segment:focus{
+        outline: none;
+      }
+      .segment:hover path, .segment:focus path{
+        transform: scale(1.05);
+      }
+
+      .segment:hover .legend-label, .segment:focus .legend-label{
+        stroke: #CCC;
+        stroke-width: 0.5px;
+      }
+      .segment:hover .legend-color-swatch, .segment:focus .legend-color-swatch{
+        transform: scale(1.1);
+      }
+    </style>
+    <clipPath id="clipLegendText">
+      <rect x="68.5"
+        y="16"
+        width="30.5"
+        height="<%= @task_statuses.length * 7 %>" />
+    </clipPath>
+  </defs>
+  <g class="pie">
+    <text x="50" y="9" text-anchor="middle" class="main-title">Task Statuses</text>
+    <rect class="legend" x="60" y="15" width="40" height="<%=@task_statuses.length * 7 + 2 %>" />
+    <%
+    progress = 0
+    index = 0
+    @task_statuses.each do |task_status|
+      new_progress = progress + task_status.count %>
+      <g class="segment" tabindex="0">
+        <title><%= task_status.title %> : <%= task_status.count %> (<%= (task_status.count.to_f * 100 / @num_statuses).to_i %>%)</title>
+        <path
+          fill="<%= task_status.color %>"
+          d="M 30,50
+          L <%= project(progress.to_f / @num_statuses, 30).join(',') %>
+          A 25,25 0 0,1 <%= project(new_progress.to_f / @num_statuses, 30).join(',') %>
+          Z" />
+        <% mid = (progress + new_progress).to_f / (@num_statuses * 2)
+        %>
+
+        <rect
+          x="61"
+          y="<%= index * 7 + 17.2 %>"
+          width="7"
+          height="5"
+          fill="<%= task_status.color %>"
+          class="legend-color-swatch"
+          style="transform-origin: 64px <%= index * 7 + 19.7 %>px;" />
+
+        <text
+          x="64.5"
+          y="<%= index * 7 + 20 %>"
+          text-anchor="middle"
+          class="legend-percent"><%= (task_status.count.to_f * 100 / @num_statuses).round %>%</text>
+
+        <text
+          x="69"
+          y="<%= index * 7 + 20 %>"
+          text-anchor="left"
+          class="legend-label"
+          clip-path="url(#clipLegendText)"><%= task_status.title %></text>
+
+      </g>
+      <% progress = new_progress
+      index += 1
+     end %>
+   </g>
+</svg>

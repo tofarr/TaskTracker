@@ -60,8 +60,6 @@ class TaskSearch < ApplicationRecord
       order = {}
       order[sort_order.to_sym] = descending ? :desc : :asc
       tasks = tasks.send(:order, order)
-    else
-      tasks = tasks.order(priority: :desc, updated_at: :desc)
     end
 
     tasks
