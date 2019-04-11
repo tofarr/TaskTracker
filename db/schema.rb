@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_221233) do
+ActiveRecord::Schema.define(version: 2019_04_11_033026) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -95,6 +95,16 @@ ActiveRecord::Schema.define(version: 2019_04_10_221233) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string "var", null: false
+    t.text "value"
+    t.integer "thing_id"
+    t.string "thing_type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  end
+
   create_table "task_links", force: :cascade do |t|
     t.integer "from_task_id", null: false
     t.integer "to_task_id", null: false
@@ -140,6 +150,18 @@ ActiveRecord::Schema.define(version: 2019_04_10_221233) do
     t.integer "task_search_id", null: false
     t.integer "user_id", null: false
     t.index ["task_search_id", "user_id"], name: "idx_task_searches_created_by_users", unique: true
+  end
+
+  create_table "task_searches_created_user_tags", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_tag_id", null: false
+    t.index ["task_search_id", "user_tag_id"], name: "idx_task_searches_created_user_tags", unique: true
+  end
+
+  create_table "task_searches_created_users", id: false, force: :cascade do |t|
+    t.integer "task_search_id", null: false
+    t.integer "user_id", null: false
+    t.index ["task_search_id", "user_id"], name: "idx_task_searches_created_users", unique: true
   end
 
   create_table "task_searches_statuses", id: false, force: :cascade do |t|

@@ -18,5 +18,11 @@ Rails.application.routes.draw do
   resources :users
   get 'charts/status_pie'
   get 'charts/burndown_line'
+
+  get "settings", to: "settings#index"
+  get "settings/edit", to: "settings#edit"
+  post "settings/update", to: "settings#update"
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

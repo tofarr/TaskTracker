@@ -1,0 +1,30 @@
+<div class="level">
+  <h1 class="title">Editing Settings</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: url_for(action: 'index', controller: 'settings'), icon: 'caret-left', text: 'Back', css_class: 'is-info'} %>
+  </div>
+</div>
+
+<%= form_for @setting, :url => url_for(:controller => 'settings', :action => 'update') do |form| %>
+
+  <% @setting.get_all.each do |k, v| %>
+
+    <div class="field level">
+      <div class="level-item-left column is-one-quarter">
+        <%= form.label k %>
+      </div>
+      <div class="level-item-left column is-three-quarters">
+        <%= form.text_field k, class: "input" %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter"></div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.submit "Update", class: "button is-info" %>
+    </div>
+  </div>
+
+<% end %>

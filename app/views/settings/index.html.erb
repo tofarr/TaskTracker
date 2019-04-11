@@ -1,0 +1,12 @@
+<div class="level">
+  <h1 class="title">Settings</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: url_for(action: 'edit', controller: 'settings'), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<% @setting.get_all.each do |k, v| %>
+  <%= render partial: "partials/show_text", locals: {title: k.titleize, value: v} %>
+<% end %>

@@ -93,3 +93,6 @@ gem "mime-types", "~> 3.2"
 
 # Added at 2019-04-05 08:34:40 -0600 by tofarr:
 gem "flatpickr_rails", "~> 1.1"
+
+# Added at 2019-04-10 21:29:39 -0600 by tofarr:
+gem "rails-settings-cached", "~> 0.7.2"
