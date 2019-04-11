@@ -1,0 +1,42 @@
+<div class="level">
+  <h1 class="title">Sprint</h1>
+  <div class="level-item-right">
+    <% if @current_user.admin? %>
+      <%= render partial: "partials/link_btn", locals: {href: new_sprint_path, icon: 'plus', text: 'New Sprint', css_class: 'is-success'} %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_sprint_path(@sprint), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @sprint, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
+      <% end %>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: sprints_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @sprint.title} %>
+
+<%= render partial: "partials/show_timestamp", locals: {title: "Start At", value: @sprint.start_at} %>
+
+<%= render partial: "partials/show_timestamp", locals: {title: "Finish At", value: @sprint.finish_at} %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Tasks</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @sprint.tasks.each do |task| %>
+      <%= render partial: "partials/task", locals: {task: task} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Users</label>
+  <div class="level-item-left column is-three-quarters flex">
+    <% @sprint.users.each do |user| %>
+      <%= render partial: "partials/user", locals: {user: user} %>
+    <% end %>
+  </div>
+</div>

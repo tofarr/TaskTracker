@@ -1,0 +1,31 @@
+<%= form_with(model: @sprint, local: true) do |form| %>
+
+  <%= render partial: "partials/errors", locals: {errors: @sprint.errors} %>
+
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
+
+  <%= render partial: "partials/form_timestamp", locals: {form: form, attr: :start_at} %>
+
+  <%= render partial: "partials/form_timestamp", locals: {form: form, attr: :finish_at} %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :user_ids %>
+    </div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.select :user_ids, @sprint.users.collect { |user| [user.title, user.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
+    </div>
+  </div>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :task_ids %>
+    </div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.select :task_ids, @sprint.tasks.collect { |task| [task.title, task.id] }, {}, {class: "input", multiple: true, "data-search": "tasks"} %>
+    </div>
+  </div>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: @sprint} %>
+
+<% end %>

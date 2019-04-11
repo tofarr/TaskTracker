@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_033026) do
+ActiveRecord::Schema.define(version: 2019_04_11_125819) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -103,6 +103,26 @@ ActiveRecord::Schema.define(version: 2019_04_11_033026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  end
+
+  create_table "sprints", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "start_at", null: false
+    t.datetime "finish_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["finish_at"], name: "index_sprints_on_finish_at"
+    t.index ["start_at"], name: "index_sprints_on_start_at"
+  end
+
+  create_table "sprints_tasks", id: false, force: :cascade do |t|
+    t.integer "sprint_id", null: false
+    t.integer "task_id", null: false
+  end
+
+  create_table "sprints_users", id: false, force: :cascade do |t|
+    t.integer "sprint_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "task_links", force: :cascade do |t|

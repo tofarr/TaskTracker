@@ -10,10 +10,12 @@ class Notification < ApplicationRecord
   end
 
   def self.viewable_notifications(user)
+    return Notification.none if user.suspended?
     Notification.where(user: user)
   end
 
   def viewable_by?(user)
+    return false if user.suspended?
     self.user == user
   end
 

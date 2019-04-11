@@ -42,10 +42,12 @@ class TaskSearch < ApplicationRecord
   end
 
   def viewable_by?(user)
+    return false if user.suspended?
     user && (public || editable_by?(user))
   end
 
   def editable_by?(user)
+    return false if user.suspended?
     user && user.id == user_id
   end
 

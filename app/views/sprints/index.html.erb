@@ -1,0 +1,48 @@
+<div class="level">
+  <h1 class="title">Sprints</h1>
+  <% if @current_user.admin? %>
+    <%= render partial: "partials/link_btn", locals: {href: new_sprint_path, icon: 'plus', text: 'New Sprint', css_class: 'is-success'} %>
+  <% end %>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= render partial: "partials/search_form", locals: {url: comments_path} %>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Start At</th>
+      <th>Finish At</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sprints.each do |sprint| %>
+      <tr>
+        <td><%= sprint.title %></td>
+        <td class="timestamp"><%= sprint.start_at %></td>
+        <td class="timestamp"><%= sprint.finish_at %></td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: sprint, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <% if @current_user.admin? %>
+              <%= render partial: "partials/link_btn", locals: {href: edit_sprint_path(sprint), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+              <%= link_to sprint, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+                <span class="icon is-small">
+                  <%= icon('fas', 'trash') %>
+                </span>
+                <span>Destroy</span>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @sprints %>

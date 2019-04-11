@@ -1,0 +1,9 @@
+
+<div class="level">
+  <h1 class="title">New Sprint</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: sprints_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
+
+<%= render partial: 'form', locals: {tag: @sprint} %>
