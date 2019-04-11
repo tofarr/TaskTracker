@@ -1,5 +1,8 @@
-<h1>New Notification</h1>
+<div class="level">
+  <h1 class="title">New Notifications</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: notifications_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
 
 <%= render 'form', notification: @notification %>
-
-<%= link_to 'Back', notifications_path %>

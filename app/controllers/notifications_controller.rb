@@ -46,11 +46,11 @@ class NotificationsController < ApplicationController
   # PATCH/PUT /notifications/1
   # PATCH/PUT /notifications/1.json
   def update
+    @notification = Notification.editable_notifications(current_user).find(params[:id])
     unless @notification.editable_by?(current_user)
       raise ApplicationController::NotAuthorized
     end
     @notification.assign_attributes(notification_params)
-    attach_file(:data)
     respond_to do |format|
       if @notification.save
         format.html { redirect_to @notification, notice: 'Notification was successfully updated.' }
