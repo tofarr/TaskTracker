@@ -30,6 +30,11 @@
               <div class="t-menu-item">
                 <%=link_to "Users", {controller: "users", action: "index"}, class: "t-menu-anchor" %>
               </div>
+              <% if Setting.use_sprints %>
+                <div class="t-menu-item">
+                  <%=link_to "Sprints", {controller: "sprints", action: "index"}, class: "t-menu-anchor" %>
+                </div>
+              <% end %>
               <hr class="navbar-divider"/>
               <div class="t-menu-item">
                 <%=link_to "User Tags", {controller: "user_tags", action: "index"}, class: "t-menu-anchor" %>

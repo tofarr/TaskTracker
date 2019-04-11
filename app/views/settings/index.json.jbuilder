@@ -1,1 +1,1 @@
-json.merge(@setting.get_all)
+json.merge(@settings)

@@ -14,7 +14,11 @@
         <%= form.label k %>
       </div>
       <div class="level-item-left column is-three-quarters">
-        <%= form.text_field k, class: "input" %>
+        <% if v.is_a?(TrueClass) || v.is_a?(FalseClass)%>
+          <%= form.check_box k %>
+        <% else %>
+          <%= form.text_field k, class: "input" %>
+        <% end %>
       </div>
     </div>
 
