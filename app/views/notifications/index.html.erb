@@ -1,0 +1,43 @@
+<div class="level">
+  <h1 class="title">Notifications</h1>
+  <%= render partial: "partials/link_btn", locals: {href: new_notification_path, icon: 'search', text: 'New Notification', css_class: ''} %>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= render partial: "partials/search_form", locals: {url: notifications_path} %>
+
+<table class="table is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Created by user</th>
+      <th>Message</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= render partial: "partials/task", locals: {task: notification.task} %></td>
+        <td><%= render partial: "partials/user", locals: {user: notification.created_by_user} %></td>
+        <td><%= notification.message %></td>
+        <td>
+          <div class="level-right">
+            <%= render partial: "partials/link_btn", locals: {href: notification, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
+            <%= render partial: "partials/link_btn", locals: {href: edit_notification_path(notification), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
+            <%= link_to notification, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+              <span class="icon is-small">
+                <%= icon('fas', 'trash') %>
+              </span>
+              <span>Destroy</span>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @notifications %>

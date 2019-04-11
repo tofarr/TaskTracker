@@ -1,0 +1,45 @@
+<div class="level">
+  <h1 class="title">Notification</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: new_notification_path, icon: 'plus', text: 'New Notification', css_class: 'is-success'} %>
+    <% if @notification.editable_by?(@current_user) %>
+      <%= render partial: "partials/link_btn", locals: {href: edit_notification_path(@notification), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+      <%= link_to @notification, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Destroy</span>
+      <% end %>
+    <% end %>
+    <%= render partial: "partials/link_btn", locals: {href: notifications_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+  </div>
+</div>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Task</label>
+  <span class="level-item-left column is-three-quarters">
+    <%= render partial: "partials/task", locals: {task: @notification.task} %>
+  </span>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">User</label>
+  <span class="level-item-left column is-three-quarters">
+    <%= render partial: "partials/user", locals: {user: @notification.user} %>
+  </span>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Created By User</label>
+  <span class="level-item-left column is-three-quarters">
+    <%= render partial: "partials/user", locals: {user: @notification.created_by_user} %>
+  </span>
+</div>
+
+<%= render partial: "partials/show_boolean", locals: {title: "Include in email", value: @notification.include_in_email} %>
+
+<%= render partial: "partials/show_boolean", locals: {title: "Seen", value: @notification.seen} %>
+
+<%= render partial: "partials/show_markdown", locals: {id: dom_id(@notification), title: "Message", value: @notification.message} %>

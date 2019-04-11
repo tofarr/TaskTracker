@@ -20,10 +20,10 @@
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter">
-      <%= form.label :created_user_tags %>
+      <%= form.label :created_by_user_tags %>
     </div>
     <div class="level-item-left column is-three-quarters">
-      <%= form.select :created_user_tag_ids, @task_search.created_user_tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
+      <%= form.select :created_by_user_tag_ids, @task_search.created_by_user_tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
     </div>
   </div>
 
@@ -38,10 +38,10 @@
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter">
-      <%= form.label :created_users %>
+      <%= form.label :created_by_users %>
     </div>
     <div class="level-item-left column is-three-quarters">
-      <%= form.select :created_user_ids, @task_search.created_users.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
+      <%= form.select :created_by_user_ids, @task_search.created_by_users.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
     </div>
   </div>
 

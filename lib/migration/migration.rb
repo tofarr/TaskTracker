@@ -8,9 +8,10 @@ module Migration
       Task.create(title: task_json["title"],
         description: task_json["description"],
         priority: task_json["priority"],
-        created_user: user,
+        created_by_user: user,
         assigned_user: user,
-        status: status)
+        status: status,
+        created_at: task_json["created_at"])
     end
   end
 
@@ -23,7 +24,7 @@ module Migration
       file.write('[')
       Task.where(status_id: status_ids).each_with_index do |task, index|
         file.write(',') if(index > 0)
-        file.write(task.as_json.slice("title", "description", "priority").to_json)
+        file.write(task.as_json.slice("title", "description", "priority", "created_at").to_json)
       end
       file.write(']')
     end
@@ -46,7 +47,7 @@ end
 
     export_model(:users) # Should include tag ids
 
-    export_model(:tasks) # Include parent id (Require 2 step import), tag_ids, assigned_user_id, created_user_id, status_id
+    export_model(:tasks) # Include parent id (Require 2 step import), tag_ids, assigned_user_id, created_by_user_id, status_id
 
     export_model(:task_links)
 

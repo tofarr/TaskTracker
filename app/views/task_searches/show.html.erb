@@ -36,7 +36,7 @@
 <div class="level">
   <label class="level-item-left column is-one-quarter">Created By Tags</label>
   <div class="level-item-left column is-three-quarters flex">
-    <% @task_search.created_user_tags.each do |tag| %>
+    <% @task_search.created_by_user_tags.each do |tag| %>
       <%= render partial: "partials/tag", locals: {tag: tag} %>
     <% end %>
   </div>
@@ -54,7 +54,7 @@
 <div class="level">
   <label class="level-item-left column is-one-quarter">Created by Users</label>
   <div class="level-item-left column is-three-quarters flex">
-    <% @task_search.created_users.each do |user| %>
+    <% @task_search.created_by_users.each do |user| %>
       <%= render partial: "partials/user", locals: {user: user} %>
     <% end %>
   </div>

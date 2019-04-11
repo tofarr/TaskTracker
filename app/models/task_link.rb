@@ -20,7 +20,7 @@ class TaskLink < ApplicationRecord
     task_links = TaskLink.all
     if user && !user.suspended?
       unless user.admin?
-        tasks = tasks.where("created_user_id=? or assigned_user_id=? or viewable=true or (SELECT count(*) FROM view_user_tags WHERE view_user_tags.task_id = tasks.id AND view_user_tags.user_id = ?) > 0",
+        tasks = tasks.where("created_by_user_id=? or assigned_user_id=? or viewable=true or (SELECT count(*) FROM view_user_tags WHERE view_user_tags.task_id = tasks.id AND view_user_tags.user_id = ?) > 0",
           user.id, user.id, user.id)
       end
     else

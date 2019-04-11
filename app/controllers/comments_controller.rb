@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
     @comment.assign_attributes(comment_params)
     attach_file(:data)
     respond_to do |format|
-      if @comment.update(comment_params)
+      if @comment.save
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else

@@ -6,7 +6,7 @@ class TaskSearchesController < ApplicationController
   # GET /task_searches.json
   def index
     task_searches = TaskSearch.viewable_searches(current_user)
-    task_searches = task_searches.where("title like ? or description like ?", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
+    task_searches = task_searches.where("title like ?", "%#{params[:q]}%") if params[:q]
     @task_searches = page(task_searches.order(params[:order] || :title))
   end
 

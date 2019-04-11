@@ -7,10 +7,10 @@ class TaskSearch < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :task_tags, class_name: "TaskTag"
   #ADD tHE OTHER END OF THESE
-  has_and_belongs_to_many :created_user_tags, class_name: "UserTag", join_table: :task_searches_created_user_tags, foreign_key: :task_search_id, association_foreign_key: :user_tag_id
+  has_and_belongs_to_many :created_by_user_tags, class_name: "UserTag", join_table: :task_searches_created_by_user_tags, foreign_key: :task_search_id, association_foreign_key: :user_tag_id
   has_and_belongs_to_many :assigned_user_tags, class_name: "UserTag", join_table: :task_searches_assigned_user_tags, foreign_key: :task_search_id, association_foreign_key: :user_tag_id
 
-  has_and_belongs_to_many :created_users, class_name: "User", join_table: :task_searches_created_users, foreign_key: :task_search_id, association_foreign_key: :user_id
+  has_and_belongs_to_many :created_by_users, class_name: "User", join_table: :task_searches_created_by_users, foreign_key: :task_search_id, association_foreign_key: :user_id
   has_and_belongs_to_many :assigned_users, class_name: "User", join_table: :task_searches_assigned_users, foreign_key: :task_search_id, association_foreign_key: :user_id
 
   has_and_belongs_to_many :task_statuses, class_name: "TaskStatus"
@@ -55,10 +55,10 @@ class TaskSearch < ApplicationRecord
 
     tasks = tasks.where(task_tag_ids: task_tag_ids) unless task_tag_ids.blank?
 
-    tasks = tasks.where(created_user_tag_ids: created_user_tag_ids) unless created_user_tag_ids.blank?
+    tasks = tasks.where(created_by_user_tag_ids: created_by_user_tag_ids) unless created_by_user_tag_ids.blank?
     tasks = tasks.where(assigned_user_tag_ids: assigned_user_tag_ids) unless assigned_user_tag_ids.blank?
 
-    tasks = tasks.where(created_user_id: created_user_ids) unless created_user_ids.blank?
+    tasks = tasks.where(created_by_user_id: created_by_user_ids) unless created_by_user_ids.blank?
     tasks = tasks.where(assigned_user_id: assigned_user_ids) unless assigned_user_ids.blank?
 
     tasks = tasks.where(task_status_ids: task_status_ids) unless task_status_ids.blank?
@@ -75,9 +75,9 @@ class TaskSearch < ApplicationRecord
   def default_search?
     return query.blank? &&
       task_tags.empty? &&
-      created_user_tags.empty? &&
+      created_by_user_tags.empty? &&
       assigned_user_tags.empty? &&
-      created_users.empty? &&
+      created_by_users.empty? &&
       assigned_users.empty? &&
       task_statuses.empty? &&
       sort_order.blank?

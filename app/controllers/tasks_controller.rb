@@ -23,7 +23,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.tags = TaskTag.where(default_apply: true)
-    @task.created_user = current_user
+    @task.created_by_user = current_user
     @task.status = TaskStatus.order(default_apply: :desc).first
     if params[:parent_id]
       parent = Task.find(params[:parent_id])
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.created_user = current_user
+    @task.created_by_user = current_user
 
     respond_to do |format|
       if @task.save

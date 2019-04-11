@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_023853) do
+ActiveRecord::Schema.define(version: 2019_04_10_221233) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -82,6 +82,19 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "user_id", null: false
+    t.integer "created_by_user_id"
+    t.boolean "include_in_email", default: true, null: false
+    t.boolean "seen", default: false, null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_notifications_on_task_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "task_links", force: :cascade do |t|
     t.integer "from_task_id", null: false
     t.integer "to_task_id", null: false
@@ -117,16 +130,16 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
     t.index ["task_search_id", "user_id"], name: "idx_task_searches_assigned_users", unique: true
   end
 
-  create_table "task_searches_created_user_tags", id: false, force: :cascade do |t|
+  create_table "task_searches_created_by_user_tags", id: false, force: :cascade do |t|
     t.integer "task_search_id", null: false
     t.integer "user_tag_id", null: false
-    t.index ["task_search_id", "user_tag_id"], name: "idx_task_searches_created_user_tags", unique: true
+    t.index ["task_search_id", "user_tag_id"], name: "idx_task_searches_created_by_user_tags", unique: true
   end
 
-  create_table "task_searches_created_users", id: false, force: :cascade do |t|
+  create_table "task_searches_created_by_users", id: false, force: :cascade do |t|
     t.integer "task_search_id", null: false
     t.integer "user_id", null: false
-    t.index ["task_search_id", "user_id"], name: "idx_task_searches_created_users", unique: true
+    t.index ["task_search_id", "user_id"], name: "idx_task_searches_created_by_users", unique: true
   end
 
   create_table "task_searches_statuses", id: false, force: :cascade do |t|
@@ -189,7 +202,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_023853) do
     t.text "description"
     t.integer "parent_id"
     t.integer "assigned_user_id"
-    t.integer "created_user_id"
+    t.integer "created_by_user_id"
     t.integer "status_id"
     t.float "priority"
     t.datetime "due_date"
