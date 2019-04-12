@@ -11,6 +11,6 @@
 #Add default task statuses
 User.create(username: 'admin', password: 'password', admin: true)
 
-done = TaskStatus.create(title: 'Complete', description: "This task has been completed.", color: '#55FF55', category: 'complete' )
+done = TaskStatus.create(title: 'Complete', description: "This task has been completed.", color: '#44FF44', category: 'complete' )
 in_progress = TaskStatus.create(title: 'In Progress', description: "Somebody is working on this task.", requires_action: true, color: '#FFCC55', next_statuses: [done], category: 'in_progress')
 TaskStatus.create(title: 'Planning', description: "The default status for any newly created task. Implies that nobody is working on this yet.", color: '#FF5555', requires_action: true, default_apply: true, next_statuses: [in_progress], category: 'planning')
