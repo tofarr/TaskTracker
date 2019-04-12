@@ -14,6 +14,12 @@ class Notification < ApplicationRecord
     Notification.where(user: user)
   end
 
+  def title
+    return "Re:#{task.identifier} on #{created_at.format("%Y-%m-%d %H:%M")}" if task.identifier
+    return "From:#{user.title} on #{created_at.format("%Y-%m-%d %H:%M")}" if user.title
+    "Message on #{created_at.format("%Y-%m-%d %H:%M")}"
+  end
+
   def viewable_by?(user)
     return false if user.suspended?
     self.user == user
