@@ -83,7 +83,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button is-light") do  %>
+              <%=link_to({controller: "users", action: "show", id: @current_user}, class: "button") do  %>
                 <%= render partial: "partials/icon", locals: {img: @current_user.avatar, size: 50} %>
                 <span>
                   <%= @current_user.username %>

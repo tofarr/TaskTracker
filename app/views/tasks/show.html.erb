@@ -13,7 +13,7 @@
         <span>Destroy</span>
       <% end %>
     <% end %>
-    <%= render partial: "partials/link_btn", locals: {href: tasks_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+    <%= render partial: "partials/link_btn", locals: {href: tasks_path, icon: 'caret-left', text: 'Back', css_class: 'back-btn'} %>
   </div>
 </div>
 
@@ -67,9 +67,9 @@
 <div class="level">
   <div class="level-item-left column is-one-quarter"></div>
   <span class="level-item-left column is-three-quarters">
-    <%= render partial: "partials/link_btn", locals: {href: task_links_path(task_id: @task.id), icon: 'link', text: 'Links', css_class: 'is-light'} %>
-    <%= render partial: "partials/link_btn", locals: {href: attachments_path(task_id: @task.id), icon: 'paperclip', text: 'Attachments', css_class: 'is-light'} %>
-    <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: 'is-light'} %>
+    <%= render partial: "partials/link_btn", locals: {href: task_links_path(task_id: @task.id), icon: 'link', text: 'Links', css_class: ''} %>
+    <%= render partial: "partials/link_btn", locals: {href: attachments_path(task_id: @task.id), icon: 'paperclip', text: 'Attachments', css_class: ''} %>
+    <%= render partial: "partials/link_btn", locals: {href: comments_path(task_id: @task.id), icon: 'comments', text: 'Comments', css_class: ''} %>
     <%= render partial: "partials/link_btn", locals: {href: new_task_path(parent_id: @task.id), icon: 'plus', text: 'New Subtask', css_class: 'is-success'} %>
   </span>
 </div>

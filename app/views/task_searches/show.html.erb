@@ -1,7 +1,7 @@
 <div class="level">
   <h1 class="title">Task Search</h1>
   <div class="level-item-right">
-    <%= render partial: "partials/link_btn", locals: {href: tasks_path(task_search_id: @task_search.id), icon: 'search', text: 'Search', css_class: 'is-light back-btn'} %>
+    <%= render partial: "partials/link_btn", locals: {href: tasks_path(task_search_id: @task_search.id), icon: 'search', text: 'Search', css_class: 'back-btn'} %>
     <% if @current_user %>
       <%= render partial: "partials/link_btn", locals: {href: new_task_search_path, icon: 'plus', text: 'New Task Search', css_class: 'is-success'} %>
     <% end %>
@@ -14,7 +14,7 @@
         <span>Destroy</span>
       <% end %>
     <% end %>
-    <%= render partial: "partials/link_btn", locals: {href: task_searches_path, icon: 'caret-left', text: 'Back', css_class: 'is-light back-btn'} %>
+    <%= render partial: "partials/link_btn", locals: {href: task_searches_path, icon: 'caret-left', text: 'Back', css_class: 'back-btn'} %>
   </div>
 </div>
 

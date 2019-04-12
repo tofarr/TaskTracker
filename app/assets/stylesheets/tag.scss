@@ -1,0 +1,12 @@
+/*.tag.is-medium{
+  border-width: 2px;
+  border-color: #CCC;
+  border-style: solid;
+  color: #000;
+  background: #FFF;
+}
+*/
+
+.tag{
+  border-radius: 0 !important; /* non interactive elements don't have curved corners */
+}

@@ -1,5 +1,5 @@
 <%if user %>
-  <%= link_to user, class: "tag is-medium" do %>
+  <%= link_to user, class: "button" do %>
     <%= render partial: "partials/icon", locals: {img: user.avatar, size: 24} %>
     <span>
       <%=user.username%>
