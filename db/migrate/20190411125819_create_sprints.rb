@@ -9,5 +9,7 @@ class CreateSprints < ActiveRecord::Migration[5.2]
 
     create_join_table(:sprints, :tasks, on_delete: :cascade)
     create_join_table(:sprints, :users, on_delete: :cascade)
+
+    add_column :task_statuses, :category, :string, :null => false, :limit => 50, :default => 'planning'
   end
 end

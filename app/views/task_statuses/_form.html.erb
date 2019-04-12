@@ -4,6 +4,14 @@
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
   <%= render partial: "partials/form_text_area", locals: {form: form, attr: :description} %>
   <%= render partial: "partials/form_upload", locals: {form: form, attr: :icon, data: task_status.icon, preview_size: 48, crop_size: 256} %>
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :category %>
+    </div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.select(:category, TaskStatus.categories.map{|category|[category.titleize, category]}, {include_blank: false}, {class: "input"}) %>
+    </div>
+  </div>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :requires_action} %>
   <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :default_apply} %>
   <%= render partial: "partials/form_color", locals: {form: form, attr: :color} %>

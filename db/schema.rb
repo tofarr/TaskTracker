@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_125819) do
     t.datetime "updated_at", null: false
     t.boolean "default_apply", default: false, null: false
     t.string "color", limit: 8, null: false
+    t.string "category", limit: 50, default: "planning", null: false
   end
 
   create_table "task_tag_mutexes", force: :cascade do |t|
