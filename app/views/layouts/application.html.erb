@@ -25,6 +25,9 @@
             </div>
             <div class="t-menu">
               <div class="t-menu-item">
+                <%=link_to "Notifications", {controller: "notifications", action: "index"}, class: "t-menu-anchor" %>
+              </div>
+              <div class="t-menu-item">
                 <%=link_to "Tasks", {controller: "tasks", action: "index"}, class: "t-menu-anchor" %>
               </div>
               <div class="t-menu-item">
@@ -54,9 +57,6 @@
               </div>
               <% end %>
               <hr class="navbar-divider"/>
-              <div class="t-menu-item">
-                <%=link_to "Notifications", {controller: "notifications", action: "index"}, class: "t-menu-anchor" %>
-              </div>
               <div class="t-menu-item">
                 <%=link_to "Task Links", {controller: "task_links", action: "index"}, class: "t-menu-anchor" %>
               </div>
