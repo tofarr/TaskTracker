@@ -1,6 +1,6 @@
 <div class="level">
   <h1 class="title">Attachments</h1>
-  <%= render partial: "partials/link_btn", locals: {href: new_attachment_path, icon: 'plus', text: 'New Attachment', css_class: 'is-success'} %>
+  <%= render partial: "partials/link_btn", locals: {href: new_attachment_path(task_id: params[:task_id]), icon: 'plus', text: 'New Attachment', css_class: 'is-success'} %>
 </div>
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
