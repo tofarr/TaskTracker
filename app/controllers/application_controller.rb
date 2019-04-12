@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   before_action :do_login
   before_action :require_login
   before_action :set_locale
-  before_action :set_time_zone
   before_action :disallow_edits_with_read_only_token, only: [:new,:create,:edit,:update,:destroy]
 
   #From ApplicationHelper
@@ -51,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   #We support token based login - token is added to all urls
   def default_url_options(options = {})
-    options[:token] = @token if @token
+    options[:token] = @access_token.token if @access_token
     options
   end
 

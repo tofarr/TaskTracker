@@ -45,12 +45,14 @@
               <div class="t-menu-item">
                 <%=link_to "Task Statuses", {controller: "task_statuses", action: "index"}, class: "t-menu-anchor" %>
               </div>
+              <% if current_user.admin? %>
               <div class="t-menu-item">
                 <%=link_to "Settings", {controller: "settings", action: "index"}, class: "t-menu-anchor" %>
               </div>
               <div class="t-menu-item">
                 <%=link_to "Activity Log", {controller: "activity_logs", action: "index"}, class: "t-menu-anchor" %>
               </div>
+              <% end %>
               <hr class="navbar-divider"/>
               <div class="t-menu-item">
                 <%=link_to "Notifications", {controller: "notifications", action: "index"}, class: "t-menu-anchor" %>

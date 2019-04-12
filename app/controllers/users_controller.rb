@@ -86,7 +86,7 @@ class UsersController < ApplicationController
 
         if user_params[:password]
           session[:user_id] = @user.id
-          @token = nil
+          @access_token = nil
         end
 
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

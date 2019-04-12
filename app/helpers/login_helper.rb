@@ -33,7 +33,7 @@ module LoginHelper
       if token
         access_token = AccessToken.active_access_tokens.find_by_token(token)
         raise LoginHelper::NotAuthorized unless access_token
-        @token = token
+        @access_token = access_token
         @current_user = access_token.user
         if @current_user.password_digest.blank?
           flash[:error] = I18n.t "password_update_required"
@@ -59,7 +59,7 @@ module LoginHelper
   end
 
   def disallow_edits_with_read_only_token
-    rails LoginHelper::NotAuthorized if @token&.read_only?
+    rails LoginHelper::NotAuthorized if @access_token&.read_only?
   end
 
 end

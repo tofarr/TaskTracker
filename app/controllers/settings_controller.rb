@@ -6,7 +6,8 @@ class SettingsController < ApplicationController
   # GET /settings.json
   def index
     @setting = Setting
-    @settings = current_user&.admin? ? Setting.get_all : Setting.get_all_public
+    @settings = Setting.get_all
+    @settings = @settings.except(:private_key) unless current_user&.admin?
   end
 
   # GET /settings/edit

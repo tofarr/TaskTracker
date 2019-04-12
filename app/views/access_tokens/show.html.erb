@@ -17,6 +17,14 @@
 
 <%= render partial: "partials/show_text", locals: {title: "Title", value: @access_token.title} %>
 <%= render partial: "partials/show_text", locals: {title: "Token", value: @access_token.token} %>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Login Link</label>
+  <span class="level-item-left column is-three-quarters">
+    <a href="<%= request.base_url%>?token=<%= @access_token.token %>">
+      <%= request.base_url%>?token=<%= @access_token.token %>
+    </a>
+  </span>
+</div>
 <%= render partial: "partials/show_boolean", locals: {title: "Read Only", value: @access_token.read_only} %>
 <%= render partial: "partials/show_timestamp", locals: {title: "Expires At", value: @access_token.expires_at} %>
 <%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @access_token.suspended} %>
