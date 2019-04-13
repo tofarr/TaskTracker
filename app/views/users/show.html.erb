@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<% if @user.password_digest.blank? && (access_token = @user.active_access_tokens.first)  %>
+<% if current_user.admin? && @user.password_digest.blank? && (access_token = @user.active_access_tokens.first)  %>
   <div class="level">
     <label class="level-item-left column is-one-quarter">Login Link</label>
     <span class="level-item-left column is-three-quarters">
@@ -30,6 +30,12 @@
       </a>
     </span>
   </div>
+  <%= form_with url: user_send_welcome_email_path(@user), local: true, class: 'level' do |form| %>
+    <label class="level-item-left column is-one-quarter">Welcome Email</label>
+    <span class="level-item-left column is-three-quarters">
+      <%= form.submit "Send Welcome Email!", class: "button is-info" %>
+    </span>
+  <% end %>
 <% end %>
 
 <%= render partial: "partials/show_text", locals: {title: "Username", value: @user.username} %>

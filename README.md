@@ -1,5 +1,9 @@
 # README
 
+Notes:
+ Copy template to ignored file
+Using sqlite by default.
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

@@ -1,0 +1,22 @@
+# To use gmail smtp when 2 factor authentication is in place
+# 1. Log-in into Gmail with your account
+# 2. Navigate to https://security.google.com/settings/security/apppasswords
+# 3. In 'select app' choose 'custom', give it an arbitrary name and press generate
+# 4. It will give you 16 chars token.
+
+default: &default
+  address: smtp.gmail.com
+  port: 587
+  user_name: email@gmail.com
+  password: password123
+  authentication: plain
+  enable_starttls_auto: true
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

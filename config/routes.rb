@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   root :controller => 'welcome', :action => 'index'
   resources :sessions, :only => ['index', 'new', 'create', 'destroy']
   post "/sessions/logout", to: "sessions#destroy"
-  resources :users
+  resources :users do
+    post "send_welcome_email"
+  end
   get 'charts/status_pie'
   get 'charts/burndown_line'
 

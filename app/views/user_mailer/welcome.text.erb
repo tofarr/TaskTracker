@@ -1,0 +1,11 @@
+Welcome <%= @user.title %>!
+
+You have been invited to use the TaskTracker system.
+
+You can log in at: <%= users_url(:token => @user.access_tokens.first&.token) %>
+<% if @user.password_digest.blank? %>
+
+You will be directed to set your password after logging in.
+<% end %>
+
+Questions and enquiries can be directed to <%= Setting[:admin_contact] %>

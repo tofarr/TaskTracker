@@ -4,6 +4,8 @@ defaults: &defaults
   send_emails: true
   retain_activity_days: 60
   retain_notification_days: 30
+  default_emails_from: "info@tasktracker.com"
+  admin_contact: "admin@tasktracker.com"
 
 development:
   <<: *defaults

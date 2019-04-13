@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, only: [:new, :create, :destroy]
+  before_action :require_admin, only: [:new, :create, :destroy, :send_welcome_email]
 
   # GET /users
   # GET /users.json
@@ -110,6 +110,16 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def send_welcome_email
+    @user = User.find(params[:user_id])
+    raise ApplicationController::NotAuthorized if @user.password_digest
+    UserMailer.welcome(@user).deliver_later
+    respond_to do |format|
+      format.html { redirect_to user_path(@user), notice: 'Invitation Email should Arrive Soon!' }
       format.json { head :no_content }
     end
   end
