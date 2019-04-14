@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<%= render partial: "partials/notice", locals: {notice: notice} %>
+<%= render partial: "partials/notice", locals: {notice: notice, total_count: @tasks.total_count} %>
 
 <div class="level">
   <%= form_with url: tasks_path, local: true, method: :get, class: "level-left" do |form| %>

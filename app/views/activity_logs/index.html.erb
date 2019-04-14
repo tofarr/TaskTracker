@@ -19,7 +19,7 @@
   <tbody>
     <% @activity_logs.each do |activity_log| %>
       <tr>
-        <td><%=activity_log.created_at%></td>
+        <td class="timestamp"><%=activity_log.created_at%></td>
         <td><%=activity_log.model_type%></td>
         <td><%=activity_log.model_id%></td>
         <td><%=activity_log.username%></td>

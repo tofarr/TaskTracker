@@ -98,6 +98,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_all
+
+  end
+
+  def update_all
+    
+    format.html { redirect_to @user, notice: 'Users successfully updated.' }
+    format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+  end
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy

@@ -118,3 +118,17 @@ fieldset.box{
 th.center,td.center{
   text-align: center;
 }
+
+.result-count{
+  font-style: italic;
+}
+
+.table-card{
+  padding-bottom: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form .field{
+    flex-direction: column;
+  }
+}

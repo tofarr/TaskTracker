@@ -2,14 +2,25 @@
 field_name ||= :q
 value ||= params[field_name]
 %>
-<%= form_with url: url, local: true, method: :get, class: "level" do |form| %>
-  <div class="field level">
+<%= form_with url: url, local: true, method: :get, class: "search-form level level-item" do |form| %>
+  <div class="field level level-item">
     <div class="control has-icons-left">
       <%= form.text_field field_name, :value => value, class: "level-item input", placeholder: "Search" %>
       <span class="icon is-small is-left">
         <i class="fas fa-search"></i>
       </span>
     </div>
-    <%= form.submit :search, class: "level-item button" %>
+    <%= form.submit "Search", class: "button" %>
+    <div class="level-item level-right">
+      <div class="result-count">
+        <% if total_count > 1 %>
+          <%= total_count %> Results
+        <% elsif total_count > 0 %>
+          1 Result
+        <% else %>
+          No Results
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

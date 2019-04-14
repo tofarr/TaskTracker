@@ -7,7 +7,7 @@
   <% end %>
 </div>
 
-<%= render partial: "partials/search_form", locals: {url: task_statuses_path} %>
+<%= render partial: "partials/search_form", locals: {url: task_statuses_path, total_count: @task_statuses.total_count} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>

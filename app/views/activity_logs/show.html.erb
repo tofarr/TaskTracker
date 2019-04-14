@@ -7,7 +7,11 @@
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
-<%= render partial: "partials/show_text", locals: {title: "Timestamp", value: @activity_log.created_at} %>
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Timestamp</label>
+  <span class="level-item-left column is-three-quarters timestamp"><%=  @activity_log.created_at %></span>
+</div>
+
 <%= render partial: "partials/show_text", locals: {title: "Type", value: @activity_log.model_type} %>
 <%= render partial: "partials/show_text", locals: {title: "ID", value: @activity_log.model_id} %>
 <%= render partial: "partials/show_text", locals: {title: "Username", value: @activity_log.username} %>
