@@ -1,5 +1,8 @@
 
 input[type=checkbox]{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   width: 30px;
   height: 30px;
   font-family: 'Font Awesome 5 Free';
@@ -33,4 +36,8 @@ input[type=color]{
   height: 34px;
   background: whitesmoke;
   border-radius: 4px;
+}
+
+.submit-row{
+  padding: 1rem
 }

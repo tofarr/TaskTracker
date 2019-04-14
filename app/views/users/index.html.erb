@@ -16,9 +16,9 @@
       <th>Username</th>
       <th>Name</th>
       <th>Tags</th>
-      <th>Admin</th>
+      <th class="center">Admin</th>
       <% if @current_user.admin? %>
-        <th>Suspended</th>
+        <th class="center">Suspended</th>
       <% end %>
       <th></th>
     </tr>
@@ -37,9 +37,9 @@
             <%= render partial: "partials/tag", locals: {tag: tag} %>
           <% end %>
         </td>
-        <td><%= icon("fas is-size-5	#{user.admin ? "has-text-success" : "has-text-danger"}", user.admin ? "check-circle" : "times-circle") %></td>
+        <td class="center"><%= icon("fas is-size-5	#{user.admin ? "has-text-success" : "has-text-danger"}", user.admin ? "check-circle" : "times-circle") %></td>
         <% if @current_user.admin? %>
-          <td><%= icon("fas is-size-5	#{user.suspended ? "has-text-success" : "has-text-danger"}", user.suspended ? "check-circle" : "times-circle") %></td>
+          <td class="center"><%= icon("fas is-size-5	#{user.suspended ? "has-text-success" : "has-text-danger"}", user.suspended ? "check-circle" : "times-circle") %></td>
         <% end %>
         <td>
           <div class="level-right">

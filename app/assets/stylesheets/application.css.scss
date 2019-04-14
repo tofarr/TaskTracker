@@ -16,6 +16,7 @@
  *= require flatpickr
  *= require flatpickr/material_blue
  *= require paging
+ *= require anim
  */
 
 $primary: #0066CC;
@@ -107,4 +108,13 @@ fieldset.box{
 
 .column{
   padding-bottom: 0;
+}
+
+.image{
+  border-radius: 5px;
+}
+
+
+th.center,td.center{
+  text-align: center;
 }

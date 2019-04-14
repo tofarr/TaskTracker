@@ -1,26 +1,34 @@
 <%= form_with(model: user, local: true) do |form| %>
   <%= render partial: "partials/errors", locals: {errors: user.errors} %>
 
+  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :email} %>
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :username} %>
   <%= render partial: "partials/form_text_field", locals: {form: form, attr: :name} %>
-  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :email} %>
-  <%= render partial: "partials/form_upload", locals: {form: form, attr: :avatar, data: user.avatar, preview_size: 48, crop_size: 256} %>
 
   <% if current_user.id != @user.id %>
     <div class="field level">
-      <%= form.label :admin, class: "level-item-left column is-one-quarter" %>
+      <label class="level-item-left column is-one-quarter">Access Control</label>
       <div class="level-item-left column is-three-quarters">
-        <%= form.check_box :admin, :disabled => user.id == @current_user.id  %>
-      </div>
-    </div>
-
-    <div class="field level">
-      <%= form.label :suspended, class: "level-item-left column is-one-quarter" %>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.check_box :suspended, :disabled => user.id == @current_user.id %>
+        <label class="button">
+          <%= form.check_box :admin %>
+          <span>Admin</span>
+        </label>
+        <label class="button">
+          <%= form.check_box :suspended %>
+          <span>Suspended</span>
+        </label>
       </div>
     </div>
   <% end %>
+
+  <div class="field level">
+    <div class="level-item-left column is-one-quarter">
+      <%= form.label :locale %>
+    </div>
+    <div class="level-item-left column is-three-quarters">
+      <%= form.select(:locale, [[I18n.t(@user.locale), @user.locale]], {include_blank: false}, {class: "input"}) %>
+    </div>
+  </div>
 
   <% if user == current_user %>
     <fieldset class="box">
@@ -41,21 +49,14 @@
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter">
-      <%= form.label :tag_ids %>
+      <%= form.label :tags %>
     </div>
     <div class="level-item-left column is-three-quarters">
       <%= form.select :tag_ids, user.tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
     </div>
   </div>
 
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :locale %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select(:locale, [[I18n.t(@user.locale), @user.locale]], {include_blank: false}, {class: "input"}) %>
-    </div>
-  </div>
+  <%= render partial: "partials/form_upload", locals: {form: form, attr: :avatar, data: user.avatar, preview_size: 48, crop_size: 256} %>
 
   <%= render partial: "partials/form_submit", locals: {form: form, model: user} %>
 
