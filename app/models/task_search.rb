@@ -22,6 +22,9 @@ class TaskSearch < ApplicationRecord
     task_search = params[:task_search_id] ? TaskSearch.viewable_searches(user).find(params[:task_search_id]) : TaskSearch.new
     task_search.assign_attributes(TaskSearchesController.task_search_params(params))
     task_search.user = user
+    if task_search.task_statuses.blank?
+      task_search.task_statuses = TaskStatus.where(category: [:planning, :in_progress])
+    end
     task_search
   end
 
@@ -63,7 +66,7 @@ class TaskSearch < ApplicationRecord
     tasks = tasks.where(created_by_user_id: created_by_user_ids) unless created_by_user_ids.blank?
     tasks = tasks.where(assigned_user_id: assigned_user_ids) unless assigned_user_ids.blank?
 
-    tasks = tasks.where(task_status_ids: task_status_ids) unless task_status_ids.blank?
+    tasks = tasks.where(status_id: task_status_ids) unless task_status_ids.blank?
 
     if sort_order.present?
       order = {}
@@ -81,7 +84,7 @@ class TaskSearch < ApplicationRecord
       assigned_user_tags.empty? &&
       created_by_users.empty? &&
       assigned_users.empty? &&
-      task_statuses.empty? &&
+      #task_statuses.empty? &&
       sort_order.blank?
   end
 

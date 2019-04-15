@@ -84,12 +84,12 @@ class TaskSearchesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def self.task_search_params(params)
     params.fetch(:task_search, {}).permit(:query, :title, :public, :sort_order, :descending, {
-      :task_tags => [],
-      :created_user_tags => [],
-      :assigned_user_tags => [],
-      :created_users => [],
-      :assigned_users => [],
-      :task_statuses => []
+      :task_tag_ids => [],
+      :created_user_tag_ids => [],
+      :assigned_user_tag_ids => [],
+      :created_user_ids => [],
+      :assigned_user_ids => [],
+      :task_status_ids => []
     })
   end
 
