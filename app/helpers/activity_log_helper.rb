@@ -1,3 +1,4 @@
+# Why not observers you ask ? : Because I want this only for events coming through a controller (With a current_user)
 module ActivityLogHelper
 
   def log_create
