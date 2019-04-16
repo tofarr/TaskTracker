@@ -1,3 +1,5 @@
+require 'csv'
+
 class User < ApplicationRecord
 
   max_paginates_per 100
@@ -29,6 +31,7 @@ class User < ApplicationRecord
   end
 
   def check_tag_mutex
+    return unless self.changed?
     tags.each do |tag|
       errors.add(:tags, "Must be viewable to be editable!") unless (tags & tag.mutex).empty?
     end
@@ -44,5 +47,14 @@ class User < ApplicationRecord
 
   def clear_tokens_after_password_change
     authentication_tokens.destroy_all if self.password_digest_changed?
+  end
+
+  def self.to_csv(attrs = %w{id username email name admin suspended locale created_at updated_at})
+    CSV.generate(headers: true) do |csv|
+      csv << attrs
+      all.each do |user|
+        csv << attrs.map{ |attr| user.send(attr) }
+      end
+    end
   end
 end

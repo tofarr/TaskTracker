@@ -36,15 +36,26 @@ class ApplicationController < ActionController::Base
       attr.purge if attr.attached?
       return
     end
-    img = params[model_type.underscore.to_sym][attr_sym]
-    if img
-      if img.class.name == 'String' && img.starts_with?('data:') # String was sent - manually convert to file
-        uri = URI::Data.new(img)
-        extension = MIME::Types[uri.content_type].first.extensions
+    f = params[model_type.underscore.to_sym][attr_sym]
+    if f
+      if f.class.name == 'String' && f.starts_with?('data:') # String was sent - manually convert to file
+        uri = URI::Data.new(f)
+        extension = MIME::Types[uri.content_type].first.extensions.first
         model_obj.send(attr_sym).attach(io: StringIO.new(uri.data), filename: "upload.#{extension}")
       else
-        model_obj.send(attr_sym).attach(img)
+        model_obj.send(attr_sym).attach(f)
       end
+    end
+  end
+
+  def attach_file_to_job(job)
+    f = params[:data]
+    if f.class.name == 'String'
+      content_type = params[:data_content_type]
+      extension = MIME::Types[content_type].first.extensions.first
+      job.data.attach(io: StringIO.new(params[:data]), content_type: content_type, filename: "upload.#{extension}")
+    else
+      job.data.attach(f)
     end
   end
 

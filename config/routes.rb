@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get "users/edit_all", to: "users#edit_all"
   patch "users", to: "users#update_all"
+  delete "users", to: "users#destroy_all"
   resources :users do
     post "send_welcome_email"
   end

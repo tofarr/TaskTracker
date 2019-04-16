@@ -10,6 +10,7 @@
 <table class="table is-striped is-fullwidth">
   <thead>
     <tr>
+      <th>Created at</th>
       <th>Task</th>
       <th>Created by user</th>
       <th>Message</th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @notifications.each do |notification| %>
       <tr>
+        <td class="timestamp"><%= notification.created_at %></td>
         <td><%= render partial: "partials/task", locals: {task: notification.task} %></td>
         <td><%= render partial: "partials/user", locals: {user: notification.created_by_user} %></td>
         <td><%= notification.message %></td>

@@ -43,3 +43,5 @@
 <%= render partial: "partials/show_boolean", locals: {title: "Seen", value: @notification.seen} %>
 
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@notification), title: "Message", value: @notification.message} %>
+
+<%= render partial: "partials/show_timestamps", locals: {created_at: @notification.created_at, updated_at: @notification.updated_at} %>

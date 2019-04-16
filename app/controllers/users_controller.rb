@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  include UpdateAllHelper
-
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, only: [:new, :create, :destroy, :send_welcome_email]
 
@@ -9,6 +7,11 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = page(user_list.order(params[:order] || :username))
+    respond_to do |format|
+      format.html
+      format.json
+      format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
+    end
   end
 
   # GET /users/1
@@ -98,17 +101,27 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/edit_all
+  # GET /users/edit_all.json
   def edit_all
-
   end
 
+  # PATCH /users
+  # PATCH /users.json
   def update_all
-    users = user_list.where.not(id: @current_user.id)
-    users.update_all(params.permit(:admin, :suspended).as_json.delete_if { |k, v| v.blank? })
-    update_array_attr(users, "tag_ids")
-    respond_to do |format|
-      format.html { redirect_to users_edit_all_url, notice: 'Users successfully updated.' }
-      format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+    @user_job = BatchJob::UserUpsertJob.new(user: current_user)
+    attach_file_to_job(@user_job)
+    if @user_job.save
+      BatchProcessorJob.perform_later(@user_job.id, @current_user.id)
+      respond_to do |format|
+        format.html { redirect_to users_edit_all_url, notice: 'Batch Job Submitted.' }
+        format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+      end
+    else
+      respond_to do |format|
+        format.html { render :edit_all }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -125,6 +138,25 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # DELETE /users
+  # DELETE /users.json
+  def destroy_all
+    @user_job = BatchJob::UserDestroyJob.new(user: current_user)
+    attach_file_to_job(@user_job)
+    if @user_job.save
+      BatchProcessorJob.perform_later(@user_job.id, @current_user.id)
+      respond_to do |format|
+        format.html { redirect_to users_edit_all_url, notice: 'Batch Job Submitted.' }
+        format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+      end
+    else
+      respond_to do |format|
+        format.html { render :edit_all }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

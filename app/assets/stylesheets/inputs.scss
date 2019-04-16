@@ -45,3 +45,23 @@ input[type=color]{
 .button .image{
   margin-right: 4px;
 }
+
+fieldset.box{
+  border: none;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  margin-bottom: 20px;
+}
+
+fieldset.box legend{
+  background-color: #FFF;
+}
+
+.txt{
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  resize: none;
+  font-size: 1rem;
+  padding: 5px;
+  color: #444;
+}

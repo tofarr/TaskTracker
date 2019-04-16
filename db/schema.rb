@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_125819) do
+ActiveRecord::Schema.define(version: 2019_04_16_134202) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(version: 2019_04_11_125819) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_attachments_on_task_id"
     t.index ["user_id"], name: "index_attachments_on_user_id"
+  end
+
+  create_table "batch_jobs", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "type", limit: 50
+    t.boolean "done", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["done"], name: "index_batch_jobs_on_done"
   end
 
   create_table "comments", force: :cascade do |t|

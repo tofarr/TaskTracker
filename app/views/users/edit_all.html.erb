@@ -1,78 +1,50 @@
 <div class="level">
-  <h1 class="title">Update Users</h1>
+  <h1 class="title">Bulk User Edits</h1>
   <%= render partial: "partials/link_btn", locals: {href: users_path, icon: 'caret-left', text: 'Back', css_class: 'back-btn'} %>
 </div>
+
+<% if @user_job %>
+  <%= render partial: "partials/errors", locals: {errors: @user_job.errors} %>
+<% end %>
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <%= form_with(url: "/users", local: true, method: "patch") do |form| %>
-
   <fieldset class="box">
-    <legend>Selection</legend>
-
+    <legend>Update Users</legend>
     <div class="field level">
       <div class="level-item-left column is-one-quarter">
-        <%= form.label :users %>
+        <%= form.label "Batch" %>
       </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.select :ids, User.where.not(id: @current_user.id).collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
+      <div class="level-item-left column is-three-quarters batch-file-container">
+        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
+        <%#= hidden_field_tag :data_content_type, "application/json" %>
+        <%#= form.text_area :data, class: "foo" %>
       </div>
     </div>
 
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label :query %>
-      </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.text_field :q, class: "input" %>
-      </div>
+    <div class="field level-item-center submit-row">
+      <%= form.submit "Begin User Update Job", class: "button is-info" %>
     </div>
-
   </fieldset>
+<% end %>
 
+<%= form_with(url: "/users", local: true, method: "delete") do |form| %>
   <fieldset class="box">
-    <legend>Updates</legend>
-
+    <legend>Delete Users</legend>
     <div class="field level">
       <div class="level-item-left column is-one-quarter">
-        <%= form.label :add_tags %>
+        <%= form.label "Batch" %>
       </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.select :tag_ids_add, UserTag.all.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
+      <div class="level-item-left column is-three-quarters batch-file-container">
+        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
+        <%#= hidden_field_tag :data_content_type, "application/json" %>
+        <%#= form.text_area :data, class: "foo" %>
       </div>
     </div>
 
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label :remove_tags %>
-      </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.select :tag_ids_remove, UserTag.all.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
-      </div>
+    <div class="field level-item-center submit-row">
+      <%= form.submit "Begin User Delete Job", class: "button is-danger" %>
     </div>
-
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label :admin %>
-      </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.select :admin, [["No Change", ""],["Yes", "1"],["No", "0"]], {}, {class: "input", multiple: false} %>
-      </div>
-    </div>
-
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label :suspended %>
-      </div>
-      <div class="level-item-left column is-three-quarters">
-        <%= form.select :suspended, [["No Change", ""],["Yes", "1"],["No", "0"]], {}, {class: "input", multiple: false} %>
-      </div>
-    </div>
-
   </fieldset>
-
-  <div class="field level-item-center submit-row">
-    <%= form.submit "Update All", class: "button is-info" %>
-  </div>
-
 <% end %>
