@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
 
+  include UpdateAllHelper
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, only: [:new, :create, :destroy, :send_welcome_email]
 
   # GET /users
   # GET /users.json
   def index
-    users = User.where(suspended: current_user.admin? ? (params[:suspended] || [true, false]) : false)
-    users = users.where("username like ? or email like ? or name like ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%") if params[:q]
-    @users = page(users.order(params[:order] || :username))
+    @users = page(user_list.order(params[:order] || :username))
   end
 
   # GET /users/1
@@ -103,9 +103,13 @@ class UsersController < ApplicationController
   end
 
   def update_all
-    
-    format.html { redirect_to @user, notice: 'Users successfully updated.' }
-    format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+    users = user_list.where.not(id: @current_user.id)
+    users.update_all(params.permit(:admin, :suspended).as_json.delete_if { |k, v| v.blank? })
+    update_array_attr(users, "tag_ids")
+    respond_to do |format|
+      format.html { redirect_to users_edit_all_url, notice: 'Users successfully updated.' }
+      format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+    end
   end
 
   # DELETE /users/1
@@ -139,6 +143,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def user_list
+      users = User.all
+      users = users.where(id: params[:ids]) unless params[:ids].blank?
+      users = users.where(suspended: current_user.admin? ? (params[:suspended] || [true, false]) : false) unless params[:suspended].blank?
+      users = users.where("username like ? or email like ? or name like ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%") unless params[:q].blank?
+      users
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user

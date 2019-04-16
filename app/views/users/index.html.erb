@@ -1,7 +1,10 @@
 <div class="level">
   <h1 class="title">Users</h1>
   <% if @current_user.admin? %>
-    <%= render partial: "partials/link_btn", locals: {href: new_user_path, icon: 'plus', text: 'New User', css_class: 'is-success'} %>
+    <div>
+      <%= render partial: "partials/link_btn", locals: {href: new_user_path, icon: 'plus', text: 'New User', css_class: 'is-success'} %>
+      <%= render partial: "partials/link_btn", locals: {href: users_edit_all_path, icon: 'edit', text: 'Bulk Update', css_class: 'is-info'} %>
+    </div>
   <% end %>
 </div>
 
