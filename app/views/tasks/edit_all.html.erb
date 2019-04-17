@@ -1,0 +1,50 @@
+<div class="level">
+  <h1 class="title">Bulk Task Edits</h1>
+  <%= render partial: "partials/link_btn", locals: {href: tasks_path, icon: 'caret-left', text: 'Back', css_class: 'back-btn'} %>
+</div>
+
+<% if @task_job %>
+  <%= render partial: "partials/errors", locals: {errors: @task_job.errors} %>
+<% end %>
+
+<%= render partial: "partials/notice", locals: {notice: notice} %>
+
+<%= form_with(url: "/tasks", local: true, method: "patch") do |form| %>
+  <fieldset class="box">
+    <legend>Update Tasks</legend>
+    <div class="field level">
+      <div class="level-item-left column is-one-quarter">
+        <%= form.label "Batch" %>
+      </div>
+      <div class="level-item-left column is-three-quarters batch-file-container">
+        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
+        <%#= hidden_field_tag :data_content_type, "application/json" %>
+        <%#= form.text_area :data, class: "foo" %>
+      </div>
+    </div>
+
+    <div class="field level-item-center submit-row">
+      <%= form.submit "Begin Task Update Job", class: "button is-info" %>
+    </div>
+  </fieldset>
+<% end %>
+
+<%= form_with(url: "/tasks", local: true, method: "delete") do |form| %>
+  <fieldset class="box">
+    <legend>Delete Tasks</legend>
+    <div class="field level">
+      <div class="level-item-left column is-one-quarter">
+        <%= form.label "Batch" %>
+      </div>
+      <div class="level-item-left column is-three-quarters batch-file-container">
+        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
+        <%#= hidden_field_tag :data_content_type, "application/json" %>
+        <%#= form.text_area :data, class: "foo" %>
+      </div>
+    </div>
+
+    <div class="field level-item-center submit-row">
+      <%= form.submit "Begin Task Delete Job", class: "button is-danger" %>
+    </div>
+  </fieldset>
+<% end %>

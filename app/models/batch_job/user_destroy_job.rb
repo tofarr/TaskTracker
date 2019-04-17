@@ -19,7 +19,7 @@ class BatchJob::UserDestroyJob < BatchJob
   def user_from_hash(hash)
     if hash[:username]
       User.find_by_username(hash[:username])
-    if hash[:id]
+    elsif hash[:id]
       User.find_by_id(hash[:id])
     elsif hash[:email]
       User.find_by_email(hash[:email])

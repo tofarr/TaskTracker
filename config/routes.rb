@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   resources :task_links
   resources :comments
   resources :attachments
+
+  get "tasks/edit_all", to: "tasks#edit_all"
+  patch "tasks", to: "tasks#update_all"
+  delete "tasks", to: "tasks#destroy_all"
   resources :tasks
+
   resources :user_tags
   resources :task_tags
   resources :task_statuses

@@ -12,6 +12,12 @@ class TasksController < ApplicationController
       @tasks = @tasks.order(priority: :desc, updated_at: :desc)
     end
     @tasks = page(@tasks)
+    respond_to do |format|
+      format.html
+      format.json
+      format.rss
+      format.csv { send_data @tasks.to_csv, filename: "tasks-#{Date.today}.csv" }
+    end
   end
 
   # GET /tasks/1
@@ -78,6 +84,30 @@ class TasksController < ApplicationController
     end
   end
 
+  # GET /tasks/edit_all
+  # GET /tasks/edit_all.json
+  def edit_all
+  end
+
+  # PATCH /tasks
+  # PATCH /tasks.json
+  def update_all
+    @task_job = BatchJob::TaskUpsertJob.new(user: current_user)
+    attach_file_to_job(@task_job)
+    if @task_job.save
+      BatchProcessorJob.perform_later(@task_job.id, @current_user.id)
+      respond_to do |format|
+        format.html { redirect_to tasks_edit_all_url, notice: 'Batch Job Submitted.' }
+        format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+      end
+    else
+      respond_to do |format|
+        format.html { render :edit_all }
+        format.json { render json: @task_job.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
@@ -85,6 +115,25 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # DELETE /tasks
+  # DELETE /tasks.json
+  def destroy_all
+    @task_job = BatchJob::TaskDestroyJob.new(user: current_user)
+    attach_file_to_job(@task_job)
+    if @task_job.save
+      BatchProcessorJob.perform_later(@task_job.id, @current_user.id)
+      respond_to do |format|
+        format.html { redirect_to tasks_edit_all_url, notice: 'Batch Job Submitted.' }
+        format.json { render :show, status: :ok, location: url_for(controller: "", action: "update_all") }
+      end
+    else
+      respond_to do |format|
+        format.html { render :edit_all }
+        format.json { render json: @task_job.errors, status: :unprocessable_entity }
+      end
     end
   end
 

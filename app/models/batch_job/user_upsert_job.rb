@@ -18,6 +18,9 @@ class BatchJob::UserUpsertJob < BatchJob
     else
       user.assign_attributes(hash.slice(:admin, :suspended))
     end
+
+    update_array(user, hash, :tag_ids)
+
     saved = user.save
     errors.concat(user.errors.full_messages)
     saved ? 1 : 0

@@ -96,6 +96,21 @@ class Task < ApplicationRecord
     end
   end
 
+  def self.to_csv(attrs = %w{id title description parent_id assigned_user_id created_by_user_id status_id tag_ids priority due_date estimate viewable editable commentable public_viewable created_at updated_at}.map(&:to_sym))
+    CSV.generate(headers: true) do |csv|
+      csv << attrs
+      all.each do |task|
+        csv << attrs.map do |attr|
+          if attr == :tag_ids
+            task.tag_ids.join('|')
+          else
+            task.send(attr)
+          end
+        end
+      end
+    end
+  end
+
   private
 
   def sync_dup_status

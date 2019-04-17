@@ -59,6 +59,23 @@ class BatchJob < ApplicationRecord
     else
       errors.add(:data, "File must not be blank!")
     end
+  end
 
+  def update_array(model, hash, attr)
+    set_attr = "#{attr.to_s}=".to_sym
+    model.send(set_attr, array_attr(hash, attr)) if hash[attr]
+
+    add_attr = "add_#{attr.to_s}".to_sym
+    model.send(set_attr, (user.tag_ids + array_attr(hash, add_attr)).uniq) if hash[add_attr]
+
+    remove_attr = "remove_#{attr.to_s}".to_sym
+    model.send(set_attr, (user.tag_ids - array_attr(hash, remove_attr))) if hash[remove_attr]
+  end
+
+  def array_attr(hash, attr)
+    ret = hash[attr]
+    return [] if ret.blank?
+    ret = ret.split('|') if ret.is_a?(String)
+    ret.map(&:to_i)
   end
 end

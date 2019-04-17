@@ -2,6 +2,7 @@
   <h1 class="title">Tasks</h1>
   <div>
     <%= render partial: "partials/link_btn", locals: {href: new_task_search_path, icon: 'search', text: 'Search Tasks', css_class: ''} %>
+    <%= render partial: "partials/link_btn", locals: {href: tasks_edit_all_path, icon: 'edit', text: 'Bulk Update', css_class: 'is-info'} %>
     <% if @current_user %>
       <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
     <% end %>
