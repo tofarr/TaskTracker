@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include LoginHelper
   include LocaleHelper
+  include ActivityLogHelper
+  include BulkEditHelper
 
   #From LoginHelper
   before_action :do_login
@@ -15,6 +17,9 @@ class ApplicationController < ActionController::Base
 
   #From ApplicationHelper
   helper_method :text_color
+
+  #From ApplicationHelper
+  helper_method :bool_with_nil_opts
 
   #From ActivityLogHelper
   after_action :log_create, only: :create
@@ -48,17 +53,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def attach_file_to_job(job)
-    f = params[:data]
-    if f.class.name == 'String'
-      content_type = params[:data_content_type]
-      extension = MIME::Types[content_type].first.extensions.first
-      job.data.attach(io: StringIO.new(params[:data]), content_type: content_type, filename: "upload.#{extension}")
-    else
-      job.data.attach(f)
-    end
-  end
-
   #We support token based login - token is added to all urls
   def default_url_options(options = {})
     options[:token] = @access_token.token if @access_token
@@ -66,8 +60,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  include ActivityLogHelper
 
   def page(query)
     if params[:per] && params[:per] > 50

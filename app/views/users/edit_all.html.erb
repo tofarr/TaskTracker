@@ -10,20 +10,46 @@
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <%= form_with(url: "/users", local: true, method: "patch") do |form| %>
+
+  <%= form.hidden_field "data_content_type", value: "params" %>
+
   <fieldset class="box">
     <legend>Update Users</legend>
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label "Batch" %>
-      </div>
-      <div class="level-item-left column is-three-quarters batch-file-container">
-        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
-        <%#= hidden_field_tag :data_content_type, "application/json" %>
-        <%#= form.text_area :data, class: "foo" %>
-      </div>
-    </div>
+
+    <fieldset class="box">
+      <legend>Filter Criteria</legend>
+
+      <%= render 'search_fields', form: form, user_search: @user_search %>
+
+    </fieldset>
+    <fieldset class="box">
+      <legend>Updates</legend>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "user[suspended]", label: "Suspended", allow_clear: false, options:bool_with_nil_opts(nil,"No Change","Make All Users Non Suspended","Make All Users Suspended")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "user[admin]", label: "Admin", allow_clear: false, options: bool_with_nil_opts(nil,"No Change","Make All Users Non Admin","Make All Users Admin")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "user[add_tag_ids]", label: "Add these Tags", allow_clear: true, options: [], data_search: "user_tags", multiple: true, allow_clear: true} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "user[remove_tag_ids]", label: "Remove these Tags", allow_clear: true, options: [], data_search: "user_tags", multiple: true, allow_clear: true} %>
+
+    </fieldset>
 
     <div class="field level-item-center submit-row">
+      <%= form.submit "Begin User Update Job", class: "button is-info" %>
+    </div>
+
+  </fieldset>
+<% end %>
+
+
+<%= form_with(url: "/users", local: true, method: "patch") do |form| %>
+  <fieldset class="box">
+    <legend>Create / Update Users using CSV / JSON File</legend>
+    <div class="field level-item-center">
+      <div class="">
+        <%= form.file_field :data, direct_upload: false, class: '' %>
+      </div>
       <%= form.submit "Begin User Update Job", class: "button is-info" %>
     </div>
   </fieldset>
@@ -31,19 +57,11 @@
 
 <%= form_with(url: "/users", local: true, method: "delete") do |form| %>
   <fieldset class="box">
-    <legend>Delete Users</legend>
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label "Batch" %>
+    <legend>Delete Users from CSV / JSON File</legend>
+    <div class="field level-item-center">
+      <div class="">
+        <%= form.file_field :data, direct_upload: false, class: '' %>
       </div>
-      <div class="level-item-left column is-three-quarters batch-file-container">
-        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
-        <%#= hidden_field_tag :data_content_type, "application/json" %>
-        <%#= form.text_area :data, class: "foo" %>
-      </div>
-    </div>
-
-    <div class="field level-item-center submit-row">
       <%= form.submit "Begin User Delete Job", class: "button is-danger" %>
     </div>
   </fieldset>

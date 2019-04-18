@@ -1,0 +1,22 @@
+<%
+label ||= attr
+allow_clear = allow_clear.nil? ? false : allow_clear
+multiple = multiple.nil? ? false : multiple
+exclude_ids ||= []
+input_attrs = {
+  class: "input",
+  "data-exclude-ids": exclude_ids.to_json,
+  "data-allow-clear": allow_clear,
+  multiple: multiple
+}
+data_search = data_search
+input_attrs["data-search"] = data_search if data_search
+%>
+<div class="field level">
+  <div class="level-item-left column is-one-quarter">
+    <%= form.label label %>
+  </div>
+  <div class="level-item-left column is-three-quarters">
+    <%= form.select(attr, options, {include_blank: allow_clear}, input_attrs) %>
+  </div>
+</div>

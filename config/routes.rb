@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :sessions, :only => ['index', 'new', 'create', 'destroy']
   post "/sessions/logout", to: "sessions#destroy"
 
+  get "users/search", to: "users#search"
   get "users/edit_all", to: "users#edit_all"
   patch "users", to: "users#update_all"
   delete "users", to: "users#destroy_all"

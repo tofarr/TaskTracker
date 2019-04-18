@@ -1,9 +1,10 @@
 <%
 field_name ||= :q
 value ||= params[field_name]
+default_search = true if default_search.nil?
 %>
 <%= form_with url: url, local: true, method: :get, class: "search-form level level-item" do |form| %>
-  <div class="field level level-item">
+  <div class="field level level-item flex">
     <div class="control has-icons-left">
       <%= form.text_field field_name, :value => value, class: "level-item input", placeholder: "Search" %>
       <span class="icon is-small is-left">
@@ -11,6 +12,12 @@ value ||= params[field_name]
       </span>
     </div>
     <%= form.submit "Search", class: "button" %>
+    <% unless default_search %>
+      <%= render partial: "partials/link_btn", locals: {href: url, icon: 'times', text: 'Clear Search', css_class: 'button clear-search-button'} %>
+    <% end %>
+    <% if search_options_path %>
+      <%= render partial: "partials/link_btn", locals: {href: search_options_path, icon: 'caret-right', text: 'More Search Options', css_class: 'button clear-search-button'} %>
+    <% end %>
     <div class="level-item level-right">
       <div class="result-count">
         <% if total_count > 1 %>

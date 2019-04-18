@@ -6,8 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @task_search = TaskSearch.get_search(current_user, params)
-    @tasks = @task_search.search(current_user)
+    @tasks = task_list
     unless @task_search.sort_order.present?
       @tasks = @tasks.order(priority: :desc, updated_at: :desc)
     end
@@ -93,7 +92,11 @@ class TasksController < ApplicationController
   # PATCH /tasks.json
   def update_all
     @task_job = BatchJob::TaskUpsertJob.new(user: current_user)
-    attach_file_to_job(@task_job)
+
+    prepare_job(@task_job) do |task_job|
+      attach_params_as_file_to_upsert_job(user_job)
+    end
+
     if @task_job.save
       BatchProcessorJob.perform_later(@task_job.id, @current_user.id)
       respond_to do |format|
@@ -123,6 +126,14 @@ class TasksController < ApplicationController
   def destroy_all
     @task_job = BatchJob::TaskDestroyJob.new(user: current_user)
     attach_file_to_job(@task_job)
+
+    prepare_job(@task_job) do |task_job|
+      all_task_updates = task_list.select(:id).map do |task|
+        task.as_json(:id)
+      end
+      task_job.data.attach(io: StringIO.new(all_task_updates.to_json), content_type: "application/json", filename: "upload.json")
+    end
+
     if @task_job.save
       BatchProcessorJob.perform_later(@task_job.id, @current_user.id)
       respond_to do |format|
@@ -143,6 +154,11 @@ class TasksController < ApplicationController
 
   private
 
+    def task_list
+      @task_search = TaskSearch.get_search(current_user, params)
+      @task_search.search(current_user)
+    end
+
     def authorize_edit
       unless @task.editable_by?(current_user)
         raise ApplicationController::NotAuthorized
@@ -157,5 +173,13 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:title, :description, :parent_id, :assigned_user_id, :status_id, :priority, :due_date, :estimate, :viewable, :editable, :commentable, :public_viewable, {:tag_ids => []})
+    end
+
+    def attach_params_as_file_to_upsert_job(job)
+      updates = task_params.to_h
+      all_task_updates = task_list.select(:id).map do |task|
+        updates.clone.merge(id: task.id)
+      end
+      job.data.attach(io: StringIO.new(all_user_updates.to_json), content_type: "application/json", filename: "upload.json")
     end
 end

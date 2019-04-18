@@ -1,8 +1,16 @@
+<%
+label ||= attr
+value = value
+attrs = {
+  class: "input"
+}
+attrs[:value] = value if value.present?
+%>
 <div class="field level">
   <div class="level-item-left column is-one-quarter">
-    <%= form.label attr %>
+    <%= form.label label %>
   </div>
   <div class="level-item-left column is-three-quarters">
-    <%= form.text_field attr, class: "input" %>
+    <%= form.text_field attr, attrs %>
   </div>
 </div>

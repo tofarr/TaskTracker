@@ -11,20 +11,7 @@
 
 <%= render partial: "partials/notice", locals: {notice: notice, total_count: @tasks.total_count} %>
 
-<div class="level">
-  <%= form_with url: tasks_path, local: true, method: :get, class: "level-left" do |form| %>
-    <div class="control has-icons-left">
-      <%= form.text_field "task_search[query]", :value => params.fetch(:task_search, {})[:query], class: "level-item input", placeholder: "Search" %>
-      <span class="icon is-small is-left">
-        <i class="fas fa-search"></i>
-      </span>
-    </div>
-    <%= form.submit "Search", class: "level-item button search-button" %>
-    <% unless @task_search.default_search? %>
-      <%= render partial: "partials/link_btn", locals: {href: tasks_path, icon: 'times', text: 'Clear Search', css_class: 'level-item button clear-search-button'} %>
-    <% end %>
-  <% end %>
-</div>
+<%= render partial: "partials/search_form", locals: {url: users_path, field_name: "task_search[query]", value: @task_search.query, total_count: @tasks.total_count} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>

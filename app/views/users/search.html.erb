@@ -1,0 +1,10 @@
+<div class="level">
+  <h1 class="title">User Search</h1>
+  <div class="level-item-right">
+    <%= render partial: "partials/link_btn", locals: {href: users_path, icon: 'caret-left', text: 'Back', css_class: 'back-btn'} %>
+  </div>
+</div>
+<%= form_with(url: users_path, local: true, method: :get) do |form| %>
+  <%= render 'search_fields', form: form, user_search: @user_search %>
+  <%= render partial: "partials/form_submit", locals: {form: form, value: "Search", css_class: "is-info"} %>
+<% end %>

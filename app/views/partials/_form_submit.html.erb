@@ -1,3 +1,11 @@
+<%
+  css_class = css_class.nil? ? (model.new_record? ? "is-success" : "is-info") : css_class
+  value = value
+  attrs = {
+    class: "button #{css_class}"
+  }
+  attrs[:value] = value if value
+%>
 <div class="field level-item-center submit-row">
-  <%= form.submit class: "button #{model.new_record? ? "is-success" : "is-info"}" %>
+  <%= form.submit(attrs) %>
 </div>

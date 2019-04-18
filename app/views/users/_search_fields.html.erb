@@ -1,0 +1,10 @@
+
+<%= render partial: "partials/form_text_field", locals: {form: form, attr: "user_search[query]", label: "Query", value: @user_search.query} %>
+
+<% if @current_user.admin %>
+  <%= render partial: "partials/form_select", locals: {form: form, attr: "user_search[suspended]", label: "Suspended", allow_clear: false, options:bool_with_nil_opts(@user_search.suspended,"All Users","Only Non Suspended Users","Only Suspended Users")} %>
+<% end %>
+
+<%= render partial: "partials/form_select", locals: {form: form, attr: "user_search[admin]", label: "Admin", allow_clear: false, options: bool_with_nil_opts(@user_search.admin,"All Users","Only Non Admin Users","Only Admin Users")} %>
+
+<%= render partial: "partials/form_select", locals: {form: form, attr: "user_search[tag_ids]", label: "Any of these Tags", allow_clear: true, options: UserTag.where(id: @user_search.tag_ids).collect { |t| [t.title, {selected: true}, t.id] }, data_search: "user_tags", multiple: true, allow_clear: true} %>
