@@ -2,8 +2,8 @@
   <h1 class="title">Access Token</h1>
   <div class="level-item-right">
     <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
-    <%= render partial: "partials/link_btn", locals: {href: edit_access_token_path(@access_token), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
-    <%= link_to @access_token, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
+    <%= render partial: "partials/link_btn", locals: {href: edit_access_token_path(@model), icon: 'edit', text: 'Edit', css_class: 'is-info'} %>
+    <%= link_to @model, method: :delete, class: 'button is-danger', data: { confirm: 'Are you sure?' } do %>
       <span class="icon is-small">
         <%= icon('fas', 'trash') %>
       </span>
@@ -15,18 +15,18 @@
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
-<%= render partial: "partials/show_text", locals: {title: "Title", value: @access_token.title} %>
-<%= render partial: "partials/show_text", locals: {title: "Token", value: @access_token.token} %>
+<%= render partial: "partials/show_text", locals: {title: "Title", value: @model.title} %>
+<%= render partial: "partials/show_text", locals: {title: "Token", value: @model.token} %>
 <div class="level">
   <label class="level-item-left column is-one-quarter">Login Link</label>
   <span class="level-item-left column is-three-quarters">
-    <a href="<%= request.base_url%>?token=<%= @access_token.token %>">
-      <%= request.base_url%>?token=<%= @access_token.token %>
+    <a href="<%= request.base_url%>?token=<%= @model.token %>">
+      <%= request.base_url%>?token=<%= @model.token %>
     </a>
   </span>
 </div>
-<%= render partial: "partials/show_boolean", locals: {title: "Read Only", value: @access_token.read_only} %>
-<%= render partial: "partials/show_timestamp", locals: {title: "Expires At", value: @access_token.expires_at} %>
-<%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @access_token.suspended} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Read Only", value: @model.read_only} %>
+<%= render partial: "partials/show_timestamp", locals: {title: "Expires At", value: @model.expires_at} %>
+<%= render partial: "partials/show_boolean", locals: {title: "Suspended", value: @model.suspended} %>
 
-<%= render partial: "partials/show_timestamps", locals: {created_at: @access_token.created_at, updated_at: @access_token.updated_at} %>
+<%= render partial: "partials/show_timestamps", locals: {created_at: @model.created_at, updated_at: @model.updated_at} %>

@@ -86,7 +86,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-
   # DELETE /notifications/1
   # DELETE /notifications/1.json
   def destroy

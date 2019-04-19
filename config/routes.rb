@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   post "/task_search/submit", to: "task_searches#submit"
   resources :task_searches
+
+  patch "access_tokens", to: "access_tokens#update_all"
+  delete "access_tokens", to: "access_tokens#destroy_all"
   resources :access_tokens
+
   resources :activity_logs
   resources :task_links
   resources :comments

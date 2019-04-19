@@ -9,7 +9,7 @@ class AccessToken < ApplicationRecord
   end
 
   def set_token_default
-    self.token ||= SecureRandom.base64(44) # > 256 bits
+    self.token ||= SecureRandom.base64(44) if has_attribute?(:token) # > 256 bits
   end
 
 end

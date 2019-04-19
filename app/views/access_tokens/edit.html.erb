@@ -1,7 +1,7 @@
 <div class="level">
   <h1 class="title">Editing Access Token</h1>
   <div class="level-item-right">
-    <%= link_to @access_token, class: "button" do %>
+    <%= link_to @model, class: "button" do %>
       <span class="icon is-small">
         <%= icon('fas', 'eye') %>
       </span>
@@ -11,4 +11,4 @@
   </div>
 </div>
 
-<%= render 'form', access_token: @access_token %>
+<%= render 'form', access_token: @model %>

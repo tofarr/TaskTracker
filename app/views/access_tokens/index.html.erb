@@ -1,6 +1,31 @@
 <div class="level">
   <h1 class="title">Access Tokens</h1>
-  <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
+  <div class="level-right flex">
+    <%= render partial: "partials/link_btn", locals: {href: new_access_token_path, icon: 'plus', text: 'New Access Token', css_class: 'is-success'} %>
+
+    <%= form_with(url: "/access_tokens", local: true, method: "PATCH") do |form| %>
+      <%= form.hidden_field "data_content_type", value: "params" %>
+      <%= form.hidden_field "access_token_search[query]", value: @access_token_search.query %>
+      <%= form.hidden_field "access_token[suspended]", value: "1" %>
+      <%= form.button(class: 'button is-info') do |btn| %>
+        <span class="icon is-small">
+          <%= icon('fas', 'edit') %>
+        </span>
+        <span>Suspend All</span>
+      <% end %>
+    <% end %>
+
+    <%= form_with(url: "/access_tokens", local: true, method: "DELETE") do |form| %>
+      <%= form.hidden_field "data_content_type", value: "params" %>
+      <%= form.hidden_field "access_token_search[query]", value: @access_token_search.query %>
+      <%= form.button(class: 'button is-danger') do |btn| %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Delete All</span>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
@@ -12,7 +37,7 @@
     <tr>
       <th>Title</th>
       <th>Expires At</th>
-      <th>Suspended</th>
+      <th class="center">Suspended</th>
       <th></th>
     </tr>
   </thead>
@@ -22,7 +47,7 @@
       <tr>
         <td><%= access_token.title %></td>
         <td><%= access_token.expires_at %></td>
-        <td>
+        <td class="center">
           <%= icon("fas is-size-5	#{access_token.suspended ? "has-text-success" : "has-text-danger"}", access_token.suspended ? "check-circle" : "times-circle") %>
         </td>
         <td>

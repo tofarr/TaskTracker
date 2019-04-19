@@ -23,9 +23,9 @@ class BatchJob < ApplicationRecord
 
   def message_for(num_updates)
     if errors.empty?
-      "#{batch_job.title}: Finished with #{num_updates} updates."
+      "#{title}: Finished with #{num_updates} updates."
     else
-      "#{batch_job.title}: Finished with #{num_updates} updates and the following errors:\n\t#{errors.join('\n\t')}"
+      "#{title}: Finished with #{num_updates} updates and the following errors:\n\t#{errors.join('\n\t')}"
     end
   end
 
