@@ -65,3 +65,17 @@ fieldset.box legend{
   padding: 5px;
   color: #444;
 }
+
+.CodeMirror,
+.CodeMirror-scroll {
+    min-height: 160px !important;
+}
+
+fieldset.hidden-default.collapsed{
+  box-shadow: none;
+}
+
+fieldset.hidden-default{
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem !important;
+}

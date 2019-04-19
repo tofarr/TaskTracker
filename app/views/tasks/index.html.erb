@@ -1,17 +1,19 @@
 <div class="level">
   <h1 class="title">Tasks</h1>
   <div>
-    <%= render partial: "partials/link_btn", locals: {href: new_task_search_path, icon: 'search', text: 'Search Tasks', css_class: ''} %>
-    <%= render partial: "partials/link_btn", locals: {href: tasks_edit_all_path, icon: 'edit', text: 'Bulk Update', css_class: 'is-info'} %>
     <% if @current_user %>
       <%= render partial: "partials/link_btn", locals: {href: new_task_path, icon: 'plus', text: 'New Task', css_class: 'is-success'} %>
     <% end %>
+    <%#= render partial: "partials/link_btn", locals: {href: new_task_search_path, icon: 'search', text: 'Search Tasks', css_class: ''} %>
+    <%= render partial: "partials/link_btn", locals: {href: tasks_edit_all_path, icon: 'edit', text: 'Bulk Update', css_class: 'is-info'} %>
+    <%= render partial: "partials/link_btn", locals: {href: {controller: "tasks", action: "index", format: 'csv'}, icon: 'download', text: 'Export to CSV', css_class: ''} %>
+    <%= render partial: "partials/link_btn", locals: {href: {controller: "tasks", action: "index", format: 'json'}, icon: 'download', text: 'Export to JSON', css_class: ''} %>
   </div>
 </div>
 
 <%= render partial: "partials/notice", locals: {notice: notice, total_count: @tasks.total_count} %>
 
-<%= render partial: "partials/search_form", locals: {url: users_path, field_name: "task_search[query]", value: @task_search.query, total_count: @tasks.total_count} %>
+<%= render partial: "partials/search_form", locals: {url: tasks_path, field_name: "task_search[query]", value: @task_search.query, total_count: @tasks.total_count, default_search: @task_search.default_search?, search_options_path: new_task_search_path(task_search: @task_search.as_json)} %>
 
 <table class="table is-striped is-fullwidth">
   <thead>

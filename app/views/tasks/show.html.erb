@@ -21,48 +21,81 @@
 
 <%= render partial: "partials/show_text", locals: {title: "Title", value: @task.identifier} %>
 <%= render partial: "partials/show_markdown", locals: {id: dom_id(@task), title: "Description", value: @task.description} %>
-<div class="level">
-  <label class="level-item-left column is-one-quarter">Parent</label>
-  <span class="level-item-left column is-three-quarters">
-    <%if @task.parent %>
-      <%= render partial: "partials/task", locals: {tag: @task.parent} %>
-    <% end %>
-  </span>
-</div>
-<div class="level">
-  <label class="level-item-left column is-one-quarter">Task Tags</label>
-  <div class="level-item-left column is-three-quarters flex">
-    <% @task.tags.each do |task_tag| %>
-      <%= render partial: "partials/tag", locals: {tag: task_tag} %>
-    <% end %>
-  </div>
-</div>
+
 <div class="level">
   <label class="level-item-left column is-one-quarter">Assigned User</label>
-  <span class="level-item-left column is-three-quarters">
+  <span class="level-item-left column is-one-quarter">
     <%= render partial: "partials/user", locals: {user: @task.assigned_user} %>
   </span>
-</div>
-<div class="level">
   <label class="level-item-left column is-one-quarter">Created By</label>
-  <span class="level-item-left column is-three-quarters">
+  <span class="level-item-left column is-one-quarter">
     <%= render partial: "partials/user", locals: {user: @task.created_by_user} %>
   </span>
 </div>
+
 <div class="level">
   <label class="level-item-left column is-one-quarter">Status</label>
-  <span class="level-item-left column is-three-quarters">
+  <span class="level-item-left column">
     <%= render partial: "partials/tag", locals: {tag: @task.status} %>
   </span>
+  <% if @task.parent %>
+    <label class="level-item-left column is-one-quarter">Parent</label>
+    <span class="level-item-left column is-one-quarter">
+      <%= render partial: "partials/task", locals: {task: @task.parent} %>
+    </span>
+  <% end %>
 </div>
-<%= render partial: "partials/show_text", locals: {title: "Priority", value: @task.priority} %>
-<%= render partial: "partials/show_text", locals: {title: "Calculated Estimate", value: @task.calculated_estimate} %>
-<%= render partial: "partials/show_timestamp", locals: {title: "Due Date", value: @task.due_date} %>
 
-<%= render partial: "partials/show_boolean", locals: {title: "Viewable", value: @task.viewable} %>
-<%= render partial: "partials/show_boolean", locals: {title: "Editable", value: @task.editable} %>
-<%= render partial: "partials/show_boolean", locals: {title: "Commentable", value: @task.commentable} %>
-<%= render partial: "partials/show_boolean", locals: {title: "Public Viewable", value: @task.public_viewable} %>
+<% if @task.tags.present? %>
+  <div class="level">
+    <label class="level-item-left column is-one-quarter">Tags</label>
+    <div class="level-item-left column is-three-quarters flex">
+      <% @task.tags.each do |task_tag| %>
+        <%= render partial: "partials/tag", locals: {tag: task_tag} %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="field level">
+  <label class="level-item-left column is-one-quarter">Access Control</label>
+  <div class="level-item-left column is-three-quarters">
+    <div class="tag is-medium">
+      <%= icon("fas is-size-5	#{@task.viewable? ? "has-text-success" : "has-text-danger"}", @task.viewable? ? "check-circle" : "times-circle") %>
+      <span>Viewable</span>
+    </div>
+    <div class="tag is-medium">
+      <%= icon("fas is-size-5	#{@task.editable? ? "has-text-success" : "has-text-danger"}", @task.editable? ? "check-circle" : "times-circle") %>
+      <span>Editable</span>
+    </div>
+    <div class="tag is-medium">
+      <%= icon("fas is-size-5	#{@task.commentable? ? "has-text-success" : "has-text-danger"}", @task.commentable? ? "check-circle" : "times-circle") %>
+      <span>Commentable</span>
+    </div>
+    <div class="tag is-medium">
+      <%= icon("fas is-size-5	#{@task.public_viewable? ? "has-text-success" : "has-text-danger"}", @task.public_viewable? ? "check-circle" : "times-circle") %>
+      <span>Public Viewable</span>
+    </div>
+  </div>
+</div>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Priority</label>
+  <time class="level-item-left column is-one-quarter"><%= @task.priority %></time>
+  <label class="level-item-left column is-one-quarter">Calculated Estimate</label>
+  <time class="level-item-left column is-one-quarter"><%= @task.calculated_estimate %></time>
+</div>
+
+<% if @task.due_date %>
+  <%= render partial: "partials/show_timestamp", locals: {title: "Due Date", value: @task.due_date} %>
+<% end %>
+
+<div class="level">
+  <label class="level-item-left column is-one-quarter">Created At</label>
+  <time class="level-item-left column is-one-quarter timestamp"><%= @task.created_at %></time>
+  <label class="level-item-left column is-one-quarter">Updated At</label>
+  <time class="level-item-left column is-one-quarter timestamp"><%= @task.updated_at %></time>
+</div>
 
 <div class="level">
   <div class="level-item-left column is-one-quarter"></div>
@@ -73,5 +106,3 @@
     <%= render partial: "partials/link_btn", locals: {href: new_task_path(parent_id: @task.id), icon: 'plus', text: 'New Subtask', css_class: 'is-success'} %>
   </span>
 </div>
-
-<%= render partial: "partials/show_timestamps", locals: {created_at: @task.created_at, updated_at: @task.updated_at} %>

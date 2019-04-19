@@ -1,6 +1,6 @@
 class TaskSearch < ApplicationRecord
 
-  def self.sort_orders
+  def self.permitted_sort_orders
      [''] + %w(priority title created_at updated_at)
   end
 
@@ -16,10 +16,11 @@ class TaskSearch < ApplicationRecord
   has_and_belongs_to_many :task_statuses, class_name: "TaskStatus"
 
   validates :title, presence: true
-  validates :sort_order, inclusion: { in: sort_orders }, :allow_nil => true
+  validates :sort_order, inclusion: { in: permitted_sort_orders }, :allow_nil => true
 
   def self.get_search(user, params)
-    task_search = params[:task_search_id] ? TaskSearch.viewable_searches(user).find(params[:task_search_id]) : TaskSearch.new
+    id = params.fetch(:task_search, {})[:id]
+    task_search = id ? TaskSearch.viewable_searches(user).find(id) : TaskSearch.new
     task_search.assign_attributes(TaskSearchesController.task_search_params(params))
     task_search.user = user
     if task_search.task_statuses.blank?
@@ -54,7 +55,7 @@ class TaskSearch < ApplicationRecord
     user && user.id == user_id
   end
 
-  def search(user)
+  def search(user, force_order = false)
     tasks = Task.viewable_tasks(user)
     tasks = tasks.where("title like ? or description like ?", "%#{query}%", "%#{query}%") unless query.blank?
 
@@ -68,10 +69,12 @@ class TaskSearch < ApplicationRecord
 
     tasks = tasks.where(status_id: task_status_ids) unless task_status_ids.blank?
 
-    if sort_order.present?
+    if sort_order.present? && permitted_sort_orders.include?(sort_order)
       order = {}
       order[sort_order.to_sym] = descending ? :desc : :asc
       tasks = tasks.send(:order, order)
+    elsif force_order
+      tasks = tasks.order(priority: :desc, updated_at: :desc)
     end
 
     tasks

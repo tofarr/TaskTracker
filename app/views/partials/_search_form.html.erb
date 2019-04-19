@@ -2,6 +2,7 @@
 field_name ||= :q
 value ||= params[field_name]
 default_search = true if default_search.nil?
+search_options_path = search_options_path
 %>
 <%= form_with url: url, local: true, method: :get, class: "search-form level level-item" do |form| %>
   <div class="field level level-item flex">

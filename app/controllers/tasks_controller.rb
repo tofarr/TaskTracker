@@ -1,15 +1,20 @@
+require "app_utils"
+
 class TasksController < ApplicationController
+
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:index, :show]
   before_action :authorize_edit, only: [:edit, :update, :destroy]
+  before_action :set_task_search, only: [:search, :index, :edit_all, :update_all, :destroy_all]
+
+  # GET /tasks/search
+  def search
+  end
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = task_list
-    unless @task_search.sort_order.present?
-      @tasks = @tasks.order(priority: :desc, updated_at: :desc)
-    end
+    @tasks = task_list(true)
     @tasks = page(@tasks)
     respond_to do |format|
       format.html
@@ -94,7 +99,7 @@ class TasksController < ApplicationController
     @task_job = BatchJob::TaskUpsertJob.new(user: current_user)
 
     prepare_job(@task_job) do |task_job|
-      attach_params_as_file_to_upsert_job(user_job)
+      attach_params_as_file_to_upsert_job(task_job)
     end
 
     if @task_job.save
@@ -154,9 +159,16 @@ class TasksController < ApplicationController
 
   private
 
-    def task_list
-      @task_search = TaskSearch.get_search(current_user, params)
-      @task_search.search(current_user)
+    def set_task_search
+      task_search
+    end
+
+    def task_search
+      @task_search ||= TaskSearch.get_search(current_user, params)
+    end
+
+    def task_list(force_order = false)
+      task_search.search(current_user, force_order)
     end
 
     def authorize_edit
@@ -176,10 +188,17 @@ class TasksController < ApplicationController
     end
 
     def attach_params_as_file_to_upsert_job(job)
-      updates = task_params.to_h
-      all_task_updates = task_list.select(:id).map do |task|
-        updates.clone.merge(id: task.id)
+
+      updates = AppUtils.collapse(task_params.to_h) || {}
+      add_tag_ids = params[:task][:add_tag_ids] if params[:task]
+      remove_tag_ids = params[:task][:remove_tag_ids] if params[:task]
+      tasks = task_list.select(:id)
+      all_task_updates = tasks.map do |task|
+        ret = updates.clone.merge(id: task.id)
+        ret[:tag_ids] = process_list(task.tag_ids, add_tag_ids, remove_tag_ids)
+        ret
       end
-      job.data.attach(io: StringIO.new(all_user_updates.to_json), content_type: "application/json", filename: "upload.json")
+      job.data.attach(io: StringIO.new(all_task_updates.to_json), content_type: "application/json", filename: "upload.json")
+
     end
 end

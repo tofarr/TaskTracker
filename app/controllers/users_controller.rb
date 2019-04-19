@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   # GET /users.csv
   def index
     @users = user_list(true)
-    @users = @users.order(:username) unless @user_search.order.blank?  # add a default sort order if none was defined...
     @users = page(@users)
     respond_to do |format|
       format.html

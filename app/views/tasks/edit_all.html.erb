@@ -10,20 +10,60 @@
 <%= render partial: "partials/notice", locals: {notice: notice} %>
 
 <%= form_with(url: "/tasks", local: true, method: "patch") do |form| %>
+
+  <%= form.hidden_field "data_content_type", value: "params" %>
+
   <fieldset class="box">
     <legend>Update Tasks</legend>
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label "Batch" %>
-      </div>
-      <div class="level-item-left column is-three-quarters batch-file-container">
-        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
-        <%#= hidden_field_tag :data_content_type, "application/json" %>
-        <%#= form.text_area :data, class: "foo" %>
-      </div>
-    </div>
+
+    <fieldset class="box">
+      <legend>Filter Criteria</legend>
+
+      <%= render partial: "partials/task_search_fields", locals: {form: form, task_search: @task_search} %>
+
+    </fieldset>
+    <fieldset class="box">
+      <legend>Updates</legend>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[status_id]", label: :status_id, allow_clear: true, options:[], data_search: "task_statuses"} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[assigned_user_id]", label: :assigned_user_id, allow_clear: true, options:[], data_search: "users"} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[parent_id]", label: :parent_id, allow_clear: true, options:[], data_search: "tasks"} %>
+
+      <%= render partial: "partials/form_timestamp", locals: {form: form, attr: "task[due_date]", label: "Due Date"} %>
+
+      <%= render partial: "partials/form_text_field", locals: {form: form, attr: "task[estimate]", label: "Estimate"} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[viewable]", label: "Viewable", allow_clear: false, options:bool_with_nil_opts(nil,"No Change","Make All Tasks Non Viewable","Make All Tasks Viewable")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[editable]", label: "Editable", allow_clear: false, options:bool_with_nil_opts(nil,"No Change","Make All Tasks Non Editable","Make All Tasks Editable")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[commentable]", label: "Commentable", allow_clear: false, options:bool_with_nil_opts(nil,"No Change","Make All Tasks Non Commentable","Make All Tasks Commentable")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[public_viewable]", label: "Public", allow_clear: false, options:bool_with_nil_opts(nil,"No Change","Make All Tasks Non Public","Make All Tasks Public")} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[add_tag_ids]", label: "Add these Tags", allow_clear: true, options: [], data_search: "task_tags", multiple: true, allow_clear: true} %>
+
+      <%= render partial: "partials/form_select", locals: {form: form, attr: "task[remove_tag_ids]", label: "Remove these Tags", allow_clear: true, options: [], data_search: "task_tags", multiple: true, allow_clear: true} %>
+
+    </fieldset>
 
     <div class="field level-item-center submit-row">
+      <%= form.submit "Begin Task Update Job", class: "button is-info" %>
+    </div>
+
+  </fieldset>
+<% end %>
+
+
+<%= form_with(url: "/tasks", local: true, method: "patch") do |form| %>
+  <fieldset class="box">
+    <legend>Create / Update Tasks using CSV / JSON File</legend>
+    <div class="field level-item-center">
+      <div class="">
+        <%= form.file_field :data, direct_upload: false, class: '' %>
+      </div>
       <%= form.submit "Begin Task Update Job", class: "button is-info" %>
     </div>
   </fieldset>
@@ -31,19 +71,11 @@
 
 <%= form_with(url: "/tasks", local: true, method: "delete") do |form| %>
   <fieldset class="box">
-    <legend>Delete Tasks</legend>
-    <div class="field level">
-      <div class="level-item-left column is-one-quarter">
-        <%= form.label "Batch" %>
+    <legend>Delete Tasks from CSV / JSON File</legend>
+    <div class="field level-item-center">
+      <div class="">
+        <%= form.file_field :data, direct_upload: false, class: '' %>
       </div>
-      <div class="level-item-left column is-three-quarters batch-file-container">
-        <%= form.file_field :data, direct_upload: false, class: 'batch-file' %>
-        <%#= hidden_field_tag :data_content_type, "application/json" %>
-        <%#= form.text_area :data, class: "foo" %>
-      </div>
-    </div>
-
-    <div class="field level-item-center submit-row">
       <%= form.submit "Begin Task Delete Job", class: "button is-danger" %>
     </div>
   </fieldset>

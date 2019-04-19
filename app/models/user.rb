@@ -27,7 +27,9 @@ class User < ApplicationRecord
   after_update :clear_tokens_after_password_change
 
   def title
-    name || username || email
+    return name if name.present?
+    return username if username.present?
+    email
   end
 
   def check_tag_mutex

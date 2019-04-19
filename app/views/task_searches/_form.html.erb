@@ -1,78 +1,8 @@
 <%= form_for task_search, :url => {:action => "submit"}, :method => "POST" do |form| %>
-  <% if @task_search.id %>
-    <input type="hidden" name="id" value="<%=@task_search.id%>" />
-  <% end %>
 
   <%= render partial: "partials/errors", locals: {errors: task_search.errors} %>
 
-  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
-
-  <%= render partial: "partials/form_text_field", locals: {form: form, attr: :query} %>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :task_tags %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :task_tag_ids, @task_search.task_tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "task_tags"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :created_by_user_tags %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :created_by_user_tag_ids, @task_search.created_by_user_tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :assigned_user_tags %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :assigned_user_tag_ids, @task_search.assigned_user_tags.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "user_tags"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :created_by_users %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :created_by_user_ids, @task_search.created_by_users.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :assigned_users %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :assigned_user_ids, @task_search.assigned_users.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "users"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :task_statuses %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select :task_status_ids, @task_search.task_statuses.collect { |t| [t.title, t.id] }, {}, {class: "input", multiple: true, "data-search": "task_statuses"} %>
-    </div>
-  </div>
-
-  <div class="field level">
-    <div class="level-item-left column is-one-quarter">
-      <%= form.label :sort_order %>
-    </div>
-    <div class="level-item-left column is-three-quarters">
-      <%= form.select(:sort_order, TaskSearch.sort_orders.map{|sort_order|[sort_order.titleize, sort_order]}, {include_blank: false}, {class: "input"}) %>
-    </div>
-  </div>
-
-  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :descending} %>
+  <%= render partial: "partials/task_search_fields", locals: {form: form, task_search: task_search} %>
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter"></div>
@@ -84,7 +14,7 @@
         <span>Search Tasks</span>
       </button>
       <% if @current_user %>
-        <%= form.submit name: (@task_search.new_record? ? "create" : "update"), class: "button #{@task_search.new_record? ? "is-success" : "is-info"}" %>
+        <%= form.submit name: (task_search.new_record? ? "create" : "update"), class: "button #{task_search.new_record? ? "is-success" : "is-info"}" %>
       <% end %>
     </div>
   </div>
