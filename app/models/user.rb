@@ -35,7 +35,7 @@ class User < ApplicationRecord
   def check_tag_mutex
     return unless self.changed?
     tags.each do |tag|
-      errors.add(:tags, "Must be viewable to be editable!") unless (tags & tag.mutex).empty?
+      errors.add(:tags, "Selected are Mutually Exclusive") unless (tags & tag.mutex).empty?
     end
   end
 

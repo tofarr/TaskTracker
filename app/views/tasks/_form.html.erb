@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <%= render partial: "partials/form_select", locals: {form: form, attr: "task[status_id]", label: :status_id, allow_clear: false, options: @task.status ? [[@task.status.title, @task.status.id]] : [], data_search: "task_statuses"} %>
+  <%= render partial: "partials/form_select", locals: {form: form, attr: :status_id, allow_clear: false, options: @task.status ? [[@task.status.title, @task.status.id]] : [], data_search: "task_statuses"} %>
 
   <div class="field level">
     <div class="level-item-left column is-one-quarter">

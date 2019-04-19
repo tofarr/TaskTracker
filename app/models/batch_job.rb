@@ -29,13 +29,13 @@ class BatchJob < ApplicationRecord
     end
   end
 
-  def run(current_user, errors)
+  def run(current_user)
     before(current_user)
     case data.content_type
     when "text/csv"
-      after(run_csv(current_user, errors))
+      after(run_csv(current_user, []))
     when "application/json"
-      after(run_json(current_user, errors))
+      after(run_json(current_user, []))
     end
   end
 

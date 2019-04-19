@@ -6,7 +6,7 @@ class BatchProcessorJob < ApplicationJob
     user = User.find(user_id)
     Rails.logger.info "#{batch_job.title} starting..."
     errors = []
-    batch_job.run(user, errors)
+    batch_job.run(user)
     batch_job.update_attribute(:done, true)
   end
 end

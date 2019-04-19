@@ -8,6 +8,22 @@ window.addEventListener("turbolinks:load", function(event) {
       var attrs = {
         ajax: {
           url: '/' + search + '.json',
+          data: function(params){
+            var ret = {};
+            if(params.term){
+              switch(search){
+                case 'tasks':
+                  ret.task_search = { query: params.term};
+                  break;
+                case 'users':
+                  ret.user_search = { query: params.term};
+                  break;
+                default:
+                  ret.q = params.term;
+              }
+            }
+            return ret;
+          },
           processResults: function (data) {
             var results = data.map(function(result){
               return {
