@@ -2,8 +2,6 @@
   <input type="hidden" name="id" value="<%=task_search.id%>" />
 <% end %>
 
-<%= render partial: "partials/errors", locals: {errors: task_search.errors} %>
-
 <%= render partial: "partials/form_text_field", locals: {form: form, attr: :title} %>
 
 <%= render partial: "partials/form_text_field", locals: {form: form, attr: :query} %>

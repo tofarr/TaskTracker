@@ -163,11 +163,10 @@ class UsersController < ApplicationController
 
     prepare_job(@user_job) do |user_job|
       all_user_updates = user_list.select(:id).map do |user|
-        user.as_json(:id)
+        user.as_json.slice("id")
       end
       user_job.data.attach(io: StringIO.new(all_user_updates.to_json), content_type: "application/json", filename: "upload.json")
     end
-    attach_file_to_job(@user_job)
 
     if @user_job.save
       BatchProcessorJob.perform_later(@user_job.id, @current_user.id)

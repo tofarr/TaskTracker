@@ -1,6 +1,32 @@
 <div class="level">
   <h1 class="title">Notifications</h1>
-  <%= render partial: "partials/link_btn", locals: {href: new_notification_path, icon: 'plus', text: 'New Notification', css_class: 'is-success'} %>
+  <div class="level-right flex">
+    <%= render partial: "partials/link_btn", locals: {href: new_notification_path, icon: 'plus', text: 'New Notification', css_class: 'is-success'} %>
+
+    <%= form_with(url: "/notifications", local: true, method: "PATCH") do |form| %>
+      <%= form.hidden_field "data_content_type", value: "params" %>
+      <%= form.hidden_field "q", value: params[:q] %>
+      <%= form.hidden_field "notification[seen]", value: "1" %>
+      <%= form.button(class: 'button is-info') do |btn| %>
+        <span class="icon is-small">
+          <%= icon('fas', 'edit') %>
+        </span>
+        <span>Mark All Seen</span>
+      <% end %>
+    <% end %>
+
+    <%= form_with(url: "/notifications", local: true, method: "DELETE") do |form| %>
+      <%= form.hidden_field "q", value: params[:q] %>
+      <%= form.hidden_field "data_content_type", value: "params" %>
+      <%= form.button(class: 'button is-danger') do |btn| %>
+        <span class="icon is-small">
+          <%= icon('fas', 'trash') %>
+        </span>
+        <span>Delete All</span>
+      <% end %>
+    <% end %>
+
+  </div>
 </div>
 
 <%= render partial: "partials/notice", locals: {notice: notice} %>
@@ -29,7 +55,7 @@
           <div class="level-right">
             <%= render partial: "partials/link_btn", locals: {href: notification, icon: 'eye', text: 'Show', css_class: 'level-item is-small'} %>
             <%= render partial: "partials/link_btn", locals: {href: edit_notification_path(notification), icon: 'edit', text: 'Edit', css_class: 'level-item is-info is-small'} %>
-            <%= link_to notification, method: :delete, class: 'level-item button is-danger is-small', data: { confirm: 'Are you sure?' } do %>
+            <%= link_to notification, method: :delete, class: 'level-item button is-danger is-small' do %>
               <span class="icon is-small">
                 <%= icon('fas', 'trash') %>
               </span>

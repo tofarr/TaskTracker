@@ -130,11 +130,10 @@ class TasksController < ApplicationController
   # DELETE /tasks.json
   def destroy_all
     @task_job = BatchJob::TaskDestroyJob.new(user: current_user)
-    attach_file_to_job(@task_job)
 
     prepare_job(@task_job) do |task_job|
       all_task_updates = task_list.select(:id).map do |task|
-        task.as_json(:id)
+        task.as_json.slice("id")
       end
       task_job.data.attach(io: StringIO.new(all_task_updates.to_json), content_type: "application/json", filename: "upload.json")
     end

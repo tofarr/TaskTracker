@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :sprints
+
+  patch "notifications", to: "notifications#update_all"
+  delete "notifications", to: "notifications#destroy_all"
   resources :notifications
+
   post "/task_search/submit", to: "task_searches#submit"
   resources :task_searches
   resources :access_tokens

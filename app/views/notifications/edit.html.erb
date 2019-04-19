@@ -11,4 +11,14 @@
   </div>
 </div>
 
-<%= render 'form', notification: @notification %>
+<%= form_with(model: @notification, local: true) do |form| %>
+
+  <%= render partial: "partials/errors", locals: {errors: @notification.errors} %>
+
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :include_in_email} %>
+
+  <%= render partial: "partials/form_checkbox", locals: {form: form, attr: :seen} %>
+
+  <%= render partial: "partials/form_submit", locals: {form: form, model: @notification} %>
+
+<% end %>

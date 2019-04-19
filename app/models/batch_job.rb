@@ -15,13 +15,27 @@ class BatchJob < ApplicationRecord
     raise ApplicationController::NotAuthorized unless current_user.admin?
   end
 
+  def after(num_updates)
+    message = message_for(num_updates)
+    Rails.logger.info message
+    Notification.create(message: message, user: user, created_by_user: user)
+  end
+
+  def message_for(num_updates)
+    if errors.empty?
+      "#{batch_job.title}: Finished with #{num_updates} updates."
+    else
+      "#{batch_job.title}: Finished with #{num_updates} updates and the following errors:\n\t#{errors.join('\n\t')}"
+    end
+  end
+
   def run(current_user, errors)
     before(current_user)
     case data.content_type
     when "text/csv"
-      run_csv(current_user, errors)
+      after(run_csv(current_user, errors))
     when "application/json"
-      run_json(current_user, errors)
+      after(run_json(current_user, errors))
     end
   end
 
